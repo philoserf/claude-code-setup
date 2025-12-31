@@ -20,7 +20,7 @@ Gather reports from each auditor:
 
 **Example - Skill Audit**:
 
-```
+```text
 skill-auditor findings:
   - Discovery score: 6/10
   - Missing triggers: "validate", "verify"
@@ -533,11 +533,9 @@ except Exception as e:
 3. Test with malformed JSON
 4. Measure performance (<500ms target)
 
-````
-
 ### Example: Setup-Wide Audit
 
-```markdown
+````markdown
 # Comprehensive Audit Report
 
 **Target**: Complete Claude Code setup
@@ -554,12 +552,14 @@ The Claude Code setup is healthy with 14 skills, 6 hooks, 4 agents, and 9 comman
 **Health Score**: Very Good (8.5/10)
 
 **Breakdown by Component Type**:
+
 - **Skills** (14 total): 12 excellent, 2 need improvement
 - **Hooks** (6 total): 5 excellent, 1 performance concern
 - **Agents** (4 total): All excellent
 - **Commands** (9 total): All excellent
 
 **Breakdown by Auditor**:
+
 - **evaluator**: Setup well-organized, good context economy (12.5KB total)
 - **skill-auditor**: Average discovery score 8.9/10
 - **hook-auditor**: 5/6 hooks pass all safety checks
@@ -577,9 +577,10 @@ None identified.
 **Problem**: Description too short (45 chars), missing use cases
 
 **Current**:
+
 ```yaml
 description: Helps with git operations and workflows
-````
+```
 
 **Recommended**:
 
@@ -777,8 +778,7 @@ description: Automates git workflows including commits, branches, and PRs. Use w
 **Verification**: After changes, re-run setup-wide audit to confirm improvements
 
 **Overall Assessment**: Setup is in very good shape. Two improvements will bring health score to 9/10.
-
-```
+````
 
 ## Priority Reconciliation Examples
 
@@ -786,8 +786,7 @@ description: Automates git workflows including commits, branches, and PRs. Use w
 
 **Auditor Findings**:
 
-```
-
+```text
 skill-auditor:
 
 - Discovery score: 3/10 (Critical - skill unusable)
@@ -806,6 +805,7 @@ test-runner:
 ```
 
 **Reconciliation**:
+
 - Root cause: Description too short
 - Multiple Critical assessments
 - Skill non-functional (can't be discovered)
@@ -816,8 +816,7 @@ test-runner:
 
 **Auditor Findings**:
 
-```
-
+```text
 hook-auditor:
 
 - Performance: 850ms in PreToolUse (Important - target <500ms)
@@ -831,6 +830,7 @@ evaluator:
 ```
 
 **Reconciliation**:
+
 - Only one auditor assessed performance
 - Hook functional but slow
 - User experience impact
@@ -841,8 +841,7 @@ evaluator:
 
 **Auditor Findings**:
 
-```
-
+```text
 evaluator:
 
 - Missing allowed-tools field (Important - security)
@@ -859,6 +858,7 @@ test-runner:
 ```
 
 **Reconciliation**:
+
 - Security implication (unrestricted access)
 - Blocks other auditors
 - Single source finding (evaluator)
@@ -871,8 +871,7 @@ test-runner:
 
 **Before Deduplication**:
 
-```
-
+```text
 Findings:
 
 1. skill-auditor: "Description missing 'audit' keyword"
@@ -888,8 +887,7 @@ Findings:
 
 **After Deduplication**:
 
-```
-
+```text
 1. CRITICAL: Description inadequate (45 chars, missing essential triggers)
    - Too short (<50 char minimum)
    - Missing keywords: audit, review, check, validate, analyze
@@ -902,8 +900,7 @@ Findings:
 
 **Before Deduplication**:
 
-```
-
+```text
 Findings:
 
 1. hook-auditor: "Line 34: exit 1 (should be exit 0)"
@@ -915,8 +912,7 @@ Findings:
 
 **After Deduplication**:
 
-```
-
+```text
 1. CRITICAL: Incorrect exit codes throughout hook
    - Lines 34, 67: Using exit 1 instead of exit 0 on errors
    - Line 89: Using exit 2 without JSON block output
@@ -930,26 +926,31 @@ Findings:
 **Good Compiled Report**:
 
 ✓ **Consolidation**:
+
 - Related findings grouped by root cause
 - No redundant issues
 - Clear relationships between findings
 
 ✓ **Prioritization**:
+
 - Critical issues clearly identified
 - Priorities reconciled across auditors
 - Actionable severity levels
 
 ✓ **Clarity**:
+
 - Executive summary (1-3 sentences)
 - Clear next steps
 - Concrete examples for fixes
 
 ✓ **Completeness**:
+
 - All auditor findings included
 - Cross-cutting patterns identified
 - Component-specific details preserved
 
 ✓ **Actionability**:
+
 - Specific line numbers when applicable
 - Code examples for fixes
 - Ordered action items
@@ -957,19 +958,21 @@ Findings:
 **Poor Compiled Report**:
 
 ✗ **Fragmentation**:
+
 - Each auditor's findings listed separately
 - No consolidation or relationships
 - Redundant issues
 
 ✗ **Unclear Priorities**:
+
 - Conflicting severities unresolved
 - No clear critical vs nice-to-have
 - Everything marked "Important"
 
 ✗ **Vague**:
+
 - Generic recommendations
 - No examples
 - Unclear next steps
 
 Use these patterns to create comprehensive, actionable audit reports that guide users to concrete improvements!
-```

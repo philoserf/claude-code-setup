@@ -37,7 +37,7 @@ You are a professional content editor specializing in technical documentation fo
 8. Front-load key information in the first sentence of each paragraph
 9. Use consistent terminology throughout (don't alternate synonyms)
 10. Include a brief summary at the start of documents longer than 500 words
-```
+```text
 
 ### Audit Report
 
@@ -103,7 +103,7 @@ You are a QA engineer specializing in test automation and continuous integration
 8. Verify error messages are user-friendly and actionable
 9. Flag code that lacks proper cleanup (file handles, connections, resources)
 10. Include test names that clearly describe what is being tested and why
-```
+```text
 
 ### Audit Report
 
@@ -149,7 +149,7 @@ You are helpful and knowledgeable.
 - Be friendly
 - Provide quality responses
 - Use best practices
-```
+```text
 
 ### Audit Report
 
@@ -173,7 +173,7 @@ You are helpful and knowledgeable.
    while maintaining technical accuracy.
    ```
 
-2. **Abstract Behaviors**
+1. **Abstract Behaviors**
    - **Severity**: CRITICAL
    - **Location**: Behaviors section (lines 10-12)
    - **Issue**: All behaviors are abstract values, not actionable instructions
@@ -193,13 +193,13 @@ You are helpful and knowledgeable.
    8. Front-load key information in first sentences
    ```
 
-3. **Missing keep-coding-instructions Decision**
+2. **Missing keep-coding-instructions Decision**
    - **Severity**: IMPORTANT
    - **Location**: Frontmatter (line 3)
    - **Issue**: No explicit decision (defaults to false)
    - **Recommendation**: Add explicit decision based on role type
 
-4. **Missing Description**
+3. **Missing Description**
    - **Severity**: CRITICAL
    - **Location**: Frontmatter
    - **Issue**: No description field for discoverability
@@ -232,7 +232,7 @@ You are helpful and knowledgeable.
 ## Persona
 
 You are a helpful assistant who is good at editing.
-```
+```text
 
 **Issue**: Vague role, no expertise, no approach
 
@@ -248,7 +248,7 @@ and style guide compliance (Microsoft, AP, Chicago).
 
 **Your approach**: Every edit serves the reader's comprehension. Remove friction,
 add clarity, preserve accuracy.
-```
+```text
 
 **Improvements**:
 
@@ -270,7 +270,7 @@ add clarity, preserve accuracy.
 - Demonstrate expertise
 - Show attention to detail
 - Provide quality work
-```
+```text
 
 **Issue**: All abstract values, not actionable
 
@@ -287,7 +287,7 @@ add clarity, preserve accuracy.
 6. Use consistent terminology throughout (don't alternate synonyms)
 7. Remove redundant phrases: "in order to" → "to"
 8. Front-load key information in first sentences
-```
+```text
 
 **Improvements**: All behaviors are concrete, actionable, and measurable
 
@@ -305,7 +305,7 @@ keep-coding-instructions: false
 ## Persona
 
 You are a QA engineer who writes automated tests.
-```
+```text
 
 **Issue**: Engineering role (writes tests) but coding instructions removed
 
@@ -319,7 +319,7 @@ keep-coding-instructions: true
 ## Persona
 
 You are a QA engineer who writes automated tests.
-```
+```text
 
 **Fix**: Set to `true` for engineering role that writes code
 
@@ -329,17 +329,17 @@ You are a QA engineer who writes automated tests.
 
 ### Before (Incorrect)
 
-```
+```text
 File location: .claude/output-styles/marks-personal-notes.md
-```
+```text
 
 **Issue**: Personal style in project scope (pollutes team config)
 
 ### After (Correct)
 
-```
+```text
 File location: ~/.claude/output-styles/marks-personal-notes.md
-```
+```text
 
 **Fix**: Move personal styles to user scope
 
@@ -354,7 +354,7 @@ File location: ~/.claude/output-styles/marks-personal-notes.md
 name: content-editor
 keep-coding-instructions: false
 ---
-```
+```text
 
 **Issue**: No description field (poor discoverability)
 
@@ -366,7 +366,7 @@ name: content-editor
 keep-coding-instructions: false
 description: Professional content editor for clarity and readability. Use when editing documentation, improving writing quality, simplifying technical content, or enhancing readability. Triggers on "edit", "improve writing", "make clearer", "simplify content".
 ---
-```
+```text
 
 **Fix**: Add comprehensive description with use cases and trigger phrases
 
@@ -414,7 +414,7 @@ None
 name: technical-writer
 keep-coding-instructions: true # API docs include extensive code examples
 ---
-```
+```text
 
 Or document why false is appropriate:
 
@@ -424,7 +424,7 @@ Or document why false is appropriate:
 You are a technical writer focused on high-level architecture documentation and
 user guides. You describe APIs conceptually but don't write code examples
 (developers provide those).
-```
+```text
 
 ### Nice-to-Have Improvements
 
@@ -437,13 +437,13 @@ user guides. You describe APIs conceptually but don't write code examples
 
 ```markdown
 1. Use active voice
-```
+```text
 
 **Enhanced**:
 
 ```markdown
 1. Use active voice unless passive emphasizes the recipient or the state change
-```
+```text
 
 **2. Expand Expertise in Persona**
 
@@ -459,7 +459,7 @@ user guides. You describe APIs conceptually but don't write code examples
 - Developer portal design
 - Code example best practices
 - Markdown and static site generators (Docusaurus, MkDocs)
-```
+```text
 
 ### Recommendations
 

@@ -23,7 +23,7 @@ description: Brief description
 Brief explanation (optional 1-2 lines).
 
 {Tool delegation}
-```
+```text
 
 **Line count**: 6-10 lines total (frontmatter + content)
 
@@ -35,7 +35,7 @@ name: audit-bash
 description: Audit shell scripts for security and quality
 ---
 { Skill skill="hook-auditor" args="$ARGUMENTS" }
-```
+```text
 
 **Characteristics**:
 
@@ -73,7 +73,7 @@ Brief overview.
     /command-name example-input
 
 {Tool delegation}
-```
+```text
 
 **Line count**: 30-80 lines total
 
@@ -105,7 +105,7 @@ Validates agent configurations using specialized auditors.
     /validate-agent claude-code-evaluator
 
 {Skill skill="agent-auditor" args="$ARGUMENTS"}
-```
+```text
 
 **Characteristics**:
 
@@ -135,7 +135,7 @@ Validates agent configurations using specialized auditors.
 
 ```bash
 wc -l commands/command-name.md
-```
+```text
 
 **Interpretation**:
 
@@ -149,7 +149,7 @@ wc -l commands/command-name.md
 
 ```markdown
 {Skill skill="skill-name" args="$ARGUMENTS"}
-```
+```text
 
 **Complex** (too much for command):
 
@@ -160,7 +160,7 @@ Fix the errors.
 Validate again.
 Else:
 Generate report.
-```
+```text
 
 **Test**: If you see if/else, loops, or multiple steps → Too complex
 
@@ -170,7 +170,7 @@ Generate report.
 
 ```markdown
 {Skill skill="skill-name" args="$ARGUMENTS"}
-```
+```text
 
 **Complex** (too much):
 
@@ -180,7 +180,7 @@ Generate report.
 {Task subagent_type="..."}
 {Skill skill="..."}
 {Write file_path="..."}
-```
+```text
 
 **Test**: If >1 tool call → Probably too complex
 
@@ -222,7 +222,7 @@ Generate report.
 
 ### Decision Flowchart
 
-```
+```text
 Start: What is this component?
 
 User types /name explicitly?
@@ -236,7 +236,7 @@ Does it have complex logic (if/else, loops, >80 lines)?
 Does it make multiple tool calls or process data?
 ├─ Yes → SKILL
 └─ No → COMMAND (simple delegator)
-```
+```text
 
 ## Migration Guidance
 
@@ -275,7 +275,7 @@ description: Full audit of all components
 {Read ...}
 {Grep ...}
 # etc.
-```
+```text
 
 **After** (simple command + skill):
 
@@ -287,7 +287,7 @@ name: comprehensive-audit
 description: Full audit of all components
 ---
 { Skill skill="audit-coordinator" args="$ARGUMENTS" }
-```
+```text
 
 **Skill** (audit-coordinator):
 
@@ -298,7 +298,7 @@ description: Comprehensive audit orchestration. Use when auditing entire setup, 
 allowed-tools: [Task, Skill, Read]
 ---
 [Full implementation with logic, multiple tool calls, etc.]
-```
+```text
 
 ### Keeping as Command
 
@@ -327,7 +327,7 @@ This command has full documentation (40 lines) because:
 3. "What It Does" clarifies the multi-step validation process
 
 Despite full docs, delegation remains simple (single Skill call).
-```
+```text
 
 ## Complexity Anti-Patterns
 
@@ -341,7 +341,7 @@ Parse the frontmatter.
 Validate model field.
 Check tool restrictions.
 Generate report.
-```
+```text
 
 **Why bad**: Implements logic instead of delegating
 
@@ -356,7 +356,7 @@ Generate report.
 {Grep pattern="model:" path="agents/"}
 {Task subagent_type="claude-code-evaluator" prompt="..."}
 {Write file_path="report.md" content="..."}
-```
+```text
 
 **Why bad**: Too many tool calls, complex orchestration
 
@@ -372,7 +372,7 @@ Validate it
 Else:
 Create it first
 Then validate
-```
+```text
 
 **Why bad**: Complex branching logic
 
@@ -387,7 +387,7 @@ For each agent file:
 Validate with agent-auditor
 Collect results
 Generate summary report
-```
+```text
 
 **Why bad**: Loop processing, result aggregation
 
@@ -412,7 +412,7 @@ name: audit-bash
 description: Audit shell scripts for security and quality
 ---
 { Skill skill="hook-auditor" args="$ARGUMENTS" }
-```
+```text
 
 ### When Full Docs Appropriate
 
@@ -457,7 +457,7 @@ description: Comprehensive agent configuration validation
     /validate-agent bash-scripting
 
 {Skill skill="agent-auditor" args="$ARGUMENTS"}
-```
+```text
 
 ### When Docs Too Excessive
 
@@ -487,7 +487,7 @@ name: audit-bash
 description: Audit shell scripts for security and quality
 ---
 { Skill skill="hook-auditor" args="$ARGUMENTS" }
-```
+```text
 
 **Verdict**: ✓ Perfect simple delegator
 
@@ -506,7 +506,7 @@ description: Comprehensive agent configuration validation
 [Usage, What It Does, Examples sections]
 
 {Skill skill="agent-auditor" args="$ARGUMENTS"}
-```
+```text
 
 **Verdict**: ✓ Good documented delegator (docs justified by complexity)
 
@@ -516,7 +516,7 @@ description: Comprehensive agent configuration validation
 
 ```markdown
 [Multiple tool calls, if/else logic, loop processing, result aggregation]
-```
+```text
 
 **Verdict**: ✗ Too complex, should be skill
 

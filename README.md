@@ -43,7 +43,7 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ---
 
-# Configuration Reference
+## Configuration Reference
 
 This is the global configuration directory for Claude Code (`~/.claude`). Settings and customizations here apply across all projects unless overridden by project-specific configurations.
 

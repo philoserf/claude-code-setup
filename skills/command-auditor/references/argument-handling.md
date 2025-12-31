@@ -15,9 +15,9 @@ Arguments are user-provided input passed to commands:
 
 **Usage**:
 
-```
+```text
 /command-name argument1 argument2
-```
+```text
 
 **In command file**:
 
@@ -27,11 +27,11 @@ Arguments are user-provided input passed to commands:
 
 **Example**:
 
-```
+```text
 User types: /validate-agent bash-scripting
 
 In command: $ARGUMENTS = "bash-scripting"
-```
+```text
 
 ## Argument Patterns
 
@@ -43,19 +43,19 @@ In command: $ARGUMENTS = "bash-scripting"
 
 ```markdown
 {Skill skill="skill-name" args="$ARGUMENTS"}
-```
+```text
 
 **Example**:
 
 ```markdown
 {Skill skill="agent-auditor" args="$ARGUMENTS"}
-```
+```text
 
 **User types**:
 
-```
+```text
 /validate-agent bash-scripting
-```
+```text
 
 **Result**: agent-auditor receives "bash-scripting"
 
@@ -73,27 +73,27 @@ In command: $ARGUMENTS = "bash-scripting"
 
 ```markdown
 {Skill skill="skill-name" args="${ARGUMENTS:-default-value}"}
-```
+```text
 
 **Example**:
 
 ```markdown
 {Skill skill="agent-auditor" args="${ARGUMENTS:-bash-scripting}"}
-```
+```text
 
 **User types** (with argument):
 
-```
+```text
 /validate-agent claude-code-evaluator
-```
+```text
 
 **Result**: agent-auditor receives "claude-code-evaluator"
 
 **User types** (no argument):
 
-```
+```text
 /validate-agent
-```
+```text
 
 **Result**: agent-auditor receives "bash-scripting" (default)
 
@@ -111,19 +111,19 @@ In command: $ARGUMENTS = "bash-scripting"
 
 ```markdown
 {Task prompt="Validate file $1 with rules $2"}
-```
+```text
 
 **Example**:
 
 ```markdown
 {Task subagent_type="validator" prompt="Validate $1 in $2 directory"}
-```
+```text
 
 **User types**:
 
-```
+```text
 /validate agent.md agents/
-```
+```text
 
 **Result**:
 
@@ -144,19 +144,19 @@ In command: $ARGUMENTS = "bash-scripting"
 
 ```markdown
 {Task prompt="[template with $ARGUMENTS embedded]"}
-```
+```text
 
 **Example**:
 
 ```markdown
 {Task subagent_type="agent-auditor" description="Audit $ARGUMENTS" prompt="Audit the $ARGUMENTS agent for model selection appropriateness, tool restriction accuracy, focus area quality, and approach completeness."}
-```
+```text
 
 **User types**:
 
-```
+```text
 /validate-agent bash-scripting
-```
+```text
 
 **Result**: Full prompt with "bash-scripting" embedded
 
@@ -174,13 +174,13 @@ In command: $ARGUMENTS = "bash-scripting"
 
 ```markdown
 {Skill skill="agent-auditor" args="$ARGUMENTS"}
-```
+```text
 
 **Bad** (arguments ignored):
 
 ```markdown
 {Skill skill="agent-auditor"}
-```
+```text
 
 **Test**: Does the delegation use $ARGUMENTS, $1, or similar?
 
@@ -190,13 +190,13 @@ In command: $ARGUMENTS = "bash-scripting"
 
 ```markdown
 {Skill skill="agent-auditor" args="${ARGUMENTS:-bash-scripting}"}
-```
+```text
 
 **Bad** (unhelpful default):
 
 ```markdown
 {Skill skill="agent-auditor" args="${ARGUMENTS:-foo}"}
-```
+```text
 
 **Test**: If default provided, is it sensible and helpful?
 
@@ -210,7 +210,7 @@ In command: $ARGUMENTS = "bash-scripting"
     /validate-agent [agent-name]
 
 Validates the specified agent. If no agent name provided, defaults to bash-scripting.
-```
+```text
 
 **Bad** (no usage docs for complex command):
 
@@ -218,7 +218,7 @@ Validates the specified agent. If no agent name provided, defaults to bash-scrip
 # validate-agent
 
 [40 lines of docs, no usage section]
-```
+```text
 
 **Test**: If command is documented (30-80 lines), are arguments explained?
 
@@ -230,13 +230,13 @@ Validates the specified agent. If no agent name provided, defaults to bash-scrip
 
 ```markdown
 {Skill skill="agent-auditor"}
-```
+```text
 
 **User types**:
 
-```
+```text
 /validate-agent bash-scripting
-```
+```text
 
 **Result**: "bash-scripting" is lost, agent-auditor gets nothing
 
@@ -244,7 +244,7 @@ Validates the specified agent. If no agent name provided, defaults to bash-scrip
 
 ```markdown
 {Skill skill="agent-auditor" args="$ARGUMENTS"}
-```
+```text
 
 ### Anti-Pattern 2: Hardcoded Values
 
@@ -252,13 +252,13 @@ Validates the specified agent. If no agent name provided, defaults to bash-scrip
 
 ```markdown
 {Skill skill="agent-auditor" args="bash-scripting"}
-```
+```text
 
 **User types**:
 
-```
+```text
 /validate-agent claude-code-evaluator
-```
+```text
 
 **Result**: User wants "claude-code-evaluator", but command always uses "bash-scripting"
 
@@ -266,7 +266,7 @@ Validates the specified agent. If no agent name provided, defaults to bash-scrip
 
 ```markdown
 {Skill skill="agent-auditor" args="$ARGUMENTS"}
-```
+```text
 
 ### Anti-Pattern 3: No Default When Needed
 
@@ -274,13 +274,13 @@ Validates the specified agent. If no agent name provided, defaults to bash-scrip
 
 ```markdown
 {Skill skill="agent-auditor" args="$ARGUMENTS"}
-```
+```text
 
 **User types** (no argument):
 
-```
+```text
 /validate-agent
-```
+```text
 
 **Result**: agent-auditor gets empty string, may fail
 
@@ -288,7 +288,7 @@ Validates the specified agent. If no agent name provided, defaults to bash-scrip
 
 ```markdown
 {Skill skill="agent-auditor" args="${ARGUMENTS:-bash-scripting}"}
-```
+```text
 
 Or document that argument is required.
 
@@ -298,7 +298,7 @@ Or document that argument is required.
 
 ```markdown
 {Skill skill="agent-auditor" args="${ARGUMENTS:-example}"}
-```
+```text
 
 **Default**: "example" (not a real agent)
 
@@ -306,7 +306,7 @@ Or document that argument is required.
 
 ```markdown
 {Skill skill="agent-auditor" args="${ARGUMENTS:-bash-scripting}"}
-```
+```text
 
 Or no default if one doesn't make sense.
 
@@ -320,7 +320,7 @@ Split by comma.
 For each part:
 Validate individually.
 Combine results.
-```
+```text
 
 **Why bad**: Complex processing in command
 
@@ -328,7 +328,7 @@ Combine results.
 
 ```markdown
 {Skill skill="batch-auditor" args="$ARGUMENTS"}
-```
+```text
 
 Skill handles parsing and processing.
 
@@ -344,7 +344,7 @@ name: audit-bash
 description: Audit shell scripts for security and quality
 ---
 { Skill skill="hook-auditor" args="$ARGUMENTS" }
-```
+```text
 
 **User understands**: `/audit-bash script.sh`
 
@@ -364,7 +364,7 @@ If no agent name provided, defaults to bash-scripting.
 
     /validate-agent bash-scripting
     /validate-agent claude-code-evaluator
-```
+```text
 
 **Components**:
 
@@ -398,7 +398,7 @@ ${ARGUMENTS:-.}
 # Default to all (comprehensive check)
 
 ${ARGUMENTS:-all}
-```
+```text
 
 ### When NOT to Provide Default
 
@@ -413,7 +413,7 @@ ${ARGUMENTS:-all}
 
 ```markdown
 {Skill skill="agent-auditor" args="$ARGUMENTS"}
-```
+```text
 
 If no argument → agent-auditor decides behavior
 
@@ -425,7 +425,7 @@ If no argument → agent-auditor decides behavior
 
 ```markdown
 {Skill skill="skill-name" args="$ARGUMENTS"}
-```
+```text
 
 **Characteristics**:
 
@@ -439,7 +439,7 @@ If no argument → agent-auditor decides behavior
 
 ```markdown
 {Task subagent_type="agent-name" description="Brief" prompt="Detailed prompt with $ARGUMENTS"}
-```
+```text
 
 **Characteristics**:
 
@@ -451,7 +451,7 @@ If no argument → agent-auditor decides behavior
 
 ```markdown
 {Task subagent_type="agent-auditor" description="Audit $ARGUMENTS" prompt="Audit the $ARGUMENTS agent for model selection, tool restrictions, focus areas, and approach methodology."}
-```
+```text
 
 ## Validation Checklist
 
@@ -476,7 +476,7 @@ name: audit-bash
 description: Audit shell scripts for security and quality
 ---
 { Skill skill="hook-auditor" args="$ARGUMENTS" }
-```
+```text
 
 **Analysis**:
 
@@ -499,7 +499,7 @@ description: Validate agent configurations
 ---
 
 {Skill skill="agent-auditor" args="${ARGUMENTS:-bash-scripting}"}
-```
+```text
 
 **Analysis**:
 
@@ -521,7 +521,7 @@ name: bad-command
 description: Does validation
 ---
 { Skill skill="agent-auditor" }
-```
+```text
 
 **Analysis**:
 
@@ -558,6 +558,6 @@ description: Does validation
 # Task tool with embedded arguments
 
 {Task prompt="Do something with $ARGUMENTS"}
-```
+```text
 
 **When in doubt**: Use `$ARGUMENTS` to pass user input unchanged.

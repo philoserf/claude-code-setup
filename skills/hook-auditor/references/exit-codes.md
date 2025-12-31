@@ -26,7 +26,7 @@ Use exit 0 in these scenarios:
 # Validation succeeded, allow operation
 if no_errors:
     sys.exit(0)
-```
+```text
 
 ### 2. Hook Error (Critical)
 
@@ -38,7 +38,7 @@ try:
 except Exception as e:
     print(f"Hook error: {e}", file=sys.stderr)
     sys.exit(0)  # Allow operation despite hook failure
-```
+```text
 
 ### 3. Missing Dependency
 
@@ -49,7 +49,7 @@ try:
 except ImportError:
     print("Warning: PyYAML not installed, skipping validation", file=sys.stderr)
     sys.exit(0)  # Don't block user
-```
+```text
 
 ### 4. File Type Doesn't Match
 
@@ -57,7 +57,7 @@ except ImportError:
 # Hook only validates specific files
 if not file_path.endswith(".md"):
     sys.exit(0)  # Not relevant, allow operation
-```
+```text
 
 ### 5. PostToolUse/Notification/SessionStart Hooks
 
@@ -65,7 +65,7 @@ if not file_path.endswith(".md"):
 # These hook types can't block anyway
 # Always exit 0 (exit code is ignored)
 sys.exit(0)
-```
+```text
 
 ## Exit 2: Block Operation
 
@@ -92,7 +92,7 @@ if errors:
 
 # No errors, allow
 sys.exit(0)
-```
+```text
 
 ### When NOT to Block
 
@@ -152,7 +152,7 @@ except Exception as e:
     # Don't block on unexpected errors
     print(f"Error in config validation hook: {e}", file=sys.stderr)
     sys.exit(0)  # Allow operation despite hook error
-```
+```text
 
 **Key Patterns**:
 
@@ -177,7 +177,7 @@ if [[ "$command" =~ ^(git|gh|dot) ]]; then
 fi
 
 exit 0  # Always allow
-```
+```text
 
 **Pattern**: Informational hooks never block, always exit 0.
 
@@ -190,7 +190,7 @@ exit 0  # Always allow
 if errors:
     print(f"Validation failed", file=sys.stderr)
     sys.exit(1)  # Wrong! Use 2 to block
-```
+```text
 
 **Fix**:
 
@@ -199,7 +199,7 @@ if errors:
 if errors:
     print(f"Validation failed", file=sys.stderr)
     sys.exit(2)  # Correct
-```
+```text
 
 ### ✗ Wrong: Exit Non-Zero on Hook Error
 
@@ -210,7 +210,7 @@ try:
 except Exception as e:
     print(f"Error: {e}", file=sys.stderr)
     sys.exit(1)  # Wrong! Blocks user
-```
+```text
 
 **Fix**:
 
@@ -221,7 +221,7 @@ try:
 except Exception as e:
     print(f"Error: {e}", file=sys.stderr)
     sys.exit(0)  # Don't block user
-```
+```text
 
 ### ✗ Wrong: Exit 2 from Non-PreToolUse Hook
 
@@ -230,7 +230,7 @@ except Exception as e:
 # PostToolUse hook (runs AFTER operation)
 if formatting_failed:
     sys.exit(2)  # Wrong! Operation already happened
-```
+```text
 
 **Fix**:
 
@@ -239,7 +239,7 @@ if formatting_failed:
 if formatting_failed:
     print(f"Warning: Formatting failed", file=sys.stderr)
     sys.exit(0)  # Exit code ignored for PostToolUse
-```
+```text
 
 ### ✗ Wrong: Implicit Exit (No Explicit Exit)
 
@@ -248,7 +248,7 @@ if formatting_failed:
 if errors:
     print(f"Errors found", file=sys.stderr)
     # Implicitly exits 0 - doesn't block!
-```
+```text
 
 **Fix**:
 
@@ -257,13 +257,13 @@ if errors:
 if errors:
     print(f"Errors found", file=sys.stderr)
     sys.exit(2)  # Explicit block
-```
+```text
 
 ## Decision Tree
 
 Use this decision tree to choose the correct exit code:
 
-```
+```text
 Is this a PreToolUse hook?
 ├─ No → Always exit 0 (other hook types can't block)
 └─ Yes
@@ -273,7 +273,7 @@ Is this a PreToolUse hook?
          └─ Did validation pass?
             ├─ Yes → Exit 0 (allow operation)
             └─ No → Exit 2 (block operation)
-```
+```text
 
 ## Testing Exit Codes
 
@@ -285,7 +285,7 @@ Test hooks with different scenarios:
 echo '{"tool":"Write","tool_input":{"file_path":"test.md","content":"valid"}}' | \
   python3 hook.py
 echo $?  # Should be 0
-```
+```text
 
 ### Test 2: Validation Failure
 
@@ -293,14 +293,14 @@ echo $?  # Should be 0
 echo '{"tool":"Write","tool_input":{"file_path":"test.md","content":"invalid"}}' | \
   python3 hook.py
 echo $?  # Should be 2
-```
+```text
 
 ### Test 3: Hook Error
 
 ```bash
 echo 'invalid json' | python3 hook.py
 echo $?  # Should be 0 (hook error, don't block)
-```
+```text
 
 ## Summary
 

@@ -95,9 +95,9 @@ When auditing scope alignment:
 
 **Problem**:
 
-```
+```text
 Project: /Users/markayers/myproject/.claude/output-styles/marks-personal-style.md
-```
+```text
 
 **Impact**: Team members get someone's personal preferences
 
@@ -105,15 +105,15 @@ Project: /Users/markayers/myproject/.claude/output-styles/marks-personal-style.m
 
 ```bash
 mv .claude/output-styles/marks-personal-style.md ~/.claude/output-styles/
-```
+```text
 
 ### Issue 2: Team Style in User Scope
 
 **Problem**:
 
-```
+```text
 User: ~/.claude/output-styles/qa-checklist.md
-```
+```text
 
 **Impact**: Team doesn't get consistent QA process
 
@@ -121,16 +121,16 @@ User: ~/.claude/output-styles/qa-checklist.md
 
 ```bash
 mv ~/.claude/output-styles/qa-checklist.md /path/to/project/.claude/output-styles/
-```
+```text
 
 ### Issue 3: Same Style in Both Scopes
 
 **Problem**:
 
-```
+```text
 User: ~/.claude/output-styles/content-editor.md
 Project: .claude/output-styles/content-editor.md
-```
+```text
 
 **Behavior**: Project scope overrides user scope
 
@@ -146,9 +146,9 @@ Project: .claude/output-styles/content-editor.md
 
 **Problem**:
 
-```
+```text
 Project: .claude/output-styles/qa-tester.md (in .gitignore)
-```
+```text
 
 **Impact**: Team members don't get the style
 
@@ -172,56 +172,56 @@ Project: .claude/output-styles/qa-tester.md (in .gitignore)
 
 **Personal Content Editor**:
 
-```
+```text
 Location: ~/.claude/output-styles/my-editor.md
 Reason: Personal writing preference, not team standard
-```
+```text
 
 **Personal Note-Taking Format**:
 
-```
+```text
 Location: ~/.claude/output-styles/note-taker.md
 Reason: Individual workflow, not shared
-```
+```text
 
 **Cross-Project Documentation Style**:
 
-```
+```text
 Location: ~/.claude/output-styles/doc-writer.md
 Reason: Want same style in all projects
-```
+```text
 
 ### Project Scope Examples
 
 **QA Testing Standards**:
 
-```
+```text
 Location: .claude/output-styles/qa-tester.md
 Reason: Team-wide QA process for this project
-```
+```text
 
 **Code Review Checklist**:
 
-```
+```text
 Location: .claude/output-styles/code-reviewer.md
 Reason: Consistent review process across team
-```
+```text
 
 **Security Review Process**:
 
-```
+```text
 Location: .claude/output-styles/security-analyst.md
 Reason: Project-specific security standards
-```
+```text
 
 ## Scope Override Behavior
 
 **When both scopes have the same style name**:
 
-```
+```text
 User:    ~/.claude/output-styles/content-editor.md
 Project: .claude/output-styles/content-editor.md
-```
+```text
 
 **Behavior**: Project scope overrides user scope (project takes precedence)
 
@@ -243,7 +243,7 @@ This style overrides the user-level content-editor style with project-specific r
 - Uses Oxford comma (project standard)
 - Max line length 80 chars (project requirement)
 - Specific terminology for this project domain
-```
+```text
 
 ## Migration Between Scopes
 
@@ -274,7 +274,7 @@ git commit -m "Add team QA testing style"
 
 # Optionally remove personal version
 rm ~/.claude/output-styles/qa-tester.md
-```
+```text
 
 ### Moving from Project to User
 
@@ -299,7 +299,7 @@ rm .claude/output-styles/my-style.md
 # Commit removal
 git rm .claude/output-styles/my-style.md
 git commit -m "Remove personal style from project scope"
-```
+```text
 
 ## Git Considerations
 
@@ -310,14 +310,14 @@ git commit -m "Remove personal style from project scope"
 ```gitignore
 # Global ~/.gitignore
 .claude/
-```
+```text
 
 **Or project-specific if user scope accidentally created in project**:
 
 ```gitignore
 # Project .gitignore
 .claude/output-styles/personal-*.md
-```
+```text
 
 ### Project Scope (Tracked)
 
@@ -326,21 +326,21 @@ git commit -m "Remove personal style from project scope"
 ```gitignore
 # .gitignore - Do NOT include:
 # .claude/output-styles/  <- Don't ignore these, they're team standards
-```
+```text
 
 **Project .claude directory structure**:
 
-```
+```text
 .claude/
 ├── output-styles/        # Tracked (team standards)
 │   ├── qa-tester.md
 │   └── code-reviewer.md
 └── settings.local.json   # Not tracked (local overrides)
-```
+```text
 
 ## Scope Selection Flowchart
 
-```
+```text
 Start: Who should use this style?
 
 ├─ Just me
@@ -352,7 +352,7 @@ Start: Who should use this style?
    │
    └─ Across all projects
       └─ User scope, document in team wiki
-```
+```text
 
 ## Validation Examples
 
@@ -368,7 +368,7 @@ keep-coding-instructions: false
 ## Persona
 
 You are my personal content editor with my specific writing preferences.
-```
+```text
 
 **Verdict**: ✓ Appropriate (personal preference, user scope)
 
@@ -384,7 +384,7 @@ keep-coding-instructions: true
 ## Persona
 
 You are a QA engineer following our team's testing standards.
-```
+```text
 
 **Verdict**: ✓ Appropriate (team standard, project scope, in git)
 

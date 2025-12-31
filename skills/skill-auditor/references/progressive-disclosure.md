@@ -71,7 +71,7 @@ Progressive disclosure keeps skills lean and discoverable by moving detailed con
 
 Organize references by subject area:
 
-```
+```text
 references/
 ├── configurations.md    # Config examples
 ├── error-codes.md       # Error reference
@@ -79,7 +79,7 @@ references/
 ├── integrations.md     # CI/CD integration
 ├── performance.md      # Optimization
 └── workflows.md        # Complete workflows
-```
+```text
 
 **Example**: bash-audit skill (6 topic-based references)
 
@@ -87,37 +87,37 @@ references/
 
 Organize references by user scenario:
 
-```
+```text
 references/
 ├── getting-started.md  # New users
 ├── advanced-usage.md   # Power users
 ├── troubleshooting.md  # Problem solving
 └── examples.md         # Code examples
-```
+```text
 
 ### Pattern 3: By Depth
 
 Organize references by detail level:
 
-```
+```text
 references/
 ├── overview.md         # High-level concepts
 ├── detailed-guide.md   # Step-by-step instructions
 ├── api-reference.md    # Complete API docs
 └── edge-cases.md       # Rare scenarios
-```
+```text
 
 ### Pattern 4: By Content Type
 
 Organize references by format:
 
-```
+```text
 references/
 ├── examples.md         # Code examples
 ├── templates.md        # Reusable templates
 ├── checklists.md       # Validation checklists
 └── comparisons.md      # Before/after, good/bad
-```
+```text
 
 ## One-Level-Deep Rule
 
@@ -125,18 +125,18 @@ references/
 
 **Good**:
 
-```
+```text
 skill-name/
 ├── SKILL.md
 └── references/
     ├── file1.md
     ├── file2.md
     └── file3.md
-```
+```text
 
 **Bad**:
 
-```
+```text
 skill-name/
 ├── SKILL.md
 └── references/
@@ -144,7 +144,7 @@ skill-name/
     │   └── intro.md
     └── advanced/         # ✗ No subdirectories!
         └── expert.md
-```
+```text
 
 **Why**: Simplicity, easy navigation, clear structure.
 
@@ -162,7 +162,7 @@ Advanced patterns and detailed guides:
 - [configurations.md](references/configurations.md) - Config examples
 - [error-codes.md](references/error-codes.md) - Error reference
 - [workflows.md](references/workflows.md) - Complete workflows
-```
+```text
 
 ### Descriptive Link Text
 
@@ -173,14 +173,14 @@ Make link text helpful:
 ```markdown
 - [exit-codes.md](references/exit-codes.md) - Exit code semantics (0=allow, 2=block)
 - [json-handling.md](references/json-handling.md) - Safe JSON stdin parsing patterns
-```
+```text
 
 **Bad**:
 
 ```markdown
 - [Click here](references/exit-codes.md)
 - [Reference 1](references/json-handling.md)
-```
+```text
 
 ## Reference File Size
 
@@ -209,7 +209,7 @@ name: skill-name
 ---
 
 # Main Content
-```
+```text
 
 **Example**: bash-audit, hook-auditor
 
@@ -221,7 +221,7 @@ For detailed configuration examples, see [configurations.md](references/configur
 ... main content ...
 
 For complete workflow patterns, see [workflows.md](references/workflows.md).
-```
+```text
 
 ### Pattern 3: Section-Specific
 
@@ -237,7 +237,7 @@ For advanced configuration, see [configurations.md](references/configurations.md
 Quick workflow...
 
 For complete workflows, see [workflows.md](references/workflows.md).
-```
+```text
 
 ## Example: bash-audit Skill
 
@@ -340,13 +340,13 @@ Use this to refactor a skill >500 lines:
 
 **Problem**:
 
-```
+```text
 references/
   basics/
     intro.md
   advanced/
     expert.md
-```
+```text
 
 **Issues**:
 

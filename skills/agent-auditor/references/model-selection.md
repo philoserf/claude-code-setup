@@ -266,7 +266,7 @@ model: opus # Used because "it's better"
 
 ## Decision Tree
 
-```
+```text
 Start: What does the agent do?
 
 ├─ Read-only analysis

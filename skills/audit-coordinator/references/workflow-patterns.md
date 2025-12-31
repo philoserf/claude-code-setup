@@ -20,7 +20,7 @@ Patterns for orchestrating multiple auditors and coordinating comprehensive audi
 
 **Example Workflow**:
 
-```
+```text
 User: "Audit my bash-audit skill comprehensively"
 
 Step 1: Invoke skill-auditor
@@ -42,7 +42,7 @@ Step 4: Compile reports
   - Merge findings
   - Reconcile priorities
   - Generate unified recommendations
-```
+```text
 
 **Expected Duration**: 30-90 seconds
 
@@ -61,7 +61,7 @@ Step 4: Compile reports
 
 **Example Workflow**:
 
-```
+```text
 User: "Check my validate-config.py hook"
 
 Step 1: Invoke hook-auditor
@@ -77,7 +77,7 @@ Step 3: Generate report
   - Safety compliance status
   - Critical/Important/Nice-to-Have issues
   - Specific fixes
-```
+```text
 
 **Expected Duration**: 15-30 seconds
 
@@ -93,7 +93,7 @@ Step 3: Generate report
 
 **Example Workflow**:
 
-```
+```text
 User: "Is my skill-authoring skill discoverable?"
 
 Step 1: Invoke skill-auditor only
@@ -105,7 +105,7 @@ Step 2: Generate focused report
   - Discovery score
   - Trigger analysis
   - Improvement suggestions
-```
+```text
 
 **Expected Duration**: 10-20 seconds
 
@@ -121,7 +121,7 @@ Step 2: Generate focused report
 
 **Example Workflow**:
 
-```
+```text
 User: "Review my bash-scripting agent"
 
 Step 1: Invoke claude-code-evaluator
@@ -131,7 +131,7 @@ Step 1: Invoke claude-code-evaluator
   - Review tool permissions
 
 Step 2: Generate report
-```
+```text
 
 **Expected Duration**: 15-30 seconds
 
@@ -150,7 +150,7 @@ Step 2: Generate report
 
 **Example Workflow**:
 
-```
+```text
 User: "Audit all my skills for discoverability"
 
 Step 1: Find all skills
@@ -171,7 +171,7 @@ Step 4: Generate summary report
   - Distribution (Excellent: 5, Good: 6, Needs Work: 3)
   - Common problems across skills
   - Prioritized recommendations
-```
+```text
 
 **Expected Duration**: 60-120 seconds (parallel execution)
 
@@ -187,7 +187,7 @@ Step 4: Generate summary report
 
 **Example Workflow**:
 
-```
+```text
 User: "Check all my hooks for safety"
 
 Step 1: Find all hooks
@@ -208,7 +208,7 @@ Step 4: Generate summary report
   - Critical issues needing fixing
   - Best practice violations
   - Prioritized recommendations
-```
+```text
 
 **Expected Duration**: 30-60 seconds (parallel execution)
 
@@ -228,7 +228,7 @@ Step 4: Generate summary report
 
 **Example Workflow**:
 
-```
+```text
 User: "Audit my complete Claude Code setup"
 
 Step 1: Invoke evaluator for overall assessment
@@ -253,7 +253,7 @@ Step 4: Generate comprehensive report
   - Component breakdowns
   - Cross-cutting issues
   - Prioritized action items (Critical → Important → Nice-to-Have)
-```
+```text
 
 **Expected Duration**: 90-180 seconds (parallel execution)
 
@@ -267,14 +267,14 @@ Step 4: Generate comprehensive report
 
 **Example Workflow**:
 
-```
+```text
 User: "Audit my skills and hooks but skip agents"
 
 Step 1: Invoke skill-auditor for all skills (parallel)
 Step 2: Invoke hook-auditor for all hooks (parallel)
 Step 3: Compile findings
 Step 4: Generate unified report
-```
+```text
 
 ## Decision Logic
 
@@ -303,13 +303,13 @@ Step 4: Generate unified report
 
 **Example**:
 
-```
+```text
 skill-auditor finds critical discovery issues
   ↓
 evaluator confirms structural problems
   ↓
 test-runner skipped (no point testing undiscoverable skill)
-```
+```text
 
 ### When to Run Single Auditor
 
@@ -335,7 +335,7 @@ Task(
     prompt="Audit the bash-audit skill for structure and correctness",
     description="Audit bash-audit skill"
 )
-```
+```text
 
 ### Pattern: Skill Tool Invocation (Skills)
 
@@ -347,19 +347,19 @@ Skill(
     skill="skill-auditor",
     args="bash-audit"
 )
-```
+```text
 
 ### Pattern: Auto-Triggering (Skills)
 
 Skills may auto-trigger based on user query without explicit invocation:
 
-```
+```text
 User: "Check if my hook is safe"
   → hook-auditor auto-triggers
 
 User: "Is my skill discoverable?"
   → skill-auditor auto-triggers
-```
+```text
 
 ## Error Handling
 
@@ -374,26 +374,26 @@ If an auditor fails:
 
 **Example**:
 
-```
+```text
 Auditing setup:
   ✓ evaluator: Success
   ✗ skill-auditor: Failed (timeout)
   ✓ hook-auditor: Success
 
 Report notes: "Discovery analysis incomplete due to skill-auditor timeout"
-```
+```text
 
 ### Pattern: Early Exit on Critical Failure
 
 For setup-wide audits, consider early exit if evaluator finds critical issues:
 
-```
+```text
 evaluator finds: "settings.json has syntax errors"
   → Critical infrastructure problem
   → Stop further auditing
   → Report critical issue immediately
   → Recommend fixing settings.json first
-```
+```text
 
 ## Optimization Patterns
 
@@ -401,19 +401,19 @@ evaluator finds: "settings.json has syntax errors"
 
 For repeated audits:
 
-```
+```text
 First audit: Full analysis (90 seconds)
 Second audit (5 minutes later):
   - Check if files changed
   - Reuse cached results for unchanged files
   - Only re-audit modified files (15 seconds)
-```
+```text
 
 ### Pattern: Progressive Loading
 
 For large setups:
 
-```
+```text
 User: "Audit my setup"
 
 Step 1: Quick scan (5 seconds)
@@ -428,7 +428,7 @@ Step 2: Parallel auditing
 Step 3: Final compilation
   - Merge all results
   - Generate comprehensive report
-```
+```text
 
 ## Summary
 
