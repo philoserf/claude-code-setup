@@ -1,4 +1,49 @@
-# Claude Code Configuration Directory
+# Claude Code Setup
+
+A comprehensive, production-ready configuration for [Claude Code](https://claude.com/claude-code) demonstrating best practices for customization and automation.
+
+## What's Included
+
+- **9 Commands**: Common workflows (audit, create agents/skills, git automation)
+- **3 Agents**: Specialized assistants (bash scripting, evaluator, test runner)
+- **18 Skills**: Advanced capabilities (auditing, authoring, git, PDF processing)
+- **6 Hooks**: Automation (validation, formatting, logging, notifications)
+- **Complete Documentation**: Guides, references, and examples
+
+## Installation
+
+### Fresh Installation
+
+Clone this repository to your `~/.claude` directory:
+
+```bash
+git clone https://github.com/philoserf/claude-code-setup.git ~/.claude
+```
+
+### Customization
+
+After installation, review and customize:
+
+1. **Edit `settings.json`** - Adjust tool permissions for your needs
+2. **Modify `CLAUDE.md`** - Add your personal coding principles and preferences
+3. **Adjust hooks** - Enable/disable automation in `hooks/` and `settings.json`
+4. **Add your own** - Create custom commands, skills, and agents
+
+### Personal Files
+
+`CLAUDE.md` contains my personal coding principles and preferences as examples. Feel free to adapt these to your own style or replace with your own guidelines.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on submitting improvements, bug reports, or new customizations.
+
+## License
+
+MIT License - see [LICENSE](LICENSE) for details.
+
+---
+
+# Configuration Reference
 
 This is the global configuration directory for Claude Code (`~/.claude`). Settings and customizations here apply across all projects unless overridden by project-specific configurations.
 
