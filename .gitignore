@@ -1,0 +1,40 @@
+# Claude Code .gitignore
+# Ignores dynamic session data and bookkeeping
+# Allows tracking of configuration files (commands, hooks, skills, settings)
+
+# Session and runtime data
+config/notification_states.json
+debug/
+file-history/
+history.jsonl
+ide/
+plans/
+plugins/
+projects/
+session-env/
+shell-snapshots/
+stats-cache.json
+statsig/
+todos/
+
+# Logs
+logs/
+
+# User-specific configuration and credentials
+.config.json
+.mcp.json
+.claude/settings.local.json
+
+# Marketplace cache
+skills/.marketplace/
+
+# Keep configuration directories but ignore their contents by default
+# (specific files can be force-added with git add -f if needed)
+
+# Allow these configuration files/folders to be tracked:
+# - commands/
+# - hooks/
+# - skills/ (except .marketplace)
+# - settings.json
+# - CLAUDE.md
+# - This .gitignore file
