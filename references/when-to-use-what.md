@@ -1,19 +1,21 @@
-# When to Use What: Agents vs Skills vs Commands vs Output-Styles
+# When to Use What: Component Decision Guide
 
 Decision guide for choosing the right Claude Code customization type for your use case.
+
+**Quick Reference**: See [decision-matrix.md](decision-matrix.md) for a concise comparison table including all component types.
 
 ---
 
 ## Decision Matrix
 
-| Aspect                | Agent                      | Skill                      | Command                  | Output-Style             |
-| --------------------- | -------------------------- | -------------------------- | ------------------------ | ------------------------ |
-| **Invocation**        | Auto or manual             | Auto only                  | Manual only (`/command`) | Manual (`/output-style`) |
-| **Complexity**        | High (separate subprocess) | Medium-High                | Low (delegates)          | Low (prompt modifier)    |
-| **Model choice**      | Configurable per agent     | Inherits from parent       | Inherits (or subprocess) | Inherits                 |
-| **Tool restrictions** | Yes (allowed-tools)        | Yes (allowed-tools)        | Yes (if subprocess)      | No (can't restrict)      |
-| **Context**           | Isolated subprocess        | Main conversation          | Main conversation        | Main conversation        |
-| **Use case**          | Complex, focused tasks     | Domain knowledge/workflows | User shortcuts           | Behavior transformation  |
+| Aspect                | Agent                      | Skill                      | Command                  | Output-Style             | Hook                     |
+| --------------------- | -------------------------- | -------------------------- | ------------------------ | ------------------------ | ------------------------ |
+| **Invocation**        | Auto or manual             | Auto only                  | Manual only (`/command`) | Manual (`/output-style`) | Event-based (lifecycle)  |
+| **Complexity**        | High (separate subprocess) | Medium-High                | Low (delegates)          | Low (prompt modifier)    | Low (shell script)       |
+| **Model choice**      | Configurable per agent     | Inherits from parent       | Inherits (or subprocess) | Inherits                 | N/A (shell execution)    |
+| **Tool restrictions** | Yes (allowed-tools)        | Yes (allowed-tools)        | Yes (if subprocess)      | No (can't restrict)      | N/A (executes shell)     |
+| **Context**           | Isolated subprocess        | Main conversation          | Main conversation        | Main conversation        | Injected at event point  |
+| **Use case**          | Complex, focused tasks     | Domain knowledge/workflows | User shortcuts           | Behavior transformation  | Deterministic automation |
 
 ---
 
@@ -93,11 +95,46 @@ Decision guide for choosing the right Claude Code customization type for your us
 
 ---
 
+## Use a Hook when
+
+- Need guaranteed execution at lifecycle events
+- Deterministic shell script behavior required
+- Want to enforce policies/constraints automatically
+- Need to execute before/after tool calls
+- Want to validate, log, or modify tool execution
+- Cannot rely on Claude's judgment (must always execute)
+
+**Examples**:
+
+- Auto-formatting code after Edit operations
+- Logging all git commands for compliance
+- Blocking sensitive file modifications
+- Validating YAML frontmatter before file writes
+- Custom notifications on specific events
+
+**When NOT to use hooks**:
+
+- Don't use for adding knowledge (use skills instead)
+- Don't use for complex reasoning (use agents/skills)
+- Don't use if Claude's judgment is needed (hooks always execute)
+- Don't use for slow operations (hooks should be fast <100ms)
+
+**Hook Exit Codes**:
+
+- `0` - Allow operation to proceed
+- `2` - Block operation (cancels tool call)
+- Other - Error (operation may be blocked)
+
+---
+
 ## Decision Flow
 
 ```text
 Start: What are you building?
 
+├─ Does it need guaranteed execution at lifecycle events?
+│  └─ YES → Hook (deterministic automation)
+│
 ├─ Does it change Claude's personality/role for entire session?
 │  └─ YES → Output-Style (behavior transformation)
 │
@@ -166,6 +203,22 @@ Start: What are you building?
 - Use `keep-coding-instructions: false` for non-engineering roles
 - Activate with `/output-style technical-writer`
 
+### Scenario: "I need to enforce a policy automatically"
+
+**Answer**: Hook
+
+- Guaranteed execution (can't be forgotten or skipped)
+- Fast shell script (<100ms execution time)
+- Uses exit codes (0=allow, 2=block)
+- Configure in settings.json
+
+**Examples**:
+
+- Block commits without issue numbers
+- Validate YAML before file writes
+- Log all bash commands for audit trail
+- Auto-format code after edits
+
 ---
 
 ## Migration Paths
@@ -221,3 +274,8 @@ How:
 **Choose Skill for**: Domain knowledge, auto-trigger, main conversation
 **Choose Command for**: User shortcuts, simple delegation, explicit control
 **Choose Output-Style for**: Personality/role transformation, behavior modification
+**Choose Hook for**: Guaranteed execution, policy enforcement, event automation
+
+---
+
+**Related**: See [decision-matrix.md](decision-matrix.md) for a concise comparison table of all component types.

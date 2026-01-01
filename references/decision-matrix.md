@@ -1,6 +1,8 @@
 # Claude Code Component Decision Matrix
 
-I'll check the official Claude Code documentation to build an accurate decision matrix.## Decision Matrix: Claude Code Component Selection
+Quick reference for choosing the right component type. For detailed scenarios, migration paths, and examples, see [when-to-use-what.md](when-to-use-what.md).
+
+## Decision Matrix: Claude Code Component Selection
 
 | **Criterion**     | **Skill**                              | **Subagent**                | **Command**             | **Output Style**             | **Hook**                 |
 | ----------------- | -------------------------------------- | --------------------------- | ----------------------- | ---------------------------- | ------------------------ |
