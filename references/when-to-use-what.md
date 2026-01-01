@@ -4,6 +4,11 @@ Decision guide for choosing the right Claude Code customization type for your us
 
 **Quick Reference**: See [decision-matrix.md](decision-matrix.md) for a concise comparison table including all component types.
 
+**Implementation Details**:
+
+- [Naming Conventions](naming-conventions.md) - Naming patterns for all components
+- [Frontmatter Requirements](frontmatter-requirements.md) - YAML specification
+
 ---
 
 ## Decision Matrix
@@ -279,3 +284,11 @@ How:
 ---
 
 **Related**: See [decision-matrix.md](decision-matrix.md) for a concise comparison table of all component types.
+
+---
+
+**Next Steps**:
+
+- Chosen component type? See [Naming Conventions](naming-conventions.md) for naming patterns
+- Ready to implement? See [Frontmatter Requirements](frontmatter-requirements.md) for YAML specs
+- Need hook events reference? See [Hook Events](hook-events.md) for lifecycle documentation

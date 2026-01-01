@@ -2,6 +2,11 @@
 
 Quick reference for choosing the right component type. For detailed scenarios, migration paths, and examples, see [when-to-use-what.md](when-to-use-what.md).
 
+**Implementation Details**:
+
+- [Naming Conventions](naming-conventions.md) - Naming patterns for all components
+- [Frontmatter Requirements](frontmatter-requirements.md) - YAML specification
+
 ## Decision Matrix: Claude Code Component Selection
 
 | **Criterion**     | **Skill**                              | **Subagent**                | **Command**             | **Output Style**             | **Hook**                 |
@@ -88,3 +93,10 @@ Need automatic execution based on task context?
 - [Slash Commands](https://code.claude.com/docs/en/slash-commands)
 - [Output Styles](https://code.claude.com/docs/en/output-styles)
 - [Hooks](https://code.claude.com/docs/en/hooks)
+
+---
+
+**Next Steps**:
+
+- Chosen component type? See [Naming Conventions](naming-conventions.md) for naming patterns
+- Ready to implement? See [Frontmatter Requirements](frontmatter-requirements.md) for YAML specs

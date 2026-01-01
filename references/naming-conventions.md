@@ -2,6 +2,12 @@
 
 Consistent naming patterns for Claude Code subagents, commands, skills, and hooks to improve discoverability, avoid conflicts, and communicate intent clearly.
 
+**Related Documentation**:
+
+- [Frontmatter Requirements](frontmatter-requirements.md) - YAML specifications for each component type
+- [When to Use What](when-to-use-what.md) - Decision guide for choosing component types
+- [Decision Matrix](decision-matrix.md) - Quick comparison table
+
 ## Core Principles
 
 1. **Kebab-case for files**: All files use lowercase with hyphens (`my-component.md`)
@@ -388,3 +394,10 @@ Expected: Command should delegate to agent-audit skill
 - Capabilities Claude should discover automatically
 - Complex workflows with multiple steps
 - Reference materials organized across files
+
+---
+
+**Next Steps**:
+
+- Ready to implement? See [Frontmatter Requirements](frontmatter-requirements.md) for YAML specs
+- Need help choosing component type? See [When to Use What](when-to-use-what.md)

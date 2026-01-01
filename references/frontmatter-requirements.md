@@ -2,6 +2,12 @@
 
 Complete YAML frontmatter specifications for all Claude Code component types.
 
+**Decision Guides**:
+
+- Not sure which component to create? See [When to Use What](when-to-use-what.md) for decision guide
+- Quick comparison table? See [Decision Matrix](decision-matrix.md)
+- Need naming patterns? See [Naming Conventions](naming-conventions.md)
+
 ## Subagents
 
 ```yaml
