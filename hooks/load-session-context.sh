@@ -1,5 +1,7 @@
 #!/bin/bash
 # Session context loading hook - injects recent git activity and issues
+#
+# Note: Intentionally no 'set -euo pipefail' - hooks must always exit 0
 
 cd "$CLAUDE_PROJECT_DIR" || exit 0
 

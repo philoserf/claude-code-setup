@@ -1,9 +1,13 @@
 #!/bin/bash
 # Auto-format hook - runs after Edit|Write operations
 # Formats Go, JS/TS, JSON, YAML files using gofmt and prettier
+#
+# Note: Intentionally no 'set -euo pipefail' - hooks must always exit 0
 
 # Read tool input JSON from stdin and extract file path
-file_path=$(jq -r '.tool_input.file_path // empty')
+if ! file_path=$(jq -r '.tool_input.file_path // empty' 2>/dev/null); then
+	exit 0 # Graceful exit if JSON parsing fails
+fi
 
 if [ -z "$file_path" ]; then
 	exit 0
