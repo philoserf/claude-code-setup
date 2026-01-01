@@ -15,7 +15,7 @@ Arguments are user-provided input passed to commands:
 
 **Usage**:
 
-```text
+````text
 /command-name argument1 argument2
 ```text
 
@@ -561,3 +561,4 @@ description: Does validation
 ```text
 
 **When in doubt**: Use `$ARGUMENTS` to pass user input unchanged.
+````

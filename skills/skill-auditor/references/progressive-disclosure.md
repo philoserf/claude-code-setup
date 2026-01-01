@@ -71,7 +71,7 @@ Progressive disclosure keeps skills lean and discoverable by moving detailed con
 
 Organize references by subject area:
 
-```text
+````text
 references/
 ├── configurations.md    # Config examples
 ├── error-codes.md       # Error reference
@@ -416,3 +416,4 @@ Use this to score skill organization:
 8. **Descriptive links** - Explain what's in each file
 
 **Golden Rule**: Main file has essential workflow, references have depth and details.
+````

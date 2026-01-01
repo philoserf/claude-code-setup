@@ -15,7 +15,7 @@ Complex command (>80 lines or complex logic) = should be skill
 
 **Structure**:
 
-```yaml
+````yaml
 ---
 name: command-name
 description: Brief description
@@ -538,3 +538,4 @@ description: Comprehensive agent configuration validation
 **Decision rule**: If >80 lines OR complex logic → Make it a skill
 
 **When in doubt**: Start simple (6-10 lines), add docs only if truly needed.
+````

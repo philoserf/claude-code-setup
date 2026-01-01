@@ -8,7 +8,7 @@ Comprehensive examples of good vs poor output-styles, full audit reports, and co
 
 ### Content
 
-```yaml
+````yaml
 ---
 name: content-editor
 keep-coding-instructions: false
@@ -171,7 +171,7 @@ You are helpful and knowledgeable.
    You have expertise in plain language principles, information architecture,
    and audience-appropriate communication. You prioritize clarity and readability
    while maintaining technical accuracy.
-   ```
+````
 
 1. **Abstract Behaviors**
    - **Severity**: CRITICAL
@@ -228,7 +228,7 @@ You are helpful and knowledgeable.
 
 ### Before (Incorrect)
 
-```markdown
+````markdown
 ## Persona
 
 You are a helpful assistant who is good at editing.
@@ -548,3 +548,4 @@ user guides. You describe APIs conceptually but don't write code examples
 5. Verify scope matches audience (personal → user, team → project)
 
 **When in Doubt**: Compare to content-editor or qa-tester as exemplars.
+````

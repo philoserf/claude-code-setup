@@ -20,7 +20,7 @@ Patterns for orchestrating multiple auditors and coordinating comprehensive audi
 
 **Example Workflow**:
 
-```text
+````text
 User: "Audit my bash-audit skill comprehensively"
 
 Step 1: Invoke skill-auditor
@@ -451,3 +451,4 @@ Step 3: Final compilation
 3. Use single auditor for focused analysis
 4. Handle errors gracefully (partial results better than none)
 5. Provide progress updates for long-running audits
+````

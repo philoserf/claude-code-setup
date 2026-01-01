@@ -18,6 +18,7 @@ case "$file_path" in
 	command -v prettier &>/dev/null && prettier --write "$file_path" 2>/dev/null
 	;;
 *.md)
+	command -v prettier &>/dev/null && prettier --write "$file_path" 2>/dev/null
 	command -v markdownlint &>/dev/null && markdownlint --fix "$file_path" 2>/dev/null
 	;;
 esac

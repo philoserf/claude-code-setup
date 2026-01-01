@@ -95,7 +95,7 @@ When auditing scope alignment:
 
 **Problem**:
 
-```text
+````text
 Project: /Users/markayers/myproject/.claude/output-styles/marks-personal-style.md
 ```text
 
@@ -423,3 +423,4 @@ You are a QA engineer following our team's testing standards.
 **When in Doubt**:
 
 - Ask: "Should my team use this?" → Yes = Project, No = User
+````

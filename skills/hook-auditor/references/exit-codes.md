@@ -22,7 +22,7 @@ Use exit 0 in these scenarios:
 
 ### 1. Validation Passed
 
-```python
+````python
 # Validation succeeded, allow operation
 if no_errors:
     sys.exit(0)
@@ -313,3 +313,4 @@ echo $?  # Should be 0 (hook error, don't block)
 5. All non-PreToolUse hooks always exit 0
 
 **When in doubt, exit 0** - it's better to allow an operation than to block the user due to a hook bug.
+````

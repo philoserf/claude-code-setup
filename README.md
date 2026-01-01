@@ -12,15 +12,9 @@ A comprehensive, production-ready configuration for [Claude Code](https://claude
 
 ## Installation
 
-### Fresh Installation
+Don't install this. Just steal what you like.
 
-Clone this repository to your `~/.claude` directory:
-
-```bash
-git clone https://github.com/philoserf/claude-code-setup.git ~/.claude
-```
-
-### Customization
+## Customization
 
 After installation, review and customize:
 
