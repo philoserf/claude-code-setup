@@ -133,7 +133,6 @@ Depending on complexity:
 - Whether arguments need explanation
 - How often users will reference it
 
-
 See [command-design-patterns.md](references/command-design-patterns.md) for detailed design patterns and examples.
 
 See [command-creation-process.md](references/command-creation-process.md) for step-by-step creation workflow.
@@ -169,7 +168,6 @@ See [command-creation-process.md](references/command-creation-process.md) for st
 5. **Too many arguments** - Keep it simple, 0-2 args typically
 6. **Not testing with /help** - Verify command appears correctly
 7. **Poor naming** - Use descriptive, action-oriented names
-
 
 See [command-examples.md](references/command-examples.md) for complete examples with analysis.
 
