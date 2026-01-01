@@ -633,7 +633,7 @@ description: Automates git workflows including commits, branches, and PRs. Use w
 **Needs Improvement (2 skills)**:
 
 - git-helper: 4/10 discovery (description too short)
-- test-runner-knowledge: 6/10 discovery (missing trigger phrases)
+- bash-scripting: 6/10 discovery (missing trigger phrases)
 
 **Common Strengths**:
 
@@ -717,7 +717,7 @@ description: Automates git workflows including commits, branches, and PRs. Use w
 
 ### Pattern: Short Descriptions
 
-**Affected**: git-helper, test-runner-knowledge
+**Affected**: git-helper, bash-scripting
 
 **Impact**: Reduced discoverability across 2 skills
 
@@ -748,7 +748,7 @@ description: Automates git workflows including commits, branches, and PRs. Use w
 
 ### Short-term (Nice-to-Have)
 
-1. **test-runner-knowledge**: Expand description with trigger phrases
+1. **bash-scripting**: Expand description with trigger phrases
 2. **document-organizer**: Add references/examples.md
 3. **organize-folders**: Add references/examples.md
 4. **process-pdfs**: Add references/examples.md
