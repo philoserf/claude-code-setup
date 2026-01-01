@@ -283,32 +283,3 @@ Assistant: [Explains double quoting, shows examples, references fixes.md]
 User: "Add ShellCheck to my GitHub Actions workflow"
 Assistant: [Provides workflow configuration, references integrations.md]
 ```
-
-## When to Use
-
-**Auditing & Review**:
-
-- Auditing legacy codebases for vulnerabilities
-- Pre-release reviews of critical automation scripts
-- Identifying portability issues (macOS vs Linux)
-- Ensuring compliance with defensive programming standards
-- Finding bugs or errors in failing scripts
-- Improving script quality and maintainability
-- Validating error handling and safety measures
-
-**ShellCheck Specific**:
-
-- Setting up CI/CD linting infrastructure
-- Configuring pre-commit hooks for shell scripts
-- Understanding ShellCheck error codes
-- Fixing ShellCheck violations
-- Suppressing false positives with justification
-- Migrating legacy scripts to pass quality gates
-- Batch processing multiple scripts efficiently
-
-## When NOT to Use
-
-- Writing new scripts from scratch (use bash-scripting skill)
-- Explaining bash concepts (ask directly)
-- Debugging runtime issues (different from static analysis)
-- Scripts in other languages (Python, Perl, etc.)
