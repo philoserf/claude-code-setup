@@ -1,24 +1,12 @@
 ---
 name: claude-code-audit
-description: Comprehensive evaluation and validation of Claude Code customizations. Auto-triggers when reviewing, evaluating, or improving agents, commands, skills, hooks, or output-styles. Provides naming conventions, structural guidance, and best practices for all .claude/ components.
+description: Comprehensive evaluation and validation of Claude Code customizations. Use when reviewing, evaluating, auditing, analyzing, checking, or improving agents, commands, skills, hooks, or output-styles. Auto-triggers when working on .claude/ files. Provides naming conventions, structural guidance, quality assurance, and best practices for all components. Helps validate configurations, identify issues, ensure discoverability, and optimize setup organization.
 allowed-tools: Read, Grep, Glob, Bash, AskUserQuestion
 ---
 
 # Claude Code Audit Skill
 
 Automated evaluation and validation workflow for Claude Code customizations. This skill provides comprehensive analysis of agents, commands, skills, hooks, and output-styles, along with naming conventions and organizational standards.
-
-## When to Use
-
-This skill auto-triggers when:
-
-- User asks to "review", "evaluate", or "analyze" a customization
-- User wants to "improve" or "optimize" an agent, skill, command, or hook
-- User is working on files in ~/.claude/ and requests feedback
-- User wants to validate their Claude Code setup
-- User asks "does this look good?" about a .claude/ file
-- User needs naming conventions or organizational guidance
-- User asks about best practices for Claude Code components
 
 ## Quick Start
 
@@ -115,7 +103,7 @@ Invoke the **claude-code-evaluator** agent to assess:
 
 **For Skill Discovery**:
 
-Invoke the **claude-code-skill-auditor** agent to analyze:
+Invoke the **skill-audit skill** agent to analyze:
 
 - Description quality for triggering (1-10 score)
 - Trigger phrase coverage
@@ -183,7 +171,7 @@ This skill orchestrates specialized agents:
 
 **Use for**: Deep analysis of skill discoverability
 
-**Invocation**: "Invoke the claude-code-skill-auditor agent to audit [skill-name]"
+**Invocation**: "Invoke the skill-audit skill to audit [skill-name]"
 
 **Tools**: Read, Grep, Glob, Bash (read-only)
 
@@ -218,7 +206,7 @@ User: "Review the bash agent"
 User: "Is my git-workflow skill discoverable?"
 
 1. Read ~/.claude/skills/git-workflow/SKILL.md
-2. Invoke claude-code-skill-auditor agent
+2. Invoke skill-audit skill
 3. Present discovery score and trigger analysis
 4. Suggest description improvements
 5. Ask if they want to test with sample queries
@@ -256,7 +244,7 @@ User: "Does this new skill look good?" (while editing SKILL.md)
 
 1. Read the SKILL.md being edited
 2. Invoke claude-code-evaluator agent for correctness check
-3. Invoke claude-code-skill-auditor for discovery analysis
+3. Invoke skill-audit skill for discovery analysis
 4. Present quick validation summary
 5. Flag any blocking issues (missing fields, invalid YAML)
 6. Ask if they want full evaluation or just quick check
@@ -265,7 +253,7 @@ User: "Does this new skill look good?" (while editing SKILL.md)
 ## Best Practices
 
 1. **Start with Quick Check**: For simple validations, use claude-code-evaluator agent directly
-2. **Deep Dive When Needed**: For skills, add claude-code-skill-auditor analysis
+2. **Deep Dive When Needed**: For skills, add skill-audit skill analysis
 3. **Test Before Deploy**: Use claude-code-test-runner for new customizations
 4. **Incremental Evaluation**: Don't overwhelm with all findings at once
 5. **Prioritize Fixes**: Always rank recommendations by importance
@@ -294,6 +282,8 @@ This skill provides comprehensive reference materials for all aspects of Claude 
 - **[Hook Events](references/hook-events.md)** - Hook event types and timing
 - **[Examples](references/examples.md)** - Example evaluations and reports
 
+_Note: Shared references (naming, frontmatter, decision guides) are in `~/.claude/references/`. Evaluation-specific references are in this skill's `references/` directory._
+
 These references are loaded on-demand to maintain context efficiency.
 
 ## Example Evaluations
@@ -317,7 +307,7 @@ Claude Code Audit: *Reads claude-code-evaluator.md, checks frontmatter*
 
 ```text
 User: "Is meta-evaluator discoverable?"
-Claude Code Audit: *Reads SKILL.md, invokes claude-code-skill-auditor*
+Claude Code Audit: *Reads SKILL.md, invokes skill-audit skill*
 → "Discovery Score: 9/10
 
   Strengths:
