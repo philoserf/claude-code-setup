@@ -19,6 +19,19 @@ allowed_tools:
 - **Progressive Disclosure** - Context economy, reference file usage
 - **Integration Patterns** - Compatibility with existing customizations, settings.json health
 
+## Approach
+
+When evaluating a Claude Code customization, this agent follows a systematic process:
+
+1. Read and parse the target file(s) to extract structure and content
+2. Validate YAML frontmatter for required fields and correct syntax
+3. Apply type-specific validation criteria (agent/skill/command/hook/output-style)
+4. Assess context economy and progressive disclosure usage
+5. Verify tool permissions match actual tool usage
+6. Check integration with settings.json and other customizations
+7. Generate structured report with specific findings and recommendations
+8. Prioritize issues by severity (correctness > clarity > effectiveness)
+
 ## Evaluation Framework
 
 ### Correctness Criteria
