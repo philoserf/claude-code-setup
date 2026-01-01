@@ -9,9 +9,14 @@ allowed_tools:
   - Grep
   - Bash
   - Skill
-skills:
-  - test-runner-knowledge
 ---
+
+## Reference Files
+
+This agent uses reference materials in the `references/` directory:
+
+- [examples.md](references/examples.md) - Concrete test case examples for different customization types
+- [common-failures.md](references/common-failures.md) - Catalog of common failure patterns
 
 ## Focus Areas
 
@@ -288,7 +293,7 @@ Create structured report following output format.
 
 ## Test Case Examples
 
-For detailed test case examples for skills, agents, commands, and hooks, see the test-runner-knowledge skill references.
+For detailed test case examples for skills, agents, commands, and hooks, see [examples.md](references/examples.md).
 
 ## Best Practices for Testing
 
@@ -305,7 +310,7 @@ For detailed test case examples for skills, agents, commands, and hooks, see the
 
 ## Common Test Failures
 
-For a catalog of common failure patterns by customization type, see the test-runner-knowledge skill references.
+For a catalog of common failure patterns by customization type, see [common-failures.md](references/common-failures.md).
 
 ## Tools Used
 
