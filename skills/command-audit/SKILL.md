@@ -1,5 +1,5 @@
 ---
-name: command-auditor
+name: command-audit
 description: Validates command delegation patterns, simplicity, and documentation proportionality. Use when reviewing, auditing, or improving commands, checking delegation clarity, enforcing simplicity (6-10 lines simple, 30-80 lines documented), validating argument handling, or assessing documentation appropriateness. Also triggers when user asks about command best practices, whether a command should be a skill instead, or needs help with command structure.
 allowed-tools: [Read, Grep, Glob, Bash]
 ---

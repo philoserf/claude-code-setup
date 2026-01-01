@@ -10,11 +10,11 @@ Patterns for orchestrating multiple auditors and coordinating comprehensive audi
 
 **Auditors**:
 
-1. skill-auditor (primary) - Discoverability and triggers
+1. skill-audit (primary) - Discoverability and triggers
 2. claude-code-evaluator (secondary) - Structure and metadata
 3. claude-code-test-runner (optional) - Functional validation
 
-**Sequence**: Sequential (skill-auditor → evaluator → test-runner)
+**Sequence**: Sequential (skill-audit → evaluator → test-runner)
 
 **Why Sequential**: Evaluator findings may inform testing approach
 
@@ -23,7 +23,7 @@ Patterns for orchestrating multiple auditors and coordinating comprehensive audi
 ````text
 User: "Audit my bash-audit skill comprehensively"
 
-Step 1: Invoke skill-auditor
+Step 1: Invoke skill-audit
   - Analyze description for triggers
   - Check progressive disclosure
   - Generate discovery score
@@ -52,10 +52,10 @@ Step 4: Compile reports
 
 **Auditors**:
 
-1. hook-auditor (primary) - Safety and correctness
+1. hook-audit (primary) - Safety and correctness
 2. claude-code-evaluator (optional) - Structure validation
 
-**Sequence**: Sequential (hook-auditor → evaluator if needed)
+**Sequence**: Sequential (hook-audit → evaluator if needed)
 
 **Why Sequential**: Hook-auditor findings determine if evaluator needed
 
@@ -64,7 +64,7 @@ Step 4: Compile reports
 ```text
 User: "Check my validate-config.py hook"
 
-Step 1: Invoke hook-auditor
+Step 1: Invoke hook-audit
   - Verify JSON stdin handling
   - Check exit codes (0=allow, 2=block)
   - Validate error handling
@@ -87,7 +87,7 @@ Step 3: Generate report
 
 **Auditors**:
 
-1. skill-auditor only
+1. skill-audit only
 
 **Sequence**: Single auditor
 
@@ -96,7 +96,7 @@ Step 3: Generate report
 ```text
 User: "Is my skill-authoring skill discoverable?"
 
-Step 1: Invoke skill-auditor only
+Step 1: Invoke skill-audit only
   - Analyze description
   - Generate discovery score
   - Test trigger queries
@@ -143,7 +143,7 @@ Step 2: Generate report
 
 **Auditors**:
 
-1. skill-auditor for each skill
+1. skill-audit for each skill
 2. claude-code-evaluator for overall assessment
 
 **Sequence**: Parallel for skills, then evaluator
@@ -157,7 +157,7 @@ Step 1: Find all skills
   - Glob for skills/*/SKILL.md
   - Count total (e.g., 14 skills)
 
-Step 2: Invoke skill-auditor in parallel
+Step 2: Invoke skill-audit in parallel
   - Process all skills concurrently
   - Each generates discovery score
 
@@ -181,7 +181,7 @@ Step 4: Generate summary report
 
 **Auditors**:
 
-1. hook-auditor for each hook
+1. hook-audit for each hook
 
 **Sequence**: Parallel execution
 
@@ -194,7 +194,7 @@ Step 1: Find all hooks
   - Glob for hooks/*.{sh,py}
   - Count total (e.g., 6 hooks)
 
-Step 2: Invoke hook-auditor in parallel
+Step 2: Invoke hook-audit in parallel
   - Process all hooks concurrently
   - Each checks safety patterns
 
@@ -221,8 +221,8 @@ Step 4: Generate summary report
 **Auditors**:
 
 1. claude-code-evaluator (setup-wide analysis)
-2. skill-auditor (all skills)
-3. hook-auditor (all hooks)
+2. skill-audit (all skills)
+3. hook-audit (all hooks)
 
 **Sequence**: Parallel where possible
 
@@ -239,13 +239,13 @@ Step 1: Invoke evaluator for overall assessment
   - Assess security
 
 Step 2: (Parallel) Invoke specialized auditors
-  - skill-auditor: All 14 skills
-  - hook-auditor: All 6 hooks
+  - skill-audit: All 14 skills
+  - hook-audit: All 6 hooks
 
 Step 3: Compile all findings
   - Evaluator: Setup health, security, context
-  - skill-auditor: Discovery scores, structure
-  - hook-auditor: Safety compliance, performance
+  - skill-audit: Discovery scores, structure
+  - hook-audit: Safety compliance, performance
 
 Step 4: Generate comprehensive report
   - Executive summary
@@ -270,8 +270,8 @@ Step 4: Generate comprehensive report
 ```text
 User: "Audit my skills and hooks but skip agents"
 
-Step 1: Invoke skill-auditor for all skills (parallel)
-Step 2: Invoke hook-auditor for all hooks (parallel)
+Step 1: Invoke skill-audit for all skills (parallel)
+Step 2: Invoke hook-audit for all hooks (parallel)
 Step 3: Compile findings
 Step 4: Generate unified report
 ```text
@@ -296,7 +296,7 @@ Step 4: Generate unified report
 
 **Sequential Execution** is required when:
 
-- One auditor's output informs another (skill-auditor → evaluator)
+- One auditor's output informs another (skill-audit → evaluator)
 - Want to stop early if critical issues found
 - Testing depends on structure/discovery validation
 - User explicitly requests staged approach
@@ -304,7 +304,7 @@ Step 4: Generate unified report
 **Example**:
 
 ```text
-skill-auditor finds critical discovery issues
+skill-audit finds critical discovery issues
   ↓
 evaluator confirms structural problems
   ↓
@@ -315,12 +315,12 @@ test-runner skipped (no point testing undiscoverable skill)
 
 **Single Auditor** is sufficient when:
 
-- Target has only one specialized auditor (hook → hook-auditor)
+- Target has only one specialized auditor (hook → hook-audit)
 - User asks specific question (just discoverability check)
 - Quick validation needed
 - Other auditors wouldn't add value
 
-**Example**: "Is my hook safe?" → hook-auditor only
+**Example**: "Is my hook safe?" → hook-audit only
 
 ## Invocation Patterns
 
@@ -339,12 +339,12 @@ Task(
 
 ### Pattern: Skill Tool Invocation (Skills)
 
-For skills like skill-auditor and hook-auditor:
+For skills like skill-audit and hook-audit:
 
 ```python
 # Using Skill tool
 Skill(
-    skill="skill-auditor",
+    skill="skill-audit",
     args="bash-audit"
 )
 ```text
@@ -355,10 +355,10 @@ Skills may auto-trigger based on user query without explicit invocation:
 
 ```text
 User: "Check if my hook is safe"
-  → hook-auditor auto-triggers
+  → hook-audit auto-triggers
 
 User: "Is my skill discoverable?"
-  → skill-auditor auto-triggers
+  → skill-audit auto-triggers
 ```text
 
 ## Error Handling
@@ -369,7 +369,7 @@ If an auditor fails:
 
 1. **Log the failure** clearly
 2. **Continue with other auditors** (don't abort entire audit)
-3. **Note limitation in report** (e.g., "skill-auditor unavailable, skipped discovery analysis")
+3. **Note limitation in report** (e.g., "skill-audit unavailable, skipped discovery analysis")
 4. **Provide partial results**
 
 **Example**:
@@ -377,10 +377,10 @@ If an auditor fails:
 ```text
 Auditing setup:
   ✓ evaluator: Success
-  ✗ skill-auditor: Failed (timeout)
-  ✓ hook-auditor: Success
+  ✗ skill-audit: Failed (timeout)
+  ✓ hook-audit: Success
 
-Report notes: "Discovery analysis incomplete due to skill-auditor timeout"
+Report notes: "Discovery analysis incomplete due to skill-audit timeout"
 ```text
 
 ### Pattern: Early Exit on Critical Failure
@@ -436,13 +436,13 @@ Step 3: Final compilation
 
 | Pattern                       | Auditors                               | Sequence   | Duration | Use When             |
 | ----------------------------- | -------------------------------------- | ---------- | -------- | -------------------- |
-| Single skill (comprehensive)  | skill-auditor, evaluator, test-runner  | Sequential | 30-90s   | Full skill analysis  |
-| Single skill (discovery only) | skill-auditor                          | Single     | 10-20s   | Quick check          |
-| Single hook                   | hook-auditor, evaluator (optional)     | Sequential | 15-30s   | Hook safety check    |
+| Single skill (comprehensive)  | skill-audit, evaluator, test-runner  | Sequential | 30-90s   | Full skill analysis  |
+| Single skill (discovery only) | skill-audit                          | Single     | 10-20s   | Quick check          |
+| Single hook                   | hook-audit, evaluator (optional)     | Sequential | 15-30s   | Hook safety check    |
 | Single agent/command          | evaluator                              | Single     | 15-30s   | Structure validation |
-| All skills                    | skill-auditor (each), evaluator        | Parallel   | 60-120s  | Batch skill audit    |
-| All hooks                     | hook-auditor (each)                    | Parallel   | 30-60s   | Batch hook audit     |
-| Complete setup                | evaluator, skill-auditor, hook-auditor | Parallel   | 90-180s  | Comprehensive audit  |
+| All skills                    | skill-audit (each), evaluator        | Parallel   | 60-120s  | Batch skill audit    |
+| All hooks                     | hook-audit (each)                    | Parallel   | 30-60s   | Batch hook audit     |
+| Complete setup                | evaluator, skill-audit, hook-audit | Parallel   | 90-180s  | Comprehensive audit  |
 
 **Key Principles**:
 

@@ -13,7 +13,7 @@ Comprehensive examples of good vs poor commands, full audit reports, and common 
 name: audit-bash
 description: Audit shell scripts for security and quality
 ---
-{ Skill skill="hook-auditor" args="$ARGUMENTS" }
+{ Skill skill="hook-audit" args="$ARGUMENTS" }
 ```
 
 ### Audit Report
@@ -22,7 +22,7 @@ description: Audit shell scripts for security and quality
 
 **Strengths**:
 
-- **Delegation**: Clear (invokes hook-auditor skill explicitly)
+- **Delegation**: Clear (invokes hook-audit skill explicitly)
 - **Simplicity**: 6 lines (perfect simple delegator)
 - **Arguments**: Properly passed ($ARGUMENTS to args parameter)
 - **Documentation**: Minimal (appropriate - usage is obvious from name)
@@ -61,7 +61,7 @@ Validates agent configurations using specialized auditors.
 
 ## What It Does
 
-1. Invokes agent-auditor for agent-specific validation
+1. Invokes agent-audit for agent-specific validation
 2. Checks model selection, tool restrictions, focus areas
 3. Generates comprehensive audit report
 
@@ -70,7 +70,7 @@ Validates agent configurations using specialized auditors.
     /validate-agent bash-scripting
     /validate-agent claude-code-evaluator
 
-{Skill skill="agent-auditor" args="$ARGUMENTS"}
+{Skill skill="agent-audit" args="$ARGUMENTS"}
 ```
 
 ### Audit Report
@@ -79,7 +79,7 @@ Validates agent configurations using specialized auditors.
 
 **Strengths**:
 
-- **Delegation**: Clear (invokes agent-auditor skill)
+- **Delegation**: Clear (invokes agent-audit skill)
 - **Simplicity**: 40 lines (good documented delegator)
 - **Arguments**: Properly passed ($ARGUMENTS)
 - **Documentation**: Full (Usage, What It Does, Examples - appropriate for complexity)
@@ -193,7 +193,7 @@ Write report to file.
 name: validate-agent
 description: Validate agent configurations
 ---
-{ Skill skill="agent-auditor" }
+{ Skill skill="agent-audit" }
 ```
 
 **Issue**: User provides argument but command ignores it
@@ -209,7 +209,7 @@ description: Validate agent configurations
 name: validate-agent
 description: Validate agent configurations
 ---
-{ Skill skill="agent-auditor" args="$ARGUMENTS" }
+{ Skill skill="agent-audit" args="$ARGUMENTS" }
 ```
 
 **Fix**: Added `args="$ARGUMENTS"`
@@ -237,10 +237,10 @@ Analyze the agent file and provide validation feedback.
 name: audit-agent
 description: Audit an agent configuration
 ---
-{ Skill skill="agent-auditor" args="$ARGUMENTS" }
+{ Skill skill="agent-audit" args="$ARGUMENTS" }
 ```
 
-**Fix**: Clear delegation to agent-auditor skill
+**Fix**: Clear delegation to agent-audit skill
 
 ---
 
@@ -276,9 +276,9 @@ When you run this command, it invokes the test runner...
 
 ## Examples
 
-    /test-skill agent-auditor
-    /test-skill skill-auditor
-    /test-skill hook-auditor
+    /test-skill agent-audit
+    /test-skill skill-audit
+    /test-skill hook-audit
 
 ## Related Commands
 
@@ -320,9 +320,9 @@ description: Validate different component types
 
 Check the file extension.
 If .md in agents/ directory:
-  Use agent-auditor.
+  Use agent-audit.
 Else if .md in skills/ directory:
-  Use skill-auditor.
+  Use skill-audit.
 Else if .md in commands/ directory:
   Use command-auditor.
 Else:
@@ -367,7 +367,7 @@ allowed-tools: [Task, Skill, Read]
 name: validate-bash-agent
 description: Validate the bash-scripting skill
 ---
-{ Skill skill="agent-auditor" args="bash-scripting" }
+{ Skill skill="agent-audit" args="bash-scripting" }
 ```
 
 **Issue**: Always validates same agent, ignores user input
@@ -381,7 +381,7 @@ description: Validate the bash-scripting skill
 name: validate-agent
 description: Validate any agent
 ---
-{ Skill skill="agent-auditor" args="$ARGUMENTS" }
+{ Skill skill="agent-audit" args="$ARGUMENTS" }
 ```
 
 **Option B** (if truly bash-specific, rename command):
@@ -391,7 +391,7 @@ description: Validate any agent
 name: validate-bash-agent
 description: Validate the bash-scripting skill specifically
 ---
-{ Skill skill="agent-auditor" args="bash-scripting" }
+{ Skill skill="agent-audit" args="bash-scripting" }
 ```
 
 **Fix**: Either pass $ARGUMENTS or be explicit in name that it's bash-specific
@@ -462,9 +462,9 @@ description: Test skill discoverability and triggering
 
 ## Examples
 
-    /test-claude-skill agent-auditor
-    /test-claude-skill skill-auditor
-    /test-claude-skill hook-auditor
+    /test-claude-skill agent-audit
+    /test-claude-skill skill-audit
+    /test-claude-skill hook-audit
 
 {Skill skill="claude-code-test-runner" args="$ARGUMENTS"}
 ```

@@ -1,5 +1,5 @@
 ---
-name: agent-auditor
+name: agent-audit
 description: Validates agent configurations for model selection appropriateness, tool restriction accuracy, focus area quality, and approach completeness. Use when reviewing, auditing, or improving agents, checking model choice (Sonnet/Haiku/Opus), validating tool permissions, assessing focus area specificity, or ensuring approach methodology is complete. Also triggers when user asks about agent best practices, wants to optimize agent design, or needs help with agent validation.
 allowed-tools: [Read, Grep, Glob, Bash]
 ---
@@ -491,21 +491,21 @@ Use this standardized structure for all agent audit reports:
 
 ```text
 User: "Audit my agent"
-→ audit-coordinator invokes agent-auditor
-→ agent-auditor performs specialized validation
+→ audit-coordinator invokes agent-audit
+→ agent-audit performs specialized validation
 → Results returned to audit-coordinator
 → Consolidated with claude-code-evaluator findings
 ```
 
 **Sequence**:
 
-1. agent-auditor (primary) - Agent-specific validation
+1. agent-audit (primary) - Agent-specific validation
 2. claude-code-evaluator (secondary) - General structure validation
 3. claude-code-test-runner (optional) - Functional testing
 
 **Report compilation**:
 
-- agent-auditor findings (model, tools, focus, approach)
+- agent-audit findings (model, tools, focus, approach)
 - claude-code-evaluator findings (YAML, markdown, structure)
 - Unified report with reconciled priorities
 

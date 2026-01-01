@@ -1,5 +1,5 @@
 ---
-name: output-style-auditor
+name: output-style-audit
 description: Validates output-style persona definitions, behavior specifications, and keep-coding-instructions decisions. Use when reviewing, auditing, or improving output-styles, checking persona clarity, validating behavior concreteness, assessing coding-instructions appropriateness, or verifying scope alignment (user vs project). Also triggers when user asks about output-style best practices, wants to improve style effectiveness, or needs help with persona definition.
 allowed-tools: [Read, Grep, Glob, Bash]
 ---

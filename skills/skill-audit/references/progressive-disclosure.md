@@ -211,7 +211,7 @@ name: skill-name
 # Main Content
 ```text
 
-**Example**: bash-audit, hook-auditor
+**Example**: bash-audit, hook-audit
 
 ### Pattern 2: Inline References
 

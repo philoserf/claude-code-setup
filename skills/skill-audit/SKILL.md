@@ -1,5 +1,5 @@
 ---
-name: skill-auditor
+name: skill-audit
 description: Audits skills for discoverability and triggering effectiveness. Use when analyzing skill descriptions, checking trigger phrase coverage, validating progressive disclosure, reviewing SKILL.md structure, ensuring skills are discoverable, testing skill triggering, improving skill descriptions, or evaluating whether a skill will be invoked appropriately. Also triggers when user asks about skill best practices, wants to improve skill discovery, or needs help with skill structure.
 allowed-tools: [Read, Glob, Grep, Bash]
 ---
@@ -379,7 +379,7 @@ No files are modified during audits. Reports can be saved to `~/.claude/logs/eva
 
 ### With Other Auditors
 
-- **hook-auditor**: Specialized hook validation
+- **hook-audit**: Specialized hook validation
 - **claude-code-evaluator**: General correctness and clarity
 - **claude-code-test-runner**: Functional testing
 - **audit-coordinator**: Orchestrates multiple auditors

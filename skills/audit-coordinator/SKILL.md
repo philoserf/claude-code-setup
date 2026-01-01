@@ -1,6 +1,6 @@
 ---
 name: audit-coordinator
-description: Orchestrates comprehensive audits across multiple specialized auditors for Claude Code customizations. Use when user wants complete evaluation of agents, skills, hooks, commands, output-styles, entire setup, needs multi-faceted analysis, wants coordinated audit reports, requests thorough validation, or asks to audit multiple components. Automatically determines which auditors to invoke (agent-auditor, skill-auditor, hook-auditor, command-auditor, output-style-auditor, evaluator, test-runner) based on target type and compiles unified reports with consolidated recommendations.
+description: Orchestrates comprehensive audits across multiple specialized auditors for Claude Code customizations. Use when user wants complete evaluation of agents, skills, hooks, commands, output-styles, entire setup, needs multi-faceted analysis, wants coordinated audit reports, requests thorough validation, or asks to audit multiple components. Automatically determines which auditors to invoke (agent-audit, skill-audit, hook-audit, command-audit, output-style-audit, evaluator, test-runner) based on target type and compiles unified reports with consolidated recommendations.
 allowed-tools: [Read, Glob, Grep, Bash, Skill, Task]
 ---
 
@@ -28,14 +28,14 @@ The audit ecosystem includes:
 **Focus**: YAML validation, required fields, structure, naming conventions, context economy
 **Invocation**: Via Task tool with subagent_type='claude-code-evaluator'
 
-### skill-auditor (Skill)
+### skill-audit (Skill)
 
 **Purpose**: Skill discoverability and triggering effectiveness
 **Scope**: Skills only
 **Focus**: Description quality, trigger phrase coverage, progressive disclosure, discovery score
 **Invocation**: Via Skill tool or auto-triggers on skill-related queries
 
-### hook-auditor (Skill)
+### hook-audit (Skill)
 
 **Purpose**: Hook safety, correctness, and performance
 **Scope**: Hooks only
@@ -49,21 +49,21 @@ The audit ecosystem includes:
 **Focus**: Test generation, execution, edge cases, integration testing
 **Invocation**: Via Task tool with subagent_type='claude-code-test-runner'
 
-### agent-auditor (Skill)
+### agent-audit (Skill)
 
 **Purpose**: Agent-specific validation for model selection, tool restrictions, and focus areas
 **Scope**: Agents only
 **Focus**: Model appropriateness (Sonnet/Haiku/Opus), tool permissions, focus area quality, approach completeness
 **Invocation**: Via Skill tool or auto-triggers on agent-related queries
 
-### command-auditor (Skill)
+### command-audit (Skill)
 
 **Purpose**: Command delegation and simplicity validation
 **Scope**: Commands only
 **Focus**: Delegation clarity, simplicity enforcement (6-80 lines), argument handling, documentation proportionality
 **Invocation**: Via Skill tool or auto-triggers on command-related queries
 
-### output-style-auditor (Skill)
+### output-style-audit (Skill)
 
 **Purpose**: Output-style persona and behavior validation
 **Scope**: Output-styles only
@@ -103,39 +103,39 @@ Use decision matrix based on target type:
 
 **Agent**:
 
-- Primary: agent-auditor (model, tools, focus areas, approach)
+- Primary: agent-audit (model, tools, focus areas, approach)
 - Secondary: claude-code-evaluator (structure)
 - Optional: claude-code-test-runner (if testing requested)
 
 **Skill**:
 
-- Primary: skill-auditor (discoverability)
+- Primary: skill-audit (discoverability)
 - Secondary: claude-code-evaluator (structure)
 - Optional: claude-code-test-runner (functionality)
 
 **Hook**:
 
-- Primary: hook-auditor (safety and correctness)
+- Primary: hook-audit (safety and correctness)
 - Secondary: claude-code-evaluator (structure)
 
 **Command**:
 
-- Primary: command-auditor (delegation, simplicity, arguments)
+- Primary: command-audit (delegation, simplicity, arguments)
 - Secondary: claude-code-evaluator (structure)
 
 **Output-Style**:
 
-- Primary: output-style-auditor (persona, behaviors, coding-instructions)
+- Primary: output-style-audit (persona, behaviors, coding-instructions)
 - Secondary: claude-code-evaluator (structure)
 - Optional: claude-code-test-runner (effectiveness)
 
 **Setup (All)**:
 
-- agent-auditor (all agents)
-- skill-auditor (all skills)
-- hook-auditor (all hooks)
-- command-auditor (all commands)
-- output-style-auditor (all output-styles)
+- agent-audit (all agents)
+- skill-audit (all skills)
+- hook-audit (all hooks)
+- command-audit (all commands)
+- output-style-audit (all output-styles)
 - claude-code-evaluator (comprehensive)
 - Can run in parallel
 
@@ -146,19 +146,19 @@ Execute auditors in appropriate sequence:
 **Sequential** (when results depend on each other):
 
 ```text
-skill-auditor → claude-code-evaluator → test-runner
+skill-audit → claude-code-evaluator → test-runner
 ```
 
 **Parallel** (when independent):
 
 ```text
-skill-auditor (all skills) || hook-auditor (all hooks) || evaluator (agents/commands)
+skill-audit (all skills) || hook-audit (all hooks) || evaluator (agents/commands)
 ```
 
 **Single** (when only one needed):
 
 ```text
-hook-auditor → done
+hook-audit → done
 ```
 
 ### Step 4: Compile Reports
@@ -177,7 +177,7 @@ Consolidate recommendations by priority and provide next steps.
 
 **Workflow**:
 
-1. Invoke skill-auditor for discoverability analysis
+1. Invoke skill-audit for discoverability analysis
 2. Invoke claude-code-evaluator for structure validation
 3. Compile reports
 4. Generate unified recommendations
@@ -195,7 +195,7 @@ Consolidate recommendations by priority and provide next steps.
 
 **Workflow**:
 
-1. Invoke hook-auditor for safety and correctness
+1. Invoke hook-audit for safety and correctness
 2. Optionally invoke evaluator for structure
 3. Compile reports
 4. Generate unified recommendations
@@ -215,8 +215,8 @@ Consolidate recommendations by priority and provide next steps.
 **Workflow**:
 
 1. Invoke claude-code-evaluator for comprehensive setup analysis
-2. Invoke skill-auditor for all skills
-3. Invoke hook-auditor for all hooks
+2. Invoke skill-audit for all skills
+3. Invoke hook-audit for all hooks
 4. Run in parallel when possible
 5. Compile all reports
 6. Generate prioritized recommendations
@@ -234,8 +234,8 @@ Consolidate recommendations by priority and provide next steps.
 
 **Workflow**:
 
-1. Invoke skill-auditor for all skills (can run in parallel)
-2. Invoke hook-auditor for all hooks (can run in parallel)
+1. Invoke skill-audit for all skills (can run in parallel)
+2. Invoke hook-audit for all hooks (can run in parallel)
 3. Compile reports
 4. Generate unified summary
 
@@ -326,50 +326,50 @@ When different auditors assign different priorities:
 
 ```text
 User: "Audit my bash-audit skill"
-Assistant: [Invokes skill-auditor, evaluator; compiles report]
+Assistant: [Invokes skill-audit, evaluator; compiles report]
 ```
 
 **Audit a hook**:
 
 ```text
 User: "Check my validate-config.py hook"
-Assistant: [Invokes hook-auditor; generates report]
+Assistant: [Invokes hook-audit; generates report]
 ```
 
 **Audit entire setup**:
 
 ```text
 User: "Audit my complete Claude Code setup"
-Assistant: [Invokes evaluator, skill-auditor, hook-auditor in parallel; compiles comprehensive report]
+Assistant: [Invokes evaluator, skill-audit, hook-audit in parallel; compiles comprehensive report]
 ```
 
 **Audit multiple skills**:
 
 ```text
 User: "Check all my skills for discoverability"
-Assistant: [Invokes skill-auditor for each skill; generates consolidated report]
+Assistant: [Invokes skill-audit for each skill; generates consolidated report]
 ```
 
 ## Integration with Other Auditors
 
-### With skill-auditor
+### With skill-audit
 
 **When to use together**:
 
 - Comprehensive skill analysis
 - Combining discoverability + structure validation
 
-**Sequence**: skill-auditor → evaluator
+**Sequence**: skill-audit → evaluator
 **Output**: Discovery score + structure assessment
 
-### With hook-auditor
+### With hook-audit
 
 **When to use together**:
 
 - Complete hook validation
 - Safety + structure analysis
 
-**Sequence**: hook-auditor → evaluator (optional)
+**Sequence**: hook-audit → evaluator (optional)
 **Output**: Safety compliance + structure validation
 
 ### With claude-code-evaluator
@@ -398,15 +398,15 @@ Quick reference for which auditors to invoke:
 
 | Target       | Primary Auditor      | Secondary | Optional    | Sequence   |
 | ------------ | -------------------- | --------- | ----------- | ---------- |
-| Skill        | skill-auditor        | evaluator | test-runner | Sequential |
-| Hook         | hook-auditor         | evaluator | -           | Sequential |
-| Agent        | agent-auditor        | evaluator | test-runner | Sequential |
-| Command      | command-auditor      | evaluator | -           | Sequential |
-| Output-Style | output-style-auditor | evaluator | test-runner | Sequential |
-| All Skills   | skill-auditor        | evaluator | -           | Parallel   |
-| All Hooks    | hook-auditor         | evaluator | -           | Parallel   |
-| All Agents   | agent-auditor        | evaluator | -           | Parallel   |
-| All Commands | command-auditor      | evaluator | -           | Parallel   |
+| Skill        | skill-audit        | evaluator | test-runner | Sequential |
+| Hook         | hook-audit         | evaluator | -           | Sequential |
+| Agent        | agent-audit        | evaluator | test-runner | Sequential |
+| Command      | command-audit      | evaluator | -           | Sequential |
+| Output-Style | output-style-audit | evaluator | test-runner | Sequential |
+| All Skills   | skill-audit        | evaluator | -           | Parallel   |
+| All Hooks    | hook-audit         | evaluator | -           | Parallel   |
+| All Agents   | agent-audit        | evaluator | -           | Parallel   |
+| All Commands | command-audit      | evaluator | -           | Parallel   |
 | Setup        | all specialized      | evaluator | test-runner | Parallel   |
 
 ## Summary
