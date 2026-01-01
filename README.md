@@ -4,11 +4,11 @@ A comprehensive, production-ready configuration for [Claude Code](https://claude
 
 ## What's Included
 
-- **9 Commands**: Common workflows (audit, create agents/skills, git automation)
-- **3 Agents**: Specialized assistants (bash scripting, evaluator, test runner)
+- **13 Commands**: Common workflows (audit, create agents/skills, git automation)
+- **2 Agents**: Specialized assistants (evaluator, test runner)
 - **18 Skills**: Advanced capabilities (auditing, authoring, git, PDF processing)
-- **6 Hooks**: Automation (validation, formatting, logging, notifications)
-- **Complete Documentation**: Guides, references, and examples
+- **7 Hooks**: Automation (validation, formatting, logging, notifications)
+- **Complete Documentation**: Decision guides, naming conventions, and references
 
 ## Installation
 
@@ -61,6 +61,23 @@ This is the global configuration directory for Claude Code (`~/.claude`). Settin
 | `skills/`     | Custom skills and capabilities                     | Yes            |
 | `hooks/`      | Event-driven automation hooks                      | Yes            |
 | `references/` | Shared reference files for customizations          | Yes            |
+
+### Reference Documentation
+
+The `references/` directory contains shared documentation for creating and maintaining customizations:
+
+| File                          | Purpose                                                   |
+| ----------------------------- | --------------------------------------------------------- |
+| `decision-matrix.md`          | Quick reference: choosing between components (with Hooks) |
+| `when-to-use-what.md`         | Detailed guide: scenarios, migrations, examples           |
+| `naming-conventions.md`       | Naming patterns for agents, skills, commands, hooks       |
+| `frontmatter-requirements.md` | YAML frontmatter requirements and validation              |
+
+**Key resources**:
+
+- Start with `decision-matrix.md` for quick component selection
+- See `when-to-use-what.md` for detailed scenarios and migration paths
+- Follow `naming-conventions.md` for consistent skill suffix patterns
 
 ### Session Data (Not Tracked)
 
@@ -136,7 +153,7 @@ skills/fix-typos/
 
 ## Active Hooks
 
-This configuration includes 6 active hooks that automate workflows and enforce quality standards:
+This configuration includes 7 active hooks that automate workflows and enforce quality standards:
 
 ### PreToolUse Hooks
 
@@ -177,6 +194,20 @@ Checks:
 - YAML frontmatter syntax in `agents/*.md`, `skills/*/SKILL.md`, `commands/*.md`
 - Required fields presence (name, description, etc.)
 - Proper frontmatter delimiters (`---`)
+
+#### validate-markdown.py
+
+**Trigger**: Before any `Write` operation on `.md` files
+**Purpose**: Validates markdown files using markdownlint for style consistency
+**Behavior**: **Can block** operations if markdown has linting errors
+**Timeout**: 5 seconds
+
+Checks:
+
+- Line length limits (80 characters)
+- Heading formatting and spacing
+- Fenced code block language specification
+- List formatting and blank line requirements
 
 ### PostToolUse Hooks
 
@@ -297,4 +328,4 @@ find debug/ -name "*.txt" -mtime +30 -delete
 
 ---
 
-**Last Updated**: 2025-12-30
+**Last Updated**: 2025-12-31
