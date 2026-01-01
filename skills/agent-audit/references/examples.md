@@ -145,7 +145,7 @@ allowed_tools:
   - Bash
   - Skill
 skills:
-  - test-runner-knowledge
+  - claude-code-audit
 ---
 ```
 
