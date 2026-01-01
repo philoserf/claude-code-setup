@@ -1,6 +1,6 @@
 ---
 name: command-audit
-description: Validates command delegation patterns, simplicity, and documentation proportionality. Use when reviewing, auditing, or improving commands, checking delegation clarity, enforcing simplicity (6-10 lines simple, 30-80 lines documented), validating argument handling, or assessing documentation appropriateness. Also triggers when user asks about command best practices, whether a command should be a skill instead, or needs help with command structure.
+description: Validates command delegation patterns, simplicity, and documentation proportionality. Use when reviewing, auditing, improving, or fixing commands, checking delegation clarity, enforcing simplicity (6-10 lines simple, 30-80 lines documented), validating argument handling, or assessing documentation appropriateness. Also triggers when user asks about command best practices, whether a command should be a skill instead, or needs help with command structure.
 allowed-tools: [Read, Grep, Glob, Bash]
 ---
 
@@ -12,6 +12,7 @@ Advanced command validation guidance:
 - [simplicity-enforcement.md](references/simplicity-enforcement.md) - Simplicity vs complexity assessment and skill migration criteria
 - [argument-handling.md](references/argument-handling.md) - Argument parsing patterns and default value validation
 - [documentation-proportionality.md](references/documentation-proportionality.md) - Documentation level appropriateness (minimal vs full)
+- [report-format.md](references/report-format.md) - Standardized audit report structure and template
 - [examples.md](references/examples.md) - Good vs poor command comparisons and full audit reports
 
 ---
@@ -246,7 +247,7 @@ See [simplicity-enforcement.md](references/simplicity-enforcement.md) for decisi
 
 ### Step 7: Generate Audit Report
 
-Compile findings into standardized report format (see Report Format section below).
+Compile findings into standardized report format. See [report-format.md](references/report-format.md) for detailed structure and template.
 
 ## Command-Specific Validation
 
@@ -384,61 +385,6 @@ Do some validation on the agent.
 **Problem**: 60-line command with no usage docs
 
 **Fix**: Add full documentation (usage, examples)
-
-## Report Format
-
-Use this standardized structure for all command audit reports:
-
-```markdown
-# Command Audit Report: {name}
-
-**Command**: {name}
-**File**: {path to command file}
-**Audited**: {YYYY-MM-DD HH:MM}
-
-## Summary
-
-{1-2 sentence overview of command and assessment}
-
-## Compliance Status
-
-**Overall**: PASS | NEEDS WORK | FAIL
-
-- **Delegation**: ✓/✗ {clear/unclear}
-- **Simplicity**: ✓/✗ {lines} lines - {simple/documented/too complex}
-- **Arguments**: ✓/✗ {handled/ignored}
-- **Documentation**: ✓/✗ {proportional/excessive/insufficient}
-- **Scope Decision**: ✓/✗ {should be command/should be skill}
-
-## Critical Issues
-
-{Must-fix issues that prevent proper functioning}
-
-### {Issue Title}
-
-- **Severity**: CRITICAL
-- **Location**: {line}
-- **Issue**: {description}
-- **Fix**: {specific remediation}
-
-## Important Issues
-
-{Should-fix issues that impact quality}
-
-## Nice-to-Have Improvements
-
-{Polish items for excellence}
-
-## Recommendations
-
-1. **Critical**: {must-fix for correctness}
-2. **Important**: {should-fix for quality}
-3. **Nice-to-Have**: {polish for excellence}
-
-## Next Steps
-
-{Specific actions to improve command quality}
-```
 
 ## Integration with audit-coordinator
 
