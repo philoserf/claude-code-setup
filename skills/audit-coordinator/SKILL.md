@@ -396,8 +396,8 @@ Assistant: [Invokes skill-audit for each skill; generates consolidated report]
 
 Quick reference for which auditors to invoke:
 
-| Target       | Primary Auditor      | Secondary | Optional    | Sequence   |
-| ------------ | -------------------- | --------- | ----------- | ---------- |
+| Target       | Primary Auditor    | Secondary | Optional    | Sequence   |
+| ------------ | ------------------ | --------- | ----------- | ---------- |
 | Skill        | skill-audit        | evaluator | test-runner | Sequential |
 | Hook         | hook-audit         | evaluator | -           | Sequential |
 | Agent        | agent-audit        | evaluator | test-runner | Sequential |
@@ -407,7 +407,7 @@ Quick reference for which auditors to invoke:
 | All Hooks    | hook-audit         | evaluator | -           | Parallel   |
 | All Agents   | agent-audit        | evaluator | -           | Parallel   |
 | All Commands | command-audit      | evaluator | -           | Parallel   |
-| Setup        | all specialized      | evaluator | test-runner | Parallel   |
+| Setup        | all specialized    | evaluator | test-runner | Parallel   |
 
 ## Summary
 
