@@ -1,6 +1,6 @@
 ---
 name: output-style-authoring
-description: Guide for authoring output-styles that transform Claude's behavior and personality. Use when creating, writing, or designing output-styles, persona modes, role transformations, or behavior modifications. Helps design style files, choose when to keep coding instructions, write clear personas, and decide between output-styles, agents, and skills.
+description: Guide for authoring output-styles that transform Claude's behavior and personality. Use when creating, writing, designing, building, reviewing, or improving output-styles, persona modes, role transformations, or behavior modifications. Helps design style files, choose when to keep coding instructions, write clear personas, and decide between output-styles, agents, and skills. Also use when asking how to create output-styles, what makes a good style, learning about style development, or understanding when to use output-styles. Expert in persona design, behavior transformation, and style best practices.
 allowed-tools:
   - Read
   - Grep
@@ -9,13 +9,19 @@ allowed-tools:
   - AskUserQuestion
 ---
 
-## Quick Navigation
+## Reference Files
 
-- [Design Principles](references/design-principles.md) - Core principles for authoring
-- [Design Patterns](references/design-patterns.md) - Common patterns and templates
-- [Complete Examples](references/complete-examples.md) - Production-ready examples
+Comprehensive guidance on output-style authoring:
+
+- [design-principles.md](references/design-principles.md) - Core principles for authoring
+- [design-patterns.md](references/design-patterns.md) - Common patterns and templates
+- [complete-examples.md](references/complete-examples.md) - Production-ready examples
 
 ---
+
+# Output-Style Authoring
+
+This skill provides guidance for authoring effective output-styles that transform Claude's behavior and personality for specialized use cases.
 
 ## About Output-Styles
 
