@@ -30,8 +30,7 @@
       "Write(.env*)",
       "Write(go.sum)",
       "Write(package-lock.json)",
-      "Bash(sudo:*)",
-      "Bash(rm:*)"
+      "Bash(sudo:*)"
     ],
     "defaultMode": "default"
   },
