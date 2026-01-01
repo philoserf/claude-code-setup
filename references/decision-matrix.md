@@ -54,7 +54,7 @@ Quick reference for choosing the right component type. For detailed scenarios, m
 
 ### **Decision Flow**
 
-```
+```text
 Need automatic execution based on task context?
 ├─ Yes → Need isolation from main conversation?
 │  ├─ Yes → **Subagent**

@@ -266,7 +266,7 @@ If you have skills using inconsistent patterns, here's how to align them with th
 
 **Current inconsistency**:
 
-```
+```text
 ✗ agent-auditor/
 ✗ skill-auditor/
 ✗ hook-auditor/
