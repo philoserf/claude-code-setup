@@ -2,50 +2,25 @@
 description: Validates an agent configuration for correctness, clarity, and effectiveness
 ---
 
-# validate-agent
+Validate agent configuration(s) using the agent-auditor skill.
 
-Validates an agent configuration file for correctness, clarity, and effectiveness.
+**Target**: ${ARGUMENTS:-all agents in ~/.claude/agents/}
 
-## Usage
+Perform comprehensive validation:
 
-```bash
-/validate-agent [agent-name]
-```
+- **YAML Frontmatter**: Check required fields (name, description, model)
+- **Model Validity**: Ensure model is sonnet, opus, or haiku
+- **Name Matching**: Verify name matches filename
+- **Tool Restrictions**: Validate allowed/denied tools configuration
+- **Focus Areas**: Review focus area quality and specificity
+- **Approach Section**: Check methodology completeness
+- **Context Economy**: Assess file size and efficiency
+- **Best Practices**: Check against established agent patterns
 
-- **With agent-name**: Validates the specified agent (e.g., `/validate-agent bash`)
-- **Without args**: Validates all agents in ~/.claude/agents/
-
-## What It Does
-
-This command invokes the claude-code-evaluator agent to perform comprehensive validation:
-
-- **YAML Frontmatter**: Checks required fields (name, description, model)
-- **Model Validity**: Ensures model is sonnet, opus, or haiku
-- **Name Matching**: Verifies name matches filename
-- **Structure**: Reviews focus areas and approach sections
-- **Context Economy**: Assesses file size and efficiency
-- **Best Practices**: Checks against established patterns
-
-## Output
-
-Generates a structured evaluation report with:
+Generate a structured evaluation report with:
 
 - Status (PASS/NEEDS WORK/FAIL) for Correctness, Clarity, Effectiveness
 - Specific findings for each category
 - Context usage analysis
 - Prioritized recommendations
 - Next steps
-
-## Examples
-
-```bash
-# Validate the bash agent
-/validate-agent bash
-
-# Validate all agents
-/validate-agent
-```
-
-## Delegation
-
-This command delegates to the **claude-code-evaluator** agent, which uses read-only tools (Read, Grep, Glob, Bash) to analyze agent files without making modifications.
