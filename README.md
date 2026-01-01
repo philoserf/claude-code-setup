@@ -14,14 +14,14 @@ A comprehensive, production-ready configuration for [Claude Code](https://claude
 
 Don't install this. Just steal what you like.
 
-## Customization
+## Quick Start
 
 After installation, review and customize:
 
 1. **Edit `settings.json`** - Adjust tool permissions for your needs
 2. **Modify `CLAUDE.md`** - Add your personal coding principles and preferences
-3. **Adjust hooks** - Enable/disable automation in `hooks/` and `settings.json`
-4. **Add your own** - Create custom commands, skills, and agents
+3. **Use `/create-*` commands** - Create your own agents, skills, commands, output-styles
+4. **Explore references** - See `references/decision-matrix.md` to choose the right component type
 
 ### Personal Files
 
@@ -122,34 +122,90 @@ Claude Code tracks projects in the `projects/` directory using encoded directory
 
 ## Customization
 
-### Adding Slash Commands
+Use the `/create-*` commands for guided creation of customizations:
 
-1. Create a markdown file in `commands/` (e.g., `commands/mycommand.md`)
-2. Define the command behavior in the markdown content
-3. Restart Claude Code to register the command
-4. Use with `/mycommand` in any session
+### Creating Agents
 
-### Adding Skills
-
-1. Create a directory in `skills/` with skill name (verb-noun format)
-2. Create `SKILL.md` as the main skill file with frontmatter metadata
-3. Add reference files in `references/` subdirectory if needed
-4. Skills auto-register on restart
-
-Example structure:
-
-```text
-skills/fix-typos/
-|-- SKILL.md           # Main skill with frontmatter (name: fix-typos)
-+-- references/        # Optional supporting docs
-    +-- examples.md
+```bash
+/create-agent [agent-name]
 ```
 
-### Adding Hooks
+Invokes the **agent-authoring** skill to guide you through:
 
-1. Create a hook definition in `hooks/` directory
-2. Configure trigger events (e.g., before tool calls, after file changes)
-3. Hooks execute automatically on matching events
+- Defining purpose and scope
+- Selecting model (Sonnet/Haiku/Opus)
+- Configuring tool restrictions
+- Writing specific focus areas
+- Documenting approach/methodology
+
+**Examples**: Read-only analyzers, code generators, workflow orchestrators
+
+### Creating Skills
+
+```bash
+/create-skill [skill-name]
+```
+
+Invokes the **skill-authoring** skill to guide you through:
+
+- Defining capability and triggers
+- Writing comprehensive descriptions
+- Organizing with progressive disclosure
+- Structuring references directory
+- Configuring allowed-tools
+
+**Examples**: Domain knowledge, workflows, best practices
+
+### Creating Commands
+
+```bash
+/create-command [command-name]
+```
+
+Invokes the **command-authoring** skill to guide you through:
+
+- Designing delegation patterns
+- Handling arguments
+- Keeping commands simple (6-80 lines)
+- Deciding command vs skill
+
+**Examples**: User shortcuts, quick templates, explicit workflows
+
+### Creating Output-Styles
+
+```bash
+/create-output-style [style-name]
+```
+
+Invokes the **output-style-authoring** skill to guide you through:
+
+- Defining persona and role
+- Specifying concrete behaviors
+- Deciding on keep-coding-instructions
+- Setting appropriate scope (user/project)
+
+**Examples**: Technical writer, QA tester, learning mode
+
+### Creating Hooks
+
+Hooks are created manually as shell scripts. Use the **hook-audit** skill for validation:
+
+```bash
+/validate-hook [hook-name]
+```
+
+**Key requirements**:
+
+- Exit code 0 = allow operation
+- Exit code 2 = block operation
+- Fast execution (<100ms recommended)
+- Configure in `settings.json`
+
+**Examples**: Auto-formatting, validation, logging, policy enforcement
+
+---
+
+**See also**: [decision-matrix.md](references/decision-matrix.md) and [when-to-use-what.md](references/when-to-use-what.md) for help choosing the right component type.
 
 ## Active Hooks
 
