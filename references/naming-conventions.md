@@ -194,7 +194,7 @@ Use the action (audit, review, analyze) not the actor (auditor, reviewer, analyz
 **Examples**:
 
 - `organize-folders/` - Folder organization guidance
-- `test-runner-knowledge/` - Reference knowledge base
+- `bash-scripting/` - Defensive bash scripting guide
 - `markdown-formatter/` - Markdown formatting utilities
 
 **When to use**:
