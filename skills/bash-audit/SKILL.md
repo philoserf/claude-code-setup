@@ -19,7 +19,7 @@ Advanced ShellCheck guidance and workflows:
 
 # Bash Script Audit
 
-Performs comprehensive security and quality audits of shell scripts, combining ShellCheck static analysis with defensive programming standards from the bash-scripting agent.
+Performs comprehensive security and quality audits of shell scripts, combining ShellCheck static analysis with defensive programming standards from the bash-scripting skill.
 
 ## Audit Workflow
 
@@ -127,7 +127,7 @@ grep -n "/tmp/" <script.sh>
 grep -n '`.*`' <script.sh>
 ```
 
-**Defensive Programming Checklist** (from bash-scripting agent):
+**Defensive Programming Checklist** (from bash-scripting skill):
 
 Read the script and verify:
 
@@ -230,7 +230,7 @@ Generate a structured audit report using this template:
 
 ## Reference
 
-See the bash-scripting agent for comprehensive defensive programming standards.
+See the bash-scripting skill for comprehensive defensive programming standards.
 ```
 
 ## Quick Usage Examples
@@ -308,7 +308,7 @@ Assistant: [Provides workflow configuration, references integrations.md]
 
 ## When NOT to Use
 
-- Writing new scripts from scratch (use bash-scripting agent)
+- Writing new scripts from scratch (use bash-scripting skill)
 - Explaining bash concepts (ask directly)
 - Debugging runtime issues (different from static analysis)
 - Scripts in other languages (Python, Perl, etc.)

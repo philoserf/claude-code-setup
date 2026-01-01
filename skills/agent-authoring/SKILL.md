@@ -45,16 +45,18 @@ Focus areas define what the agent is expert in. They should be:
 
 **5-15 focus areas** that cover the agent's expertise comprehensively.
 
-**Example from bash-scripting agent**:
+**Example from claude-code-evaluator agent**:
 
 ```markdown
 ## Focus Areas
 
-- Defensive programming with strict error handling
-- POSIX compliance and cross-platform portability
-- Safe argument parsing and input validation
-- Robust file operations and temporary resource management
-- Production-grade logging and error reporting
+- YAML Frontmatter Validation
+- Markdown Structure
+- Tool Permissions
+- Description Quality
+- File Organization
+- Progressive Disclosure
+- Integration Patterns
 ```
 
 ### 2. Model Selection (Keep It Simple)
@@ -120,7 +122,7 @@ allowed_tools:
   - Bash
 ```
 
-Examples: bash-scripting
+Examples: claude-code-test-runner
 
 **Minimal/focused**:
 
@@ -221,11 +223,11 @@ Look for similar agents that might overlap.
 - Include technologies, frameworks, patterns
 - Avoid vague statements like "best practices"
 
-**Good examples** (from bash-scripting):
+**Good examples** (from claude-code-evaluator):
 
-- "Defensive programming with strict error handling"
-- "POSIX compliance and cross-platform portability"
-- "Safe argument parsing and input validation"
+- "YAML Frontmatter Validation - Required fields, syntax correctness"
+- "Tool Permissions - Appropriateness of allowed-tools, security implications"
+- "Progressive Disclosure - Context economy, reference file usage"
 
 **Bad examples**:
 
@@ -376,9 +378,8 @@ Real-world examples showing what makes a good agent. Each example is analyzed to
 
 **Examples covered**:
 
-1. **claude-code-skill-auditor** - Read-only analyzer pattern
-2. **bash-scripting** - Code generator pattern
-3. **claude-code-evaluator** - Evaluator pattern
+1. **claude-code-evaluator** - Read-only evaluator pattern
+2. **claude-code-test-runner** - Test runner with reporting pattern
 
 Each example includes the full frontmatter, focus areas, and analysis of what makes it effective.
 

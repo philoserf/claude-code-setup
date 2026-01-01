@@ -127,74 +127,79 @@ Output: Markdown evaluation report with:
 
 ---
 
-## Good Agent Example 2: bash-scripting
+## Good Agent Example 2: claude-code-test-runner
 
-**File**: `agents/bash-scripting.md`
+**File**: `agents/claude-code-test-runner.md`
 
 ### Frontmatter
 
 ```yaml
 ---
-name: bash-scripting
+name: claude-code-test-runner
 model: sonnet
 allowed_tools:
   - Read
   - Write
-  - Edit
-  - Grep
   - Glob
+  - Grep
   - Bash
+  - Skill
+skills:
+  - test-runner-knowledge
 ---
 ```
 
-### Focus Areas (5 total)
+### Focus Areas (6 total)
 
 ```markdown
 ## Focus Areas
 
-- Defensive programming with set -euo pipefail and trap handlers
-- POSIX compliance validated with shellcheck --shell=sh
-- Safe argument parsing with getopts and input validation
-- Robust file operations with mktemp and automatic cleanup
-- Production logging to stderr with ISO 8601 timestamps
+- Sample Query Generation - Creating realistic test queries based on descriptions
+- Expected Behavior Validation - Verifying outputs match specifications
+- Regression Testing - Ensuring changes don't break existing functionality
+- Edge Case Identification - Finding unusual scenarios and boundary conditions
+- Integration Testing - Validating customizations work together
+- Performance Assessment - Analyzing context usage and efficiency
 ```
 
 **Analysis**:
 
-- ✓ Count: 5 focus areas (minimum viable, could expand to 8-10)
-- ✓ Specific: All mention concrete technologies (shellcheck, getopts, mktemp)
-- ✓ Concrete: Actionable patterns (set -euo pipefail, not "error handling")
-- ✓ Technology-specific: References Bash-specific tools
+- ✓ Count: 6 focus areas (good coverage for testing domain)
+- ✓ Specific: Each area clearly defined with concrete purpose
+- ✓ Concrete: Actionable testing types (query generation, validation, regression)
+- ✓ Comprehensive: Covers functional, integration, and performance testing
 
-**Score**: 8.5/10 (Good, could expand focus areas)
+**Score**: 9/10 (Excellent focus area coverage)
 
 ### Approach Section
 
 ```markdown
-## Approach
+## Test Framework
 
-1. Analyze requirements and target platforms (Linux, macOS, BSD)
-2. Design script using defensive programming principles
-3. Implement with POSIX compliance (shellcheck validation)
-4. Add comprehensive error handling (trap, exit codes)
-5. Test on multiple platforms
-6. Document with inline comments
+### Test Types
 
-Output: Production-ready Bash script with:
+- Functional Tests: Verify core functionality works as specified
+- Integration Tests: Ensure customizations work together
+- Usability Tests: Assess user experience quality
 
-- POSIX compliance (passes shellcheck --shell=sh)
-- Defensive programming (set -euo pipefail, trap handlers)
-- Safe file operations (mktemp, automatic cleanup)
-- Comprehensive error handling (meaningful exit codes)
-- Production logging (ISO 8601 timestamps to stderr)
+### Test Process
+
+1. Identify customization type (agent/skill/command/hook)
+2. Read documentation and configuration
+3. Generate test cases based on description
+4. Execute tests (read-only or active mode)
+5. Compare results to expected behavior
+6. Generate structured test report
+
+Output: Test report with pass/fail counts, edge cases, and recommendations
 ```
 
 **Analysis**:
 
-- ✓ Process: Clear 6-step methodology
-- ✓ Output: Specific deliverable with format
-- ✓ Quality: Standards defined (shellcheck, exit codes)
-- ✓ Integration: Uses all focus area expertise
+- ✓ Process: Clear 6-step testing methodology
+- ✓ Output: Structured test report format specified
+- ✓ Quality: Test types clearly categorized
+- ✓ Integration: Comprehensive testing framework
 
 **Score**: 10/10 (Excellent)
 
@@ -204,25 +209,27 @@ Output: Production-ready Bash script with:
 
 **Justification**:
 
-- Code generation task (needs Sonnet minimum)
-- Defensive programming patterns require reasoning
-- Haiku insufficient for quality code generation
-- Sonnet handles complexity well
+- Test generation requires reasoning about expected behavior
+- Query synthesis needs creativity and understanding
+- Report generation requires structured thinking
+- Sonnet provides good balance for testing complexity
 
 **Verdict**: ✓ Appropriate choice
 
 ### Tool Restrictions
 
-**Tools**: [Read, Write, Edit, Grep, Glob, Bash]
+**Tools**: [Read, Write, Glob, Grep, Bash, Skill]
 
-**Pattern**: Code generator
+**Pattern**: Test runner with reporting
 
 **Security analysis**:
 
-- ✓ Write for new scripts (required for code generation)
-- ✓ Edit for modifications (required for refactoring)
-- ✓ Bash for validation/testing (shellcheck, testing)
-- ✓ All tools justified by role
+- ✓ Read for examining customizations (required)
+- ✓ Write for test reports (required for output)
+- ✓ Glob/Grep for file discovery (required)
+- ✓ Bash for file analysis (read-only commands)
+- ✓ Skill for active testing (optional, controlled)
+- ✓ All tools justified by testing role
 
 **Verdict**: ✓ Appropriate permissions
 
@@ -230,18 +237,18 @@ Output: Production-ready Bash script with:
 
 **Status**: PASS
 
-**Summary**: Good agent design with specific focus areas, clear methodology, appropriate model, and justified tool permissions.
+**Summary**: Excellent agent design with comprehensive focus areas, clear testing methodology, appropriate model selection, and justified tool permissions for test execution and reporting.
 
 **Scores**:
 
 - Model Selection: 10/10
 - Tool Restrictions: 10/10
-- Focus Areas: 8.5/10 (could expand)
+- Focus Areas: 9/10 (comprehensive coverage)
 - Approach: 10/10
 
 **Overall**: 9.5/10 (Excellent)
 
-**Recommendation**: Consider expanding focus areas to 8-10 items (add cross-platform testing, CI/CD integration, idempotency patterns).
+**Recommendation**: Well-structured testing agent. Consider adding performance benchmarking focus area for timing analysis.
 
 ---
 
@@ -695,14 +702,14 @@ None
 
 ## Summary Comparison
 
-| Aspect        | claude-code-evaluator | bash-scripting | poor-agent  | fastapi-generator |
-| ------------- | --------------------- | -------------- | ----------- | ----------------- |
-| Model         | sonnet ✓              | sonnet ✓       | opus ✗      | sonnet ✓          |
-| Tools         | 4 tools ✓             | 6 tools ✓      | missing ✗   | 6 tools ✓         |
-| Focus Areas   | 12 areas ✓            | 5 areas ✓      | 3 generic ✗ | 4 areas ⚠         |
-| Approach      | Complete ✓            | Complete ✓     | vague ✗     | incomplete ⚠      |
-| Overall Score | 10/10                 | 9.5/10         | 1/10        | 6.5/10            |
-| Status        | PASS                  | PASS           | FAIL        | NEEDS WORK        |
+| Aspect        | claude-code-evaluator | claude-code-test-runner | poor-agent  | fastapi-generator |
+| ------------- | --------------------- | ----------------------- | ----------- | ----------------- |
+| Model         | sonnet ✓              | sonnet ✓                | opus ✗      | sonnet ✓          |
+| Tools         | 4 tools ✓             | 6 tools ✓               | missing ✗   | 6 tools ✓         |
+| Focus Areas   | 12 areas ✓            | 6 areas ✓               | 3 generic ✗ | 4 areas ⚠         |
+| Approach      | Complete ✓            | Complete ✓              | vague ✗     | incomplete ⚠      |
+| Overall Score | 10/10                 | 9.5/10                  | 1/10        | 6.5/10            |
+| Status        | PASS                  | PASS                    | FAIL        | NEEDS WORK        |
 
 **Key Takeaways**:
 
@@ -747,4 +754,4 @@ None
 3. Expand focus areas to 5+ specific items
 4. Add complete approach with steps + output
 
-**When in Doubt**: Compare to claude-code-evaluator or bash-scripting as exemplars.
+**When in Doubt**: Compare to claude-code-evaluator or claude-code-test-runner as exemplars.

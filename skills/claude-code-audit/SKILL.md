@@ -206,8 +206,8 @@ This skill orchestrates specialized agents:
 ```text
 User: "Review the bash agent"
 
-1. Read ~/.claude/agents/bash-scripting.md
-2. Invoke claude-code-evaluator agent on bash-scripting.md
+1. Read ~/.claude/agents/claude-code-test-runner.md
+2. Invoke claude-code-evaluator agent on claude-code-test-runner.md
 3. Present findings to user
 4. Ask if they want detailed recommendations
 ```

@@ -34,8 +34,8 @@ Validates agent configurations for model selection, tool restrictions, focus are
 **Example usage**:
 
 ```text
-User: "Audit my bash-scripting agent"
-→ Reads agents/bash-scripting.md
+User: "Audit my bash-scripting skill"
+→ Reads skills/bash-scripting/SKILL.md
 → Validates model (Sonnet), tools, focus areas, approach
 → Generates report with findings and recommendations
 ```
@@ -82,7 +82,7 @@ Identify the agent file to audit:
 
 ```bash
 # Single agent
-Read agents/bash-scripting.md
+Read skills/bash-scripting/SKILL.md
 
 # Find all agents
 Glob agents/*.md
@@ -220,7 +220,7 @@ See [approach-methodology.md](references/approach-methodology.md) for templates.
 
 ```bash
 # Count lines
-wc -l agents/bash-scripting.md
+wc -l skills/bash-scripting/SKILL.md
 ```
 
 **Targets**:

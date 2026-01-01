@@ -365,7 +365,7 @@ allowed-tools: [Task, Skill, Read]
 ```yaml
 ---
 name: validate-bash-agent
-description: Validate the bash-scripting agent
+description: Validate the bash-scripting skill
 ---
 { Skill skill="agent-auditor" args="bash-scripting" }
 ```
@@ -389,7 +389,7 @@ description: Validate any agent
 ```yaml
 ---
 name: validate-bash-agent
-description: Validate the bash-scripting agent specifically
+description: Validate the bash-scripting skill specifically
 ---
 { Skill skill="agent-auditor" args="bash-scripting" }
 ```

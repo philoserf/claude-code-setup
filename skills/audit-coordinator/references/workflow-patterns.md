@@ -122,7 +122,7 @@ Step 2: Generate focused report
 **Example Workflow**:
 
 ```text
-User: "Review my bash-scripting agent"
+User: "Review my bash-scripting skill"
 
 Step 1: Invoke claude-code-evaluator
   - Validate frontmatter

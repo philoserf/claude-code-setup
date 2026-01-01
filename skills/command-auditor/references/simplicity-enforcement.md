@@ -352,7 +352,7 @@ Generate report.
 **Problem**:
 
 ```markdown
-{Read file_path="agents/bash-scripting.md"}
+{Read file_path="agents/claude-code-test-runner.md"}
 {Grep pattern="model:" path="agents/"}
 {Task subagent_type="claude-code-evaluator" prompt="..."}
 {Write file_path="report.md" content="..."}

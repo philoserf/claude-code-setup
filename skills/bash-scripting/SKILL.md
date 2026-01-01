@@ -1,9 +1,14 @@
 ---
 name: bash-scripting
-description: Master of defensive Bash scripting for production automation, CI/CD pipelines, and system utilities. Expert in safe, portable, and testable shell scripts.
-allowed-tools: ["Read", "Edit", "Write", "Grep", "Glob", "Bash", "Bash(git:*)"]
-model: sonnet
+description: Master of defensive Bash scripting for production automation, CI/CD pipelines, and system utilities. Expert in safe, portable, and testable shell scripts. Use when writing, creating, authoring, generating, or developing bash scripts, shell scripts, or automation. Also triggers for learning bash best practices, understanding defensive programming patterns, implementing error handling, ensuring portability, following shellcheck recommendations, or applying production-grade bash standards. Helps with CI/CD scripts, system utilities, deployment automation, and production bash code.
+allowed-tools: [Read, Edit, Write, Grep, Glob, Bash]
 ---
+
+# Bash Scripting
+
+Master guide for defensive Bash scripting following production-grade best practices. This skill provides comprehensive patterns, standards, and techniques for writing safe, portable, and maintainable shell scripts for automation, CI/CD pipelines, and system utilities.
+
+Use this skill when writing new bash scripts or improving existing ones to follow defensive programming principles.
 
 ## Focus Areas
 
