@@ -11,352 +11,171 @@ allowed-tools:
 
 ## Reference Files
 
-Comprehensive guidance on output-style authoring:
+**Start here:**
 
-- [design-principles.md](references/design-principles.md) - Core principles for authoring
-- [design-patterns.md](references/design-patterns.md) - Common patterns and templates
+- [minimal-template.md](references/minimal-template.md) - 40-line baseline template (start simple!)
+- [persona-strength-spectrum.md](references/persona-strength-spectrum.md) - Passive/Active/Dominant modes
+
+**Deep dives:**
+
+- [design-principles.md](references/design-principles.md) - Core authoring principles
+- [design-patterns.md](references/design-patterns.md) - Pattern catalog with templates
 - [complete-examples.md](references/complete-examples.md) - Production-ready examples
+- [anti-patterns.md](references/anti-patterns.md) - Warning signs and smells
 
 ---
 
 # Output-Style Authoring
 
-This skill provides guidance for authoring effective output-styles that transform Claude's behavior and personality for specialized use cases.
+Guide for creating output-styles that transform Claude's behavior and personality.
 
-## About Output-Styles
+## Quick Start
 
-Output-styles are stored system prompts that transform Claude Code into specialized agents for different purposes. They modify Claude's core system prompt to change behavior, personality, and approach for an entire session.
+**New to output-styles?** Start with [minimal-template.md](references/minimal-template.md)—a 40-line baseline.
 
-**Key characteristics**:
+## What Are Output-Styles?
 
-- **System prompt modification** - Directly replaces/modifies the default system prompt
-- **Session-wide behavior** - Affects entire conversation after activation
-- **Personality transformation** - Changes how Claude responds and approaches tasks
-- **Full capability retention** - Claude keeps all tools (Read, Write, Bash, etc.)
-- **User-controlled** - Activate with `/output-style style-name`
+System prompts that transform Claude into specialized personas. They modify behavior, personality, and approach for an entire session while keeping all tools available.
 
-**When to use output-styles**:
+**Use when:**
 
-- Transform Claude into a different role (teacher, writer, analyst, etc.)
-- Change response style for entire session
-- Non-engineering use cases (content editing, data analysis, teaching)
-- Persistent behavior modification needed
+- Transforming into different roles (writer, analyst, teacher)
+- Changing response style for entire session
+- Non-engineering use cases need different behavior
+- Want persistent personality change
+
+**Don't use when:** Need tool restrictions or separate context (use Agent or Skill instead)
 
 ## Core Principles
 
-See [design-principles.md](references/design-principles.md) for detailed principles. Key points:
+**See [design-principles.md](references/design-principles.md) for deep dive.**
 
-1. **Transform Behavior** - Output-styles change WHO Claude is and HOW it responds
-2. **Keep It Focused** - Define clear, specific personas or roles
-3. **Coding Instructions Decision** - Use `keep-coding-instructions` appropriately
+1. **Transform WHO, not HOW** - Define persona and approach, not rigid processes
+2. **Start at 40-60 lines** - Add complexity only when proven necessary
+3. **Choose strength wisely** - Most should be Active, not Passive or Dominant (see [persona-strength-spectrum.md](references/persona-strength-spectrum.md))
 
-## Output-Style Structure
+## File Structure
 
-### Required Elements
+**Required:**
 
-Every output-style needs:
+- YAML frontmatter with `name` and `description`
+- Clear persona definition
+- Concrete behavioral directives
 
-1. **Frontmatter** - YAML metadata between `---` markers
-2. **name field** - Identifier for the style (matches filename)
-3. **description field** - User-facing explanation shown in `/output-style` menu
-4. **Content** - The actual behavior instructions
+**Optional:**
 
-### Optional Elements
+- `keep-coding-instructions: true/false` (default: false)
+- Output format specification
+- Boundaries (what you don't do)
 
-- `keep-coding-instructions` - Whether to preserve engineering guidance (default: `false`)
-- Sections organizing the persona/behavior
-- Examples and patterns
-- Output format specifications
+**Location:**
 
-### File Location
+- User: `~/.claude/output-styles/style-name.md` (just you)
+- Project: `.claude/output-styles/style-name.md` (whole team)
 
-**User scope** (just you):
+**Patterns:** See [design-patterns.md](references/design-patterns.md) for Role Transformation, Teaching Mode, Specialized Professional, and Quality/Audit templates.
 
-- `~/.claude/output-styles/style-name.md`
-- Applies across all projects
+## Creation Process
 
-**Project scope** (whole team):
+**Prefer starting with [minimal-template.md](references/minimal-template.md) and customizing.**
 
-- `.claude/output-styles/style-name.md`
-- Checked into git, shared with team
+### Step 1: Define Role
 
-## Output-Style Design Patterns
-
-See [design-patterns.md](references/design-patterns.md) for complete catalog:
-
-- **Role Transformation** - Different profession personas
-- **Teaching/Learning Mode** - Educational modes
-- **Specialized Professional** - Domain expert roles
-- **Quality/Audit Role** - Review and audit focus
-
-## Output-Style Creation Process
-
-### Step 1: Define Purpose and Role
-
-**Questions to ask**:
-
-- What role/persona should Claude adopt?
-- What's the primary use case?
-- Is this engineering-related or not?
-- Does a similar style already exist?
-
-**Check existing styles**:
-
-```bash
-ls -la ~/.claude/output-styles/
-ls -la .claude/output-styles/  # Project scope
-/output-style  # List available styles
-```
-
-**Use AskUserQuestion** to clarify ambiguities.
+- What persona should Claude adopt?
+- Is this engineering-related? (determines `keep-coding-instructions`)
+- Does similar style exist? (`/output-style` to list)
+- Use AskUserQuestion if unclear
 
 ### Step 2: Choose Scope
 
-**User scope** (`~/.claude/output-styles/`):
+- User (`~/.claude/output-styles/`): Just you, all projects
+- Project (`.claude/output-styles/`): Whole team, in git
 
-- Just for you
-- Across all projects
-- Personal styles
+### Step 3: Decide Coding Instructions
 
-**Project scope** (`.claude/output-styles/`):
+- `keep-coding-instructions: false` - Non-engineering roles (writer, teacher, analyst)
+- `keep-coding-instructions: true` - Engineering roles (security, DevOps, QA)
+- **Default:** false
 
-- For entire team
-- Checked into git
-- Project-specific styles
+### Step 4: Write Persona
 
-### Step 3: Decide on Coding Instructions
+**Good:** "You are a technical writer focused on clarity and accessibility."
+**Bad:** "You help write documentation." (too vague)
 
-**Set `keep-coding-instructions: false` when**:
+Include WHO Claude is, primary goal, and key differentiators.
 
-- Role is non-engineering (writer, teacher, analyst)
-- Want to completely replace default behavior
-- Coding context isn't relevant
+### Step 5: Define Behaviors
 
-**Set `keep-coding-instructions: true` when**:
+**Use concrete directives, not adjectives.**
 
-- Specialized engineering role (security, DevOps, QA)
-- Want to augment (not replace) engineering guidance
-- Coding is still part of the role
+**Good:** "1. Start with why it matters 2. Use examples within 3 paragraphs 3. Define terms on first use"
+**Bad:** "Be helpful and explanatory" (doesn't change behavior)
 
-**Default if omitted**: `false`
-
-### Step 4: Write Clear Role Definition
-
-**Good role definition**:
-
-```markdown
-# Technical Writer Mode
-
-You are a technical writer focused on clarity and accessibility.
-Your goal is to make complex topics understandable to beginners.
-```
-
-**Bad role definition**:
-
-```markdown
-# DON'T DO THIS
-
-You help write documentation. # Too vague
-```
-
-**Include**:
-
-- Who Claude is in this mode
-- Primary goal or focus
-- Key differentiators from default behavior
-
-### Step 5: Define Specific Behaviors
-
-**Use concrete, actionable instructions**:
-
-**Good** (concrete):
-
-```markdown
-## Your Approach
-
-1. Start each explanation with "why it matters"
-2. Include a concrete example within 3 paragraphs
-3. Use ASCII diagrams for relationships
-4. End with "next steps" section
-```
-
-**Bad** (abstract):
-
-```markdown
-## DON'T DO THIS
-
-Be more helpful and explanatory. # Too vague
-```
-
-**Structure behaviors as**:
-
-- Numbered steps
-- Bulleted patterns
-- If/then rules
-- Output format specifications
+See [anti-patterns.md](references/anti-patterns.md) #7 for more on this.
 
 ### Step 6: Write Description
 
-**Requirements**:
+100-200 chars, explains what + when to use
 
-- Explains what the style does
-- Includes when to use it
-- Contains trigger terms
-- 100-200 characters ideal
+**Good:** "Clear, beginner-friendly documentation with examples"
+**Bad:** "Helps with writing" (too vague)
 
-**Good examples**:
+### Step 7: Create File
 
-```yaml
-description: Writes clear, beginner-friendly documentation with examples and diagrams
-description: Collaborative learn-by-doing mode with TODO(human) markers for student implementation
-description: Security-focused review of code, configurations, and systems
-```
+- Filename: `style-name.md` (lowercase-with-hyphens)
+- Location: `~/.claude/output-styles/` or `.claude/output-styles/`
+- Use [minimal-template.md](references/minimal-template.md) as starting point
 
-**Bad examples**:
+### Step 8: Test
 
-```yaml
-description: Helps with writing  # Too vague
-description: A style for stuff  # Useless
-```
+Activate with `/output-style style-name` and verify:
 
-### Step 7: Create the File
+1. Appears in menu
+2. Behavior changes noticeably
+3. Adds value to session
+4. Test mid-session deactivation (shouldn't break conversation)
 
-**File location**:
+## When to Use What
 
-- User: `~/.claude/output-styles/style-name.md`
-- Project: `.claude/output-styles/style-name.md`
+**See [when-to-use-what.md](../../references/when-to-use-what.md) for complete guide.**
 
-**Filename conventions**:
+**Quick:**
 
-- Use lowercase-with-hyphens: `style-name.md`
-- Match the `name` field in frontmatter
-- Descriptive, clear purpose
+- **Output-Style:** Transform behavior for entire session (writer, analyst, teacher)
+- **Agent:** Separate context with tool restrictions
+- **Skill:** Conditional knowledge, auto-triggers
 
-**Basic template**:
+## Critical Warnings
 
-```markdown
----
-name: style-name
-description: What this does and when to use it
-keep-coding-instructions: false
----
+**See [anti-patterns.md](references/anti-patterns.md) for full diagnostic checklist.**
 
-# Role/Persona Name
+**Common smells:**
 
-[Role definition]
+1. **Persona vs process blur** - Specifying HOW to execute, not WHO Claude is
+2. **Over 100 lines** - Likely over-built; audit each section
+3. **Reads like user checklist** - Instructions for user, not Claude's behavior
+4. **Mid-session removal breaks conversation** - Too invasive
+5. **Trying to restrict tools** - Can't enforce; use Agent/Skill instead
 
-## Key Behaviors
+**Quick tests:**
 
-[Specific, concrete behaviors]
+- Can you describe persona in one sentence?
+- Would mid-session deactivation break conversation?
+- Is this WHO or HOW? (should be WHO)
 
-## [Optional: Approach/Methodology]
+## Examples & Resources
 
-[How to handle tasks in this role]
+- [minimal-template.md](references/minimal-template.md) - Start here (40-line baseline)
+- [complete-examples.md](references/complete-examples.md) - Production examples
+- [persona-strength-spectrum.md](references/persona-strength-spectrum.md) - Passive/Active/Dominant modes
+- [anti-patterns.md](references/anti-patterns.md) - Warning signs and recovery
 
-## [Optional: Output Format]
+## Quick Checklist
 
-[Structure of responses if applicable]
-```
-
-### Step 8: Test the Output-Style
-
-**Test activation**:
-
-```text
-/output-style style-name
-```
-
-**Verify**:
-
-1. Style appears in `/output-style` menu
-2. Description is clear
-3. Behavior noticeably changes
-4. Claude follows the instructions
-5. Style adds value to the session
-
-**Test queries**: Make requests that should trigger the persona's unique behaviors.
-
-## Output-Styles vs Agents vs Skills
-
-**📄 See [when-to-use-what.md](../../references/when-to-use-what.md) for complete decision guide including commands (shared)**
-
-**Quick guide**:
-
-**Use an Output-Style when**:
-
-- Want to transform Claude's behavior for entire session
-- Changing roles/personas (engineer → writer → analyst)
-- Non-engineering use cases
-- Behavior change should persist
-- Don't need tool restrictions
-
-**Use an Agent when**:
-
-- Need separate context window
-- Want different tool access
-- Complex multi-step task needs isolation
-- Want to delegate and return to main context
-
-**Use a Skill when**:
-
-- Want knowledge applied conditionally
-- Auto-triggering based on context
-- Teaching Claude specific patterns
-- Main conversation should decide when to apply
-
-## Common Mistakes to Avoid
-
-1. **Trying to restrict tools** - Output-styles can't block tools (use Skills/Agents)
-2. **Too vague/abstract** - "Be helpful" doesn't transform behavior
-3. **Missing description** - Users won't know when to use the style
-4. **Too complex** - Keep focused on one clear role
-5. **Wrong scope choice** - Personal style in project folder or vice versa
-6. **Forgetting coding instructions** - Should QA tester keep engineering context? Yes!
-7. **No concrete behaviors** - Abstract instructions don't guide Claude effectively
-8. **Not testing activation** - Always test `/output-style style-name` works
-
-## Examples from Common Use Cases
-
-See [complete-examples.md](references/complete-examples.md) for full examples:
-
-- **Content Editor** - Non-engineering structured editing
-- **QA Tester** - Engineering test coverage focus
-- **Project Manager** - Planning and organization
-
-## Tips for Success
-
-1. **Be specific about the role** - "Technical writer" not "helper"
-2. **Use concrete behaviors** - Numbered steps, specific patterns
-3. **Test the style** - Activate and verify behavior changes
-4. **Keep it focused** - One clear role, not multiple personalities
-5. **Match the scope** - User vs project based on who needs it
-6. **Consider coding instructions** - Keep for engineering roles
-7. **Write clear description** - Users need to know when to use it
-8. **Provide examples** - Show what output should look like
-9. **Define boundaries** - What the role does and doesn't do
-10. **Iterate** - Refine based on actual usage
-
-## Quick Start Checklist
-
-Creating a new output-style:
-
-- [ ] Identify clear role/persona to create
-- [ ] Choose scope (user `~/.claude/` or project `.claude/`)
-- [ ] Decide on `keep-coding-instructions` value
-- [ ] Write descriptive name (lowercase-with-hyphens)
-- [ ] Write clear description (100-200 chars)
-- [ ] Define specific, concrete behaviors
-- [ ] Create file at correct location
-- [ ] Test with `/output-style style-name`
-- [ ] Verify behavior changes as expected
-- [ ] Refine based on actual usage
-
-## Reference to Standards
-
-For detailed standards and validation:
-
-- **Naming conventions** - Use lowercase-with-hyphens for style names
-- **Frontmatter requirements** - name, description, keep-coding-instructions (optional)
-- **File organization** - `~/.claude/output-styles/` or `.claude/output-styles/`
-
-See `claude-code-audit` skill for comprehensive standards.
+- [ ] Clear role/persona
+- [ ] User or project scope
+- [ ] `keep-coding-instructions` decision
+- [ ] Concrete behaviors (not adjectives)
+- [ ] 40-80 lines (justify if longer)
+- [ ] Test activation and deactivation
+- [ ] Refine based on usage
