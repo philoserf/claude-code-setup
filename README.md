@@ -72,12 +72,14 @@ The `references/` directory contains shared documentation for creating and maint
 | `when-to-use-what.md`         | Detailed guide: scenarios, migrations, examples           |
 | `naming-conventions.md`       | Naming patterns for agents, skills, commands, hooks       |
 | `frontmatter-requirements.md` | YAML frontmatter requirements and validation              |
+| `delegation-patterns.md`      | Command delegation patterns and validation criteria       |
 
 **Key resources**:
 
 - Start with `decision-matrix.md` for quick component selection
 - See `when-to-use-what.md` for detailed scenarios and migration paths
 - Follow `naming-conventions.md` for consistent skill suffix patterns
+- Read `delegation-patterns.md` for command delegation best practices
 
 ### Session Data (Not Tracked)
 
@@ -384,4 +386,4 @@ find debug/ -name "*.txt" -mtime +30 -delete
 
 ---
 
-**Last Updated**: 2025-12-31
+**Last Updated**: 2026-01-02
