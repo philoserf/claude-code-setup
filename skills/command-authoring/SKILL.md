@@ -91,52 +91,9 @@ Unlike skills (which auto-trigger), commands require user action.
 - User doesn't need to remember to invoke it
 - Complex domain knowledge that enhances conversation
 
-### Commands Use Descriptive Delegation
+### Delegation Pattern
 
-**Core pattern**: Commands describe what skill/agent to invoke using natural language. Claude interprets these descriptions and performs the delegation automatically.
-
-**NOT**:
-
-```markdown
-{Skill skill="bash-audit" args="$ARGUMENTS"}
-```
-
-**YES**:
-
-```markdown
-**Delegation:** Invokes the **bash-audit** skill for comprehensive shell script analysis.
-```
-
-**Why this works**:
-
-- Claude reads the command file and interprets the delegation statement
-- No explicit tool invocation syntax needed
-- More readable and self-documenting
-- Natural language, not code
-
-**Three delegation patterns**:
-
-1. **With "Delegation" label** (most common):
-
-   ```markdown
-   **Delegation:** Invokes the **skill-name** skill for [purpose].
-   ```
-
-2. **Descriptive without label**:
-
-   ```markdown
-   Execute the skill-name skill to handle [purpose].
-   ```
-
-3. **Multi-line with target**:
-
-   ```markdown
-   Validate [target] using the skill-name skill.
-
-   **Target**: ${ARGUMENTS:-default value}
-   ```
-
-**See**: `~/.claude/commands/README.md` for complete delegation pattern guide.
+Commands use descriptive delegation - see `skills/command-audit/references/delegation-patterns.md` for complete validation criteria and patterns.
 
 ## Command Structure
 
