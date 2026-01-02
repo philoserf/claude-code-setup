@@ -114,4 +114,4 @@ Description must be at least 50 characters
 1. Generate 5-10 sample user queries that should trigger the skill
 2. Ask: "Would these queries trigger based on the description?"
 3. Add missing keywords and trigger phrases to the description
-4. Use the `test-claude-skill` command to validate discoverability
+4. Use the `audit-skill` command to validate discoverability

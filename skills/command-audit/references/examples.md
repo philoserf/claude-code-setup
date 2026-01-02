@@ -49,25 +49,25 @@ Audit shell scripts for best practices, security, and portability.
 
 ---
 
-## Good Command Example 2: validate-agent
+## Good Command Example 2: audit-agent
 
-**File**: `commands/validate-agent.md`
+**File**: `commands/audit-agent.md`
 
 ### Content
 
 ```yaml
 ---
-name: validate-agent
+name: audit-agent
 description: Comprehensive agent configuration validation
 ---
 
-# validate-agent
+# audit-agent
 
 Validates agent configurations using specialized auditors.
 
 ## Usage
 
-    /validate-agent [agent-name]
+    /audit-agent [agent-name]
 
 ## What It Does
 
@@ -77,8 +77,8 @@ Validates agent configurations using specialized auditors.
 
 ## Examples
 
-    /validate-agent bash-scripting
-    /validate-agent claude-code-evaluator
+    /audit-agent bash-scripting
+    /audit-agent claude-code-evaluator
 
 **Delegation:** Invokes the **agent-audit** skill for comprehensive validation.
 ```
@@ -265,7 +265,7 @@ Write report to file.
 
 ```yaml
 ---
-name: validate-agent
+name: audit-agent
 description: Validate agent configurations
 ---
 { Skill skill="agent-audit" }
@@ -273,7 +273,7 @@ description: Validate agent configurations
 
 **Issue**: User provides argument but command ignores it
 
-**User types**: `/validate-agent bash-scripting`
+**User types**: `/audit-agent bash-scripting`
 
 **Result**: "bash-scripting" is lost
 
@@ -281,7 +281,7 @@ description: Validate agent configurations
 
 ```yaml
 ---
-name: validate-agent
+name: audit-agent
 description: Validate agent configurations
 ---
 { Skill skill="agent-audit" args="$ARGUMENTS" }
@@ -357,7 +357,7 @@ When you run this command, it invokes the test runner...
 
 ## Related Commands
 
-- /validate-agent
+- /audit-agent
 - /audit-bash
 
 {Skill skill="claude-code-test-runner" args="$ARGUMENTS"}
@@ -453,7 +453,7 @@ description: Validate the bash-scripting skill
 
 ```yaml
 ---
-name: validate-agent
+name: audit-agent
 description: Validate any agent
 ---
 { Skill skill="agent-audit" args="$ARGUMENTS" }
@@ -475,9 +475,9 @@ description: Validate the bash-scripting skill specifically
 
 ## Full Audit Report Example
 
-### Command: test-claude-skill
+### Command: audit-skill
 
-**File**: `commands/test-claude-skill.md`
+**File**: `commands/audit-skill.md`
 
 **Audited**: 2025-01-15 18:30
 
@@ -509,14 +509,14 @@ None
 
 ```yaml
 ---
-name: test-claude-skill
+name: audit-skill
 description: Test skill discoverability and triggering
 ---
-# test-claude-skill
+# audit-skill
 
 ## Usage
 
-/test-claude-skill [skill-name]
+/audit-skill [skill-name]
 
 {Skill skill="claude-code-test-runner" args="$ARGUMENTS"}
 ```
@@ -525,21 +525,21 @@ description: Test skill discoverability and triggering
 
 ```yaml
 ---
-name: test-claude-skill
+name: audit-skill
 description: Test skill discoverability and triggering
 ---
 
-# test-claude-skill
+# audit-skill
 
 ## Usage
 
-    /test-claude-skill [skill-name]
+    /audit-skill [skill-name]
 
 ## Examples
 
-    /test-claude-skill agent-audit
-    /test-claude-skill skill-audit
-    /test-claude-skill hook-audit
+    /audit-skill agent-audit
+    /audit-skill skill-audit
+    /audit-skill hook-audit
 
 {Skill skill="claude-code-test-runner" args="$ARGUMENTS"}
 ```
@@ -585,15 +585,15 @@ description: Test skill discoverability and triggering
 
 ## Summary Comparison
 
-| Aspect          | audit-bash | validate-agent | complex-validator | test-claude-skill |
-| --------------- | ---------- | -------------- | ----------------- | ----------------- |
-| Delegation      | clear ✓    | clear ✓        | missing ✗         | clear ✓           |
-| Simplicity      | 6 lines ✓  | 40 lines ✓     | 95 lines ✗        | 35 lines ✓        |
-| Arguments       | passed ✓   | passed ✓       | unclear ⚠         | passed ✓          |
-| Documentation   | minimal ✓  | full ✓         | excessive ⚠       | incomplete ⚠      |
-| Should Be Skill | No ✓       | No ✓           | Yes ✗             | No ✓              |
-| Overall Score   | 10/10      | 9.5/10         | 2/10              | 7/10              |
-| Status          | PASS       | PASS           | FAIL              | NEEDS WORK        |
+| Aspect          | audit-bash | audit-agent | complex-validator | audit-skill  |
+| --------------- | ---------- | ----------- | ----------------- | ------------ |
+| Delegation      | clear ✓    | clear ✓     | missing ✗         | clear ✓      |
+| Simplicity      | 6 lines ✓  | 40 lines ✓  | 95 lines ✗        | 35 lines ✓   |
+| Arguments       | passed ✓   | passed ✓    | unclear ⚠         | passed ✓     |
+| Documentation   | minimal ✓  | full ✓      | excessive ⚠       | incomplete ⚠ |
+| Should Be Skill | No ✓       | No ✓        | Yes ✗             | No ✓         |
+| Overall Score   | 10/10      | 9.5/10      | 2/10              | 7/10         |
+| Status          | PASS       | PASS        | FAIL              | NEEDS WORK   |
 
 **Key Takeaways**:
 
@@ -645,4 +645,4 @@ description: Test skill discoverability and triggering
 4. Match documentation level to complexity
 5. Verify it should be command (not skill)
 
-**When in Doubt**: Compare to audit-bash or validate-agent as exemplars.
+**When in Doubt**: Compare to audit-bash or audit-agent as exemplars.

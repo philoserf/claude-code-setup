@@ -93,17 +93,17 @@ Content (delegation, prompt, or instruction)
 
 ````yaml
 ---
-name: validate-agent
+name: audit-agent
 description: Comprehensive agent configuration validation
 ---
 
-# validate-agent
+# audit-agent
 
 Validates agent configurations using specialized auditors.
 
 ## Usage
 
-    /validate-agent [agent-name]
+    /audit-agent [agent-name]
 
 ## What It Does
 
@@ -113,8 +113,8 @@ Validates agent configurations using specialized auditors.
 
 ## Examples
 
-    /validate-agent bash-scripting
-    /validate-agent claude-code-evaluator
+    /audit-agent bash-scripting
+    /audit-agent claude-code-evaluator
 
 **Delegation:** Invokes the **agent-audit** skill for comprehensive validation.
 ```
@@ -263,7 +263,7 @@ Commands don't typically make explicit tool calls - they delegate to skills/agen
 **Examples**:
 
 - `/audit-bash` → Delegates to hook-auditor
-- `/validate-agent` → Delegates to agent-auditor
+- `/audit-agent` → Delegates to agent-auditor
 - `/test-skill` → Delegates to claude-code-test-runner
 
 **Pattern**: "Slash command convenience wrapper for skill/agent invocation"
@@ -383,7 +383,7 @@ allowed-tools: [Task, Skill, Read]
 **Example justification**:
 
 ```markdown
-# validate-agent
+# audit-agent
 
 This command has full documentation (40 lines) because:
 
@@ -500,15 +500,15 @@ description: Audit shell scripts for security and quality
 
 ```yaml
 ---
-name: validate-agent
+name: audit-agent
 description: Comprehensive agent configuration validation
 ---
 
-# validate-agent
+# audit-agent
 
 ## Usage
 
-    /validate-agent [agent-name]
+    /audit-agent [agent-name]
 
 ## What It Does
 
@@ -519,7 +519,7 @@ description: Comprehensive agent configuration validation
 
 ## Examples
 
-    /validate-agent bash-scripting
+    /audit-agent bash-scripting
 
 {Skill skill="agent-auditor" args="$ARGUMENTS"}
 ```text
@@ -558,15 +558,15 @@ description: Audit shell scripts for security and quality
 
 ### Good Documented Delegator
 
-**Command**: validate-agent (45 lines)
+**Command**: audit-agent (45 lines)
 
 ```yaml
 ---
-name: validate-agent
+name: audit-agent
 description: Comprehensive agent configuration validation
 ---
 
-# validate-agent
+# audit-agent
 
 [Usage, What It Does, Examples sections]
 

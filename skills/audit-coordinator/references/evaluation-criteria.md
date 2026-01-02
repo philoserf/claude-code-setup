@@ -348,13 +348,13 @@ See references folder for more info.
 **Good Example**:
 
 ```markdown
-# validate-agent
+# audit-agent
 
 Validates a sub-agent configuration file for correctness, clarity, and effectiveness.
 
 ## Usage
 
-`/validate-agent [agent-name]`
+`/audit-agent [agent-name]`
 
 - With agent-name: Validates the specified agent
 - Without args: Validates all agents

@@ -61,8 +61,8 @@ Validates command configurations for delegation clarity, simplicity, and documen
 **Example usage**:
 
 ```text
-User: "Audit my validate-agent command"
-→ Reads commands/validate-agent.md
+User: "Audit my audit-agent command"
+→ Reads commands/audit-agent.md
 → Validates delegation, simplicity, arguments, docs
 → Generates report with findings and recommendations
 ```
@@ -107,7 +107,7 @@ Identify the command file to audit:
 
 ```bash
 # Single command
-Read commands/validate-agent.md
+Read commands/audit-agent.md
 
 # Find all commands
 Glob commands/*.md
@@ -224,7 +224,7 @@ See [delegation-patterns.md](../../references/delegation-patterns.md) for delega
 **Check file size and complexity** (BEST PRACTICE GUIDELINES):
 
 ```bash
-wc -l commands/validate-agent.md
+wc -l commands/audit-agent.md
 ```
 
 **Guidelines** (not hard limits):
@@ -304,17 +304,17 @@ Launch hook-auditor skill to validate Bash scripts:
 
 ```yaml
 ---
-name: validate-agent
+name: audit-agent
 description: Comprehensive agent configuration validation
 ---
 
-# validate-agent
+# audit-agent
 
 Validates agent configurations using specialized auditors.
 
 ## Usage
 
-    /validate-agent [agent-name]
+    /audit-agent [agent-name]
 
 ## What It Does
 
@@ -324,8 +324,8 @@ Validates agent configurations using specialized auditors.
 
 ## Examples
 
-    /validate-agent bash-scripting
-    /validate-agent claude-code-evaluator
+    /audit-agent bash-scripting
+    /audit-agent claude-code-evaluator
 
 Launch agent-auditor:
 
@@ -521,7 +521,7 @@ Do some validation on the agent.
 ```markdown
 **Delegation:** Invokes the **agent-audit** skill.
 
-# User types: /validate-agent bash-scripting
+# User types: /audit-agent bash-scripting
 
 # But "bash-scripting" is ignored - not passed to skill
 ```

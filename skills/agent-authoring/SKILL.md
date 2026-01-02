@@ -334,10 +334,10 @@ allowed_tools:
 3. Check that focus areas guide its behavior
 4. Ensure description triggers correctly
 
-**Validate with /validate-agent**:
+**Validate with /audit-agent**:
 
 ```text
-/validate-agent agent-name
+/audit-agent agent-name
 ```
 
 This will check:
@@ -388,7 +388,7 @@ Each example includes the full frontmatter, focus areas, and analysis of what ma
 1. **Start with an existing agent as template** - Copy structure from similar agent
 2. **Be specific in focus areas** - Concrete details over generic statements
 3. **Test early** - Create minimal agent and test before adding details
-4. **Use /validate-agent** - Catch issues early
+4. **Use /audit-agent** - Catch issues early
 5. **Check for overlaps** - Don't duplicate existing agents
 6. **Document the approach** - Explain HOW the agent works
 7. **Keep tools minimal** - Only grant what's needed
@@ -403,7 +403,7 @@ For detailed standards and validation:
 - **Naming conventions** - Use kebab-case for agent names
 - **Frontmatter requirements** - name, description, model (optional: allowed_tools, permissionMode)
 - **File organization** - `~/.claude/agents/agent-name.md`
-- **Validation** - Use `/validate-agent` command
+- **Validation** - Use `/audit-agent` command
 
 See `audit-coordinator` skill for comprehensive standards.
 
@@ -419,5 +419,5 @@ Creating a new agent:
 - [ ] Write comprehensive description (150-500 chars)
 - [ ] Create file at `~/.claude/agents/agent-name.md`
 - [ ] Test invocation
-- [ ] Validate with `/validate-agent agent-name`
+- [ ] Validate with `/audit-agent agent-name`
 - [ ] Iterate based on results
