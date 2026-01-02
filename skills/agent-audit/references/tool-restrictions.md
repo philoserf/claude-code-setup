@@ -626,6 +626,77 @@ allowed-patterns:
   - "Bash(npm:*)"
 ```
 
+## Tool Restriction Fit Analysis
+
+Methodology for validating that an agent's tool restrictions match its intended usage.
+
+### Security Implications by Tool Combination
+
+**Write + Bash**:
+
+- Can modify any file
+- Can execute commands that write files
+- High security risk if not carefully scoped
+- Requires careful review
+
+**Bash(sudo:\*)**:
+
+- System-level access (usually denied)
+- Should be blocked in global settings
+- Extremely dangerous if allowed
+- Never appropriate for agents
+
+**Write(.env\*)**:
+
+- Credential exposure risk
+- Should be blocked in global settings
+- Prevents accidental secret leakage
+- Critical security boundary
+
+**Task + Skill**:
+
+- Can invoke other customizations
+- Delegates to other agents/skills
+- Useful for orchestrators
+- Indirect capability expansion
+
+### Pattern Validation Methodology
+
+Compare allowed_tools to actual usage in agent content:
+
+**Step 1: Extract Tool Mentions**
+
+```bash
+# Search agent file for tool usage
+Grep "Read\|Write\|Edit\|Bash" agents/agent-name.md
+```
+
+**Step 2: Match Against Restrictions**
+
+- Every mentioned tool should be in allowed_tools
+- Every allowed tool should be used (or have clear reason)
+- No tools missing from either list
+
+**Step 3: Validate Patterns**
+
+For pattern-based restrictions (e.g., `Bash(git:*)`):
+
+- Verify pattern syntax is correct
+- Check that usage matches pattern
+- Ensure pattern isn't overly broad
+
+**Example**:
+
+Agent mentions: "Use Read to examine files and Grep to search"
+
+```yaml
+allowed_tools:
+  - Read
+  - Grep
+```
+
+✓ Perfect match - all mentioned tools allowed, no extras
+
 ## Summary
 
 **Key Principles**:

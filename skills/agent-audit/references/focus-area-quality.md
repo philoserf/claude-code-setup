@@ -615,6 +615,68 @@ When auditing focus areas:
 
 **Score**: 1.3/10 (Very Poor)
 
+## Focus Area Specificity Assessment
+
+Detailed criteria for assessing the specificity and quality of focus areas.
+
+### Assessment Criteria
+
+1. **Technology specificity**: Mentions frameworks/tools by name
+   - ✓ Good: "FastAPI REST APIs with SQLAlchemy ORM"
+   - ✗ Bad: "Python programming"
+
+2. **Domain clarity**: Clear area of expertise
+   - ✓ Good: "OAuth 2.0 authentication with JWT tokens"
+   - ✗ Bad: "Security"
+
+3. **Actionability**: Concrete guidance possible
+   - ✓ Good: "React hooks (useState, useEffect, useContext)"
+   - ✗ Bad: "Frontend development"
+
+4. **Coverage**: Spans full expertise area
+   - Check if all major responsibilities are covered
+   - No significant gaps in agent's domain
+
+5. **Non-overlap**: Each area distinct
+   - Focus areas shouldn't duplicate each other
+   - Each should cover a unique aspect
+
+### Specificity Scoring (1-10 Scale)
+
+- **9-10**: All specific, concrete, comprehensive
+  - Every area names technologies/frameworks
+  - Clear, actionable expertise
+  - Full coverage of domain
+
+- **7-8**: Mostly specific, minor generic statements
+  - Most areas have specificity
+  - 1-2 areas could be more concrete
+  - Good overall quality
+
+- **5-6**: Mix of specific and generic
+  - Some areas specific, some vague
+  - Needs improvement
+  - Partial coverage
+
+- **3-4**: Mostly generic, little specificity
+  - Few specific areas
+  - Many vague statements
+  - Poor quality
+
+- **1-2**: All generic, no concrete focus
+  - No technology names
+  - All abstract/vague
+  - Unacceptable quality
+
+### Evaluation Process
+
+1. Count total focus areas (target: 5-15)
+2. Score each area for specificity (1-10)
+3. Calculate average specificity score
+4. Check for overlap/duplication
+5. Assess coverage completeness
+6. Generate overall quality score
+
 ## Summary
 
 **Key Principles**:

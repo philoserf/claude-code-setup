@@ -719,6 +719,96 @@ Review agent and provide feedback following best practices.
 
 **Missing**: All components (process, output, quality, decisions)
 
+## Approach Completeness Assessment
+
+Detailed criteria for evaluating approach section completeness.
+
+### Required Components
+
+1. **Process**: Step-by-step methodology
+   - Numbered or bulleted steps
+   - Logical flow from start to finish
+   - Clear progression
+   - Actionable instructions
+
+2. **Decisions**: How to handle variations
+   - If/then logic for different scenarios
+   - Edge case handling
+   - Choice points and decision criteria
+   - Adaptability to different inputs
+
+3. **Output**: What the agent produces
+   - Explicit statement of deliverable
+   - Format specification
+   - Quality characteristics
+   - Examples if applicable
+
+4. **Quality**: Standards and validation
+   - Success criteria
+   - Validation methods
+   - Quality checks
+   - Error handling
+
+### Missing Components Impact
+
+**No process**:
+
+- Unclear how agent works
+- User doesn't know what to expect
+- Agent behavior unpredictable
+- Hard to debug issues
+
+**No decisions**:
+
+- Can't handle variations
+- Inflexible approach
+- Edge cases fail
+- Limited applicability
+
+**No output**:
+
+- Unclear deliverable
+- User expectations unset
+- Hard to validate success
+- Ambiguous completion
+
+**No quality**:
+
+- No validation criteria
+- Can't measure success
+- Quality unpredictable
+- No error detection
+
+### Completeness Scoring
+
+**10/10 - Excellent**:
+
+- All 4 components present
+- Detailed, specific, actionable
+- Comprehensive decision logic
+- Clear quality standards
+
+**7-9/10 - Good**:
+
+- All 4 components present
+- Could be more detailed
+- Basic decision logic
+- Some quality criteria
+
+**4-6/10 - Needs Work**:
+
+- Missing 1-2 components
+- Vague or incomplete
+- Limited decisions
+- Weak quality standards
+
+**1-3/10 - Poor**:
+
+- Missing 3+ components
+- Very vague
+- No decisions
+- No quality criteria
+
 ## Summary
 
 **Key Principles**:
