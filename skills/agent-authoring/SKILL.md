@@ -405,7 +405,7 @@ For detailed standards and validation:
 - **File organization** - `~/.claude/agents/agent-name.md`
 - **Validation** - Use `/validate-agent` command
 
-See `claude-code-audit` skill for comprehensive standards.
+See `audit-coordinator` skill for comprehensive standards.
 
 ## Quick Start Checklist
 

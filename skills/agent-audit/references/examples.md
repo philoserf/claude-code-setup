@@ -145,7 +145,7 @@ allowed_tools:
   - Bash
   - Skill
 skills:
-  - claude-code-audit
+  - audit-coordinator
 ---
 ```
 
