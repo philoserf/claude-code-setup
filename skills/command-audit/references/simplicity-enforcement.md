@@ -1,41 +1,54 @@
-# Simplicity Enforcement
+# Simplicity Guidelines
 
-Guide for enforcing command simplicity and determining when to migrate to skills.
+Guide for assessing command simplicity and determining when to migrate to skills.
 
 ## Core Principle
 
-**Commands should be simple delegators, not complex implementations.**
+**Commands should be simple delegators or standalone prompts, not complex implementations.**
 
-Simple command (6-80 lines) = appropriate
-Complex command (>80 lines or complex logic) = should be skill
+**Guidelines** (not hard limits):
+
+- Simple command (6-15 lines) = typical for straightforward commands
+- Documented command (25-80 lines) = typical with full documentation
+- Very complex (>80 lines or complex logic) = consider skill migration
+
+**Valid patterns**:
+
+1. Delegation to skill/agent (most common in this codebase)
+2. Standalone descriptive prompt
+3. Bash execution (! syntax)
+4. File reference (@ syntax)
 
 ## Simplicity Targets
 
-### Simple Delegator (6-10 lines)
+### Simple Command (6-15 lines typical)
 
 **Structure**:
 
-````yaml
+```yaml
 ---
-name: command-name
 description: Brief description
 ---
-Brief explanation (optional 1-2 lines).
+Brief content (delegation, prompt, or instruction).
+```
 
-{Tool delegation}
-```text
+**Line count**: 6-15 lines typical (frontmatter + content)
 
-**Line count**: 6-10 lines total (frontmatter + content)
-
-**Example**:
+**Example** (delegation pattern):
 
 ```yaml
 ---
-name: audit-bash
-description: Audit shell scripts for security and quality
+description: Audit shell scripts for best practices, security, and portability
 ---
-{ Skill skill="hook-auditor" args="$ARGUMENTS" }
-```text
+
+# audit-bash
+
+Audit shell scripts for best practices, security, and portability.
+
+**Usage:** `/audit-bash [script-path]`
+
+**Delegation:** Invokes the **bash-audit** skill for comprehensive shell script analysis.
+```
 
 **Characteristics**:
 
@@ -44,13 +57,12 @@ description: Audit shell scripts for security and quality
 - No complex logic
 - Fast to read and understand
 
-### Documented Delegator (30-80 lines)
+### Documented Command (25-80 lines typical)
 
 **Structure**:
 
-```yaml
+```markdown
 ---
-name: command-name
 description: Comprehensive description
 ---
 
@@ -72,14 +84,14 @@ Brief overview.
 
     /command-name example-input
 
-{Tool delegation}
-```text
+Content (delegation, prompt, or instruction)
+```
 
-**Line count**: 30-80 lines total
+**Line count**: 25-80 lines typical
 
 **Example**:
 
-```yaml
+````yaml
 ---
 name: validate-agent
 description: Comprehensive agent configuration validation
@@ -104,8 +116,8 @@ Validates agent configurations using specialized auditors.
     /validate-agent bash-scripting
     /validate-agent claude-code-evaluator
 
-{Skill skill="agent-auditor" args="$ARGUMENTS"}
-```text
+**Delegation:** Invokes the **agent-audit** skill for comprehensive validation.
+```
 
 **Characteristics**:
 
@@ -113,19 +125,57 @@ Validates agent configurations using specialized auditors.
 - Usage section with syntax
 - "What It Does" explanation
 - Examples section
-- Still single delegation at end
+- Clear delegation or standalone prompt
 
-### Too Complex (>80 lines)
+### Standalone Prompt Pattern (6-50 lines)
+
+**When appropriate**: Command provides detailed instructions to Claude without delegating to specific skill
+
+**Structure**:
+
+```yaml
+---
+description: Analyze code quality and generate report
+---
+
+Analyze the provided file and generate a comprehensive quality report including:
+
+- **Code Style**: Adherence to language conventions and best practices
+- **Security**: Potential vulnerabilities and security concerns
+- **Performance**: Optimization opportunities and bottlenecks
+- **Maintainability**: Code clarity, documentation, and structure
+
+Generate report in markdown format with:
+1. Executive summary
+2. Detailed findings by category
+3. Prioritized recommendations
+4. Code examples for improvements
+```
+
+**Characteristics**:
+
+- Describes what to do rather than which skill to invoke
+- Can be simple (6-15 lines) or documented (20-50 lines)
+- Valid alternative to delegation pattern
+- Claude interprets instructions directly
+
+**When to use**:
+
+- Task is straightforward and doesn't require specialized skill
+- Combining multiple capabilities without orchestrator
+- User preference for inline instructions
+
+### Too Complex (>80 lines or complex logic)
 
 **Indicators**:
 
-- > 80 lines total
+- >80 lines total
 - Multiple tool calls
 - If/else logic
 - Loop constructs
 - Complex processing
 
-**Decision**: Should be a skill, not a command
+**Decision**: Consider skill migration (not required, but recommended)
 
 ## Complexity Assessment
 
@@ -137,50 +187,65 @@ Validates agent configurations using specialized auditors.
 wc -l commands/command-name.md
 ```text
 
-**Interpretation**:
+**Interpretation** (guidelines):
 
-- **6-10 lines**: Simple delegator ✓
-- **30-80 lines**: Documented delegator ✓ (if justified)
-- **>80 lines**: Too complex ✗ (should be skill)
+- **6-15 lines**: Typical simple command ✓
+- **25-80 lines**: Typical documented command ✓
+- **>80 lines**: Consider skill migration ⚠ (evaluate complexity)
+
+**Note**: These are guidelines, not hard limits. Focus on:
+- Is the command easy to understand?
+- Does it have a single clear purpose?
+- Is complexity justified by documentation needs?
 
 ### Logic Complexity Check
 
 **Simple** (acceptable):
 
 ```markdown
-{Skill skill="skill-name" args="$ARGUMENTS"}
-```text
+**Delegation:** Invokes the **skill-name** skill for [purpose].
+```
 
-**Complex** (too much for command):
+Or:
+
+```markdown
+Analyze the file and provide feedback on:
+- Item 1
+- Item 2
+```
+
+**Complex** (too much for command - belongs in skill):
 
 ```markdown
 Read the file.
 If it has errors:
-Fix the errors.
-Validate again.
+  Fix the errors.
+  Validate again.
 Else:
-Generate report.
-```text
+  Generate report.
+```
 
-**Test**: If you see if/else, loops, or multiple steps → Too complex
+**Test**: If you see if/else, loops, or multiple steps → Consider skill migration
 
 ### Tool Call Count
 
-**Simple** (acceptable):
+Commands don't typically make explicit tool calls - they delegate to skills/agents or provide instructions.
+
+**Simple delegation** (acceptable):
 
 ```markdown
-{Skill skill="skill-name" args="$ARGUMENTS"}
-```text
+**Delegation:** Invokes the **skill-name** skill for [purpose].
+```
 
-**Complex** (too much):
+**Complex orchestration** (too much - belongs in skill):
 
 ```markdown
-{Read file_path="..."}
-{Grep pattern="..." path="..."}
-{Task subagent_type="..."}
-{Skill skill="..."}
-{Write file_path="..."}
-```text
+# Command with multiple operations:
+- Read multiple files
+- Process and transform data
+- Write results
+- Generate reports
+```
 
 **Test**: If >1 tool call → Probably too complex
 

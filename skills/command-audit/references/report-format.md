@@ -17,11 +17,13 @@ Use this standardized structure for all command audit reports:
 
 **Overall**: PASS | NEEDS WORK | FAIL
 
-- **Delegation**: ✓/✗ {clear/unclear}
-- **Simplicity**: ✓/✗ {lines} lines - {simple/documented/too complex}
-- **Arguments**: ✓/✗ {handled/ignored}
-- **Documentation**: ✓/✗ {proportional/excessive/insufficient}
-- **Scope Decision**: ✓/✗ {should be command/should be skill}
+- **Frontmatter**: ✓/✗ {description present, optional fields valid} (OFFICIAL REQUIREMENT)
+- **Pattern Type**: {delegation/standalone prompt/bash/file} (OFFICIAL - multiple valid patterns)
+- **Delegation**: ✓/✗/N/A {clear/unclear/not applicable} (BEST PRACTICE if delegation used)
+- **Simplicity**: ✓/✗ {lines} lines - {simple/documented/consider skill migration} (GUIDELINE not hard limit)
+- **Arguments**: ✓/✗ {handled/ignored} (BEST PRACTICE)
+- **Documentation**: ✓/✗ {proportional/excessive/insufficient} (BEST PRACTICE)
+- **Scope Decision**: ✓/✗ {should be command/should be skill} (BEST PRACTICE)
 
 ## Critical Issues
 
