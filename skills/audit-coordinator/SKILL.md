@@ -1,15 +1,30 @@
 ---
 name: audit-coordinator
-description: Orchestrates comprehensive audits across multiple specialized auditors for Claude Code customizations. Use when user wants complete evaluation of agents, skills, hooks, commands, output-styles, entire setup, needs multi-faceted analysis, wants coordinated audit reports, requests thorough validation, or asks to audit multiple components. Automatically determines which auditors to invoke (agent-audit, skill-audit, hook-audit, command-audit, output-style-audit, evaluator, test-runner) based on target type and compiles unified reports with consolidated recommendations.
+description: Orchestrates comprehensive audits across multiple specialized auditors for Claude Code customizations and provides guidance on naming, organization, best practices, and troubleshooting. Use when: (1) Auditing - wants complete evaluation, multi-faceted analysis, coordinated audit reports, thorough validation, or asks to audit multiple components; (2) Guidance - asks "what should I name...", "how should I organize...", "best practices for...", troubleshooting issues, understanding evaluation criteria, or needs pre-deployment validation. Automatically determines which auditors to invoke (agent-audit, skill-audit, hook-audit, command-audit, output-style-audit, evaluator, test-runner) based on target type and compiles unified reports with consolidated recommendations.
 allowed-tools: [Read, Glob, Grep, Bash, Skill, Task]
 ---
 
 ## Reference Files
 
-Advanced orchestration patterns and report compilation:
+### Audit Orchestration
 
 - [workflow-patterns.md](references/workflow-patterns.md) - Multi-auditor invocation patterns and decision matrix
 - [report-compilation.md](references/report-compilation.md) - Unified report structure and priority reconciliation
+
+### Evaluation Standards and Troubleshooting
+
+- [evaluation-criteria.md](references/evaluation-criteria.md) - Comprehensive standards for each component type
+- [common-issues.md](references/common-issues.md) - Frequent problems and specific fixes with examples
+- [anti-patterns.md](references/anti-patterns.md) - Common mistakes to avoid when building customizations
+
+### Shared References (Used by All Authoring Skills)
+
+- [naming-conventions.md](../../references/naming-conventions.md) - Patterns for agents, commands, skills, hooks, and output-styles
+- [frontmatter-requirements.md](../../references/frontmatter-requirements.md) - Complete YAML specification for each component type
+- [when-to-use-what.md](../../references/when-to-use-what.md) - Decision guide for choosing agents vs skills vs commands vs output-styles
+- [file-organization.md](../../references/file-organization.md) - Directory structure and layout best practices
+- [hook-events.md](../../references/hook-events.md) - Hook event types and timing reference
+- [customization-examples.md](../../references/customization-examples.md) - Real-world examples across all component types
 
 ---
 
@@ -423,3 +438,77 @@ Quick reference for which auditors to invoke:
 
 For detailed orchestration patterns, see [workflow-patterns.md](references/workflow-patterns.md).
 For report compilation guidance, see [report-compilation.md](references/report-compilation.md).
+
+## Guidance Workflows
+
+Beyond orchestrating audits, this skill provides guidance on Claude Code customization standards and best practices.
+
+### Pattern: Naming Guidance
+
+**User Query**: "What should I name my new agent that reviews security?"
+
+**Workflow**:
+
+1. Identify component type (agent, skill, command, hook, output-style)
+2. Reference naming conventions (see shared reference: naming-conventions.md)
+3. Provide specific name suggestions with rationale
+4. Offer examples of similar components
+5. Explain naming pattern (e.g., {domain}-{role} for agents)
+
+**Output**: Concrete name suggestions + pattern explanation
+
+### Pattern: Organization Guidance
+
+**User Query**: "How should I organize my skill's reference files?"
+
+**Workflow**:
+
+1. Assess current structure
+2. Reference file organization standards (see shared reference: file-organization.md)
+3. Apply progressive disclosure principles
+4. Recommend structure improvements
+5. Provide migration guidance if restructuring needed
+
+**Output**: Recommended directory structure + migration steps
+
+### Pattern: Pre-Deployment Validation
+
+**User Query**: "Does this new skill look good?" (while editing SKILL.md)
+
+**Workflow**:
+
+1. Read target file
+2. Invoke appropriate auditor (skill-audit, agent-audit, etc.)
+3. Check against evaluation criteria (see references/evaluation-criteria.md)
+4. Flag blocking issues (missing fields, invalid YAML, critical violations)
+5. Provide quick validation summary
+
+**Output**: Go/No-Go decision + critical fixes needed
+
+### Pattern: Troubleshooting Guidance
+
+**User Query**: "Why isn't my skill being discovered?"
+
+**Workflow**:
+
+1. Identify symptom (not discovered, not triggering, errors, etc.)
+2. Reference common issues guide (see references/common-issues.md)
+3. Reference anti-patterns (see references/anti-patterns.md)
+4. Provide specific diagnosis and fix
+5. Offer to run diagnostic audit if needed
+
+**Output**: Diagnosis + specific fix + optional follow-up audit
+
+### Pattern: Best Practices Consultation
+
+**User Query**: "What are best practices for agents?"
+
+**Workflow**:
+
+1. Identify component type
+2. Reference evaluation criteria (see references/evaluation-criteria.md)
+3. Provide component-specific best practices
+4. Give concrete examples of good patterns
+5. Point to anti-patterns to avoid
+
+**Output**: Best practices summary + examples + anti-patterns

@@ -208,4 +208,4 @@ For detailed standards and validation:
 - **Frontmatter requirements** - description field is required
 - **File organization** - `~/.claude/commands/command-name.md`
 
-See `claude-code-audit` skill for comprehensive standards.
+See `audit-coordinator` skill for comprehensive standards.
