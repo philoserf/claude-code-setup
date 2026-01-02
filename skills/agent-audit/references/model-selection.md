@@ -483,6 +483,52 @@ When auditing model selection:
 3. If quality acceptable, downgrade
 4. Save significant cost
 
+## Model Selection Appropriateness Criteria
+
+Quick reference for evaluating if an agent's model choice is appropriate.
+
+### Haiku Appropriateness (simple, fast, cheap)
+
+**Appropriate for**:
+
+- Read-only file analysis
+- Simple pattern matching
+- Quick status checks
+- Repetitive tasks
+
+**Red flags** (don't use Haiku):
+
+- Code generation needed
+- Complex reasoning required
+- Multi-step workflows
+- Write/Edit operations
+
+### Sonnet Appropriateness (default, balanced)
+
+**Appropriate for**:
+
+- Code generation
+- Complex analysis
+- Multi-step workflows
+- Most agent tasks
+
+**Use when**: Default choice for most agents, balanced cost/capability.
+
+### Opus Appropriateness (rare, complex)
+
+**Appropriate for**:
+
+- Deep architectural reasoning
+- Complex multi-system design
+- Situations requiring highest capability
+- When cost is secondary to quality
+
+**Red flags** (don't use Opus):
+
+- Opus for simple tasks (cost inefficiency)
+- Haiku for complex tasks (capability mismatch)
+- No justification for non-Sonnet choice
+
 ## Summary
 
 **Default Choice**: Sonnet (handles 90% of agents)

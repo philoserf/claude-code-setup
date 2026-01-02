@@ -8,11 +8,13 @@ allowed-tools: [Read, Grep, Glob, Bash]
 
 Advanced agent validation guidance:
 
-- [model-selection.md](references/model-selection.md) - Model choice decision matrix and cost/capability trade-offs
-- [tool-restrictions.md](references/tool-restrictions.md) - Tool permission patterns and security implications
-- [focus-area-quality.md](references/focus-area-quality.md) - Focus area specificity assessment and quality scoring
-- [approach-methodology.md](references/approach-methodology.md) - Approach section completeness and methodology patterns
+- [model-selection.md](references/model-selection.md) - Model choice decision matrix, use cases, and appropriateness criteria
+- [tool-restrictions.md](references/tool-restrictions.md) - Tool permission patterns, security implications, and restriction fit
+- [focus-area-quality.md](references/focus-area-quality.md) - Focus area specificity assessment, quality scoring, and criteria
+- [approach-methodology.md](references/approach-methodology.md) - Approach completeness, required components, and methodology patterns
 - [examples.md](references/examples.md) - Good vs poor agent comparisons and full audit reports
+- [report-format.md](references/report-format.md) - Standardized audit report template and structure
+- [common-issues.md](references/common-issues.md) - Frequent problems, fixes, and troubleshooting patterns
 
 ---
 
@@ -239,251 +241,32 @@ wc -l skills/bash-scripting/SKILL.md
 
 ### Step 7: Generate Audit Report
 
-Compile findings into standardized report format (see Report Format section below).
+Compile findings into standardized report format. See [report-format.md](references/report-format.md) for the complete template.
 
 ## Agent-Specific Validation
 
-### Model Selection Appropriateness
+For detailed validation criteria in each area, see the reference files:
 
-**Haiku use cases** (simple, fast, cheap):
-
-- Read-only file analysis
-- Simple pattern matching
-- Quick status checks
-- Repetitive tasks
-
-**Sonnet use cases** (default, balanced):
-
-- Code generation
-- Complex analysis
-- Multi-step workflows
-- Most agent tasks
-
-**Opus use cases** (rare, complex):
-
-- Deep architectural reasoning
-- Complex multi-system design
-- Situations requiring highest capability
-- When cost is secondary to quality
-
-**Red flags**:
-
-- Opus for simple tasks (cost inefficiency)
-- Haiku for complex tasks (capability mismatch)
-- No justification for non-Sonnet choice
-
-### Tool Restriction Fit
-
-**Security implications**:
-
-- **Write + Bash**: Can modify any file
-- **Bash(sudo:\*)**: System-level access (usually denied)
-- **Write(.env\*)**: Credential exposure risk
-- **Task + Skill**: Can invoke other customizations
-
-**Pattern validation**:
-
-Compare allowed_tools to actual usage in agent content:
-
-```bash
-# Extract tool mentions
-Grep "Read\|Write\|Edit\|Bash" agents/agent-name.md
-```
-
-Match against allowed_tools list.
-
-### Focus Area Specificity
-
-**Assessment criteria**:
-
-1. **Technology specificity**: Mentions frameworks/tools by name
-2. **Domain clarity**: Clear area of expertise
-3. **Actionability**: Concrete guidance possible
-4. **Coverage**: Spans full expertise area
-5. **Non-overlap**: Each area distinct
-
-**Scoring** (1-10):
-
-- 9-10: All specific, concrete, comprehensive
-- 7-8: Mostly specific, minor generic statements
-- 5-6: Mix of specific and generic
-- 3-4: Mostly generic, little specificity
-- 1-2: All generic, no concrete focus
-
-### Approach Completeness
-
-**Required components**:
-
-1. **Process**: Step-by-step methodology
-2. **Decisions**: How to handle variations
-3. **Output**: What the agent produces
-4. **Quality**: Standards and validation
-
-**Missing components impact**:
-
-- No process: Unclear how agent works
-- No decisions: Can't handle variations
-- No output: Unclear deliverable
-- No quality: No validation criteria
+- **Model Selection**: See [model-selection.md](references/model-selection.md) for appropriateness criteria, use cases, and red flags
+- **Tool Restrictions**: See [tool-restrictions.md](references/tool-restrictions.md) for security implications and restriction fit analysis
+- **Focus Area Quality**: See [focus-area-quality.md](references/focus-area-quality.md) for specificity assessment and scoring methodology
+- **Approach Completeness**: See [approach-methodology.md](references/approach-methodology.md) for required components and impact analysis
 
 ## Common Issues
 
-### Issue 1: Opus Overuse
+For detailed troubleshooting guidance, see [common-issues.md](references/common-issues.md).
 
-**Problem**: Using Opus when Sonnet would suffice
+Common patterns include:
 
-**Example**:
-
-```yaml
-model: opus # Expensive for this task
-```
-
-**Impact**: 5-10x higher cost for minimal benefit
-
-**Fix**:
-
-```yaml
-model: sonnet # Balanced choice
-```
-
-**When Opus is justified**: Complex architectural design, deep reasoning required
-
-### Issue 2: Generic Focus Areas
-
-**Problem**: Vague, abstract expertise definitions
-
-**Example**:
-
-```markdown
-## Focus Areas
-
-- Programming best practices
-- Code quality
-- Good design patterns
-```
-
-**Fix**:
-
-```markdown
-## Focus Areas
-
-- Defensive programming with strict error handling
-- SOLID principles in TypeScript applications
-- Test-driven development with Jest and React Testing Library
-```
-
-### Issue 3: Missing Tool Restrictions
-
-**Problem**: No allowed_tools specified
-
-**Impact**: Agent has unrestricted access (security risk)
-
-**Fix**:
-
-```yaml
-allowed_tools:
-  - Read
-  - Write
-  - Edit
-  - Grep
-  - Glob
-  - Bash
-```
-
-### Issue 4: Tool Restrictions Too Restrictive
-
-**Problem**: Missing tools that agent needs
-
-**Example**:
-
-```yaml
-allowed_tools: [Read, Grep] # Too limited for code generator
-```
-
-Agent content mentions Write and Edit but they're not allowed.
-
-**Fix**: Add missing tools or remove references to them.
-
-### Issue 5: Incomplete Approach
-
-**Problem**: Vague methodology without steps
-
-**Example**:
-
-```markdown
-## Approach
-
-Follow best practices and write good code.
-```
-
-**Fix**:
-
-```markdown
-## Approach
-
-1. Analyze requirements and constraints
-2. Design architecture using SOLID principles
-3. Implement with test-driven development
-4. Review for security and performance
-5. Document with inline comments and README
-
-Output: Production-ready code with full test coverage
-```
+- **Opus overuse**: Expensive model for simple tasks
+- **Generic focus areas**: Lack of specificity and concrete examples
+- **Missing tool restrictions**: Unrestricted access creates security risks
+- **Overly restrictive tools**: Missing tools the agent needs
+- **Incomplete approach**: Vague methodology without clear steps
 
 ## Report Format
 
-Use this standardized structure for all agent audit reports:
-
-```markdown
-# Agent Audit Report: {name}
-
-**Agent**: {name}
-**File**: {path to agent file}
-**Audited**: {YYYY-MM-DD HH:MM}
-
-## Summary
-
-{1-2 sentence overview of agent and assessment}
-
-## Compliance Status
-
-**Overall**: PASS | NEEDS WORK | FAIL
-
-- **Model Selection**: ✓/✗ {model} - {appropriate/inappropriate}
-- **Tool Restrictions**: ✓/✗ {count} tools - {matches usage/missing tools/excessive}
-- **Focus Areas**: ✓/✗ {count} areas - {specific/generic}
-- **Approach**: ✓/✗ {complete/incomplete}
-- **Context Economy**: ✓/✗ {line count} lines - {good/consider progressive disclosure}
-
-## Critical Issues
-
-{Must-fix issues that prevent proper functioning}
-
-### {Issue Title}
-
-- **Severity**: CRITICAL
-- **Location**: {file}:{line}
-- **Issue**: {description}
-- **Fix**: {specific remediation}
-
-## Important Issues
-
-{Should-fix issues that impact quality}
-
-## Nice-to-Have Improvements
-
-{Polish items for excellence}
-
-## Recommendations
-
-1. **Critical**: {must-fix for correctness}
-2. **Important**: {should-fix for quality}
-3. **Nice-to-Have**: {polish for excellence}
-
-## Next Steps
-
-{Specific actions to improve agent quality}
-```
+Use the standardized template in [report-format.md](references/report-format.md) for all agent audit reports.
 
 ## Integration with audit-coordinator
 
