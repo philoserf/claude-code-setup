@@ -10,10 +10,16 @@ Comprehensive examples of good vs poor commands, full audit reports, and common 
 
 ```yaml
 ---
-name: audit-bash
-description: Audit shell scripts for security and quality
+description: Audit shell scripts for best practices, security, and portability
 ---
-{ Skill skill="hook-audit" args="$ARGUMENTS" }
+
+# audit-bash
+
+Audit shell scripts for best practices, security, and portability.
+
+**Usage:** `/audit-bash [script-path]`
+
+**Delegation:** Invokes the **bash-audit** skill for comprehensive shell script analysis.
 ```
 
 ### Audit Report
@@ -22,18 +28,22 @@ description: Audit shell scripts for security and quality
 
 **Strengths**:
 
-- **Delegation**: Clear (invokes hook-audit skill explicitly)
-- **Simplicity**: 6 lines (perfect simple delegator)
-- **Arguments**: Properly passed ($ARGUMENTS to args parameter)
+- **Frontmatter**: ✓ description present (required for /help)
+- **Pattern**: Descriptive delegation to bash-audit skill
+- **Delegation**: Clear (invokes bash-audit skill explicitly)
+- **Simplicity**: 11 lines (within simple command guideline 6-15)
+- **Arguments**: Auto-passed via descriptive delegation
 - **Documentation**: Minimal (appropriate - usage is obvious from name)
 - **Scope**: Correct (user-invoked shortcut, not auto-triggering skill)
 
 **Scores**:
 
+- Frontmatter Validation: 10/10 (description present)
+- Pattern Recognition: 10/10 (valid descriptive delegation)
 - Delegation Clarity: 10/10
-- Simplicity: 10/10 (6 lines, single tool call)
-- Argument Handling: 10/10 ($ARGUMENTS passed)
-- Documentation Proportionality: 10/10 (minimal for simple delegator)
+- Simplicity: 10/10 (11 lines, within guideline)
+- Argument Handling: 10/10 (auto-passed)
+- Documentation Proportionality: 10/10 (minimal for simple command)
 
 **Overall**: 10/10 (Excellent)
 
@@ -70,7 +80,7 @@ Validates agent configurations using specialized auditors.
     /validate-agent bash-scripting
     /validate-agent claude-code-evaluator
 
-{Skill skill="agent-audit" args="$ARGUMENTS"}
+**Delegation:** Invokes the **agent-audit** skill for comprehensive validation.
 ```
 
 ### Audit Report
@@ -79,20 +89,85 @@ Validates agent configurations using specialized auditors.
 
 **Strengths**:
 
+- **Frontmatter**: ✓ description present
+- **Pattern**: Descriptive delegation to agent-audit skill
 - **Delegation**: Clear (invokes agent-audit skill)
-- **Simplicity**: 40 lines (good documented delegator)
-- **Arguments**: Properly passed ($ARGUMENTS)
+- **Simplicity**: 26 lines (within documented command guideline 25-80)
+- **Arguments**: Auto-passed via descriptive delegation
 - **Documentation**: Full (Usage, What It Does, Examples - appropriate for complexity)
 - **Scope**: Correct (user-invoked convenience wrapper)
 
 **Scores**:
 
+- Frontmatter Validation: 10/10
+- Pattern Recognition: 10/10 (valid descriptive delegation)
 - Delegation Clarity: 10/10
-- Simplicity: 9/10 (40 lines, justified by documentation)
-- Argument Handling: 10/10
+- Simplicity: 9/10 (26 lines, well within guideline)
+- Argument Handling: 10/10 (auto-passed)
 - Documentation Proportionality: 10/10 (full docs justified)
 
-**Overall**: 9.5/10 (Excellent)
+**Overall**: 9.8/10 (Excellent)
+
+---
+
+## Good Command Example 3: analyze-code (Standalone Prompt)
+
+**File**: `commands/analyze-code.md` (hypothetical)
+
+### Content
+
+```yaml
+---
+description: Analyze code quality and generate comprehensive report
+argument-hint: [file-path]
+---
+
+# analyze-code
+
+Analyze code quality for the specified file.
+
+**Usage:** `/analyze-code [file-path]`
+
+Analyze the file at $ARGUMENTS and generate a comprehensive quality report including:
+
+- **Code Style**: Adherence to language conventions and best practices
+- **Security**: Potential vulnerabilities and security concerns
+- **Performance**: Optimization opportunities and bottlenecks
+- **Maintainability**: Code clarity, documentation, and structure
+
+Generate report in markdown format with:
+1. Executive summary (2-3 sentences)
+2. Detailed findings organized by category
+3. Prioritized recommendations (critical/important/nice-to-have)
+4. Code examples demonstrating improvements
+```
+
+### Audit Report
+
+**Status**: PASS
+
+**Strengths**:
+
+- **Frontmatter**: ✓ description present, argument-hint provided
+- **Pattern**: Standalone prompt (valid alternative to delegation)
+- **Instructions**: Clear, structured, actionable
+- **Simplicity**: 32 lines (within documented command guideline 25-80)
+- **Arguments**: References $ARGUMENTS appropriately
+- **Documentation**: Full (appropriate for detailed instructions)
+- **Scope**: Correct (straightforward analysis task, doesn't need specialized skill)
+
+**Scores**:
+
+- Frontmatter Validation: 10/10 (description + argument-hint)
+- Pattern Recognition: 10/10 (valid standalone prompt pattern)
+- Instruction Clarity: 10/10 (clear what to do)
+- Simplicity: 9/10 (32 lines, justified by instructions)
+- Argument Handling: 10/10 ($ARGUMENTS referenced)
+- Documentation Proportionality: 10/10 (full docs justified)
+
+**Overall**: 9.8/10 (Excellent standalone prompt example)
+
+**Note**: This demonstrates that commands don't need to delegate to skills - standalone prompts with clear instructions are valid per official Anthropic guidance.
 
 ---
 

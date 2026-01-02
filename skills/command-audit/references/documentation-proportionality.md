@@ -6,13 +6,13 @@ Guide for assessing whether command documentation is appropriate for complexity 
 
 **Documentation should match command complexity - no more, no less.**
 
-Simple command (6-10 lines) = minimal docs
-Documented command (30-80 lines) = full docs
+Simple command (6-15 lines typical) = minimal docs
+Documented command (25-80 lines typical) = full docs
 Over-documented = wastes space, under-documented = confuses users
 
 ## Documentation Levels
 
-### Level 1: Minimal (6-10 lines total)
+### Level 1: Minimal (6-15 lines typical)
 
 **When appropriate**: Simple delegators with obvious usage
 
@@ -46,7 +46,7 @@ description: Audit shell scripts for security and quality
 
 **Justification**: Command name and description are self-explanatory
 
-### Level 2: Full (30-80 lines total)
+### Level 2: Full (25-80 lines typical)
 
 **When appropriate**: Documented delegators with complex arguments or multi-step processes
 
@@ -104,8 +104,8 @@ Validates agent configurations using specialized auditors.
 
 **Appropriate**:
 
-- Simple command (6-10 lines) → Minimal docs
-- Complex delegation (30-80 lines) → Full docs
+- Simple command (6-15 lines typical) → Minimal docs
+- Documented command (25-80 lines typical) → Full docs
 
 **Inappropriate**:
 

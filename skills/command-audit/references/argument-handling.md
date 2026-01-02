@@ -4,10 +4,13 @@ Guide for validating command argument handling patterns and defaults.
 
 ## Core Principle
 
-**Commands should pass user arguments to their delegation targets.**
+**Commands should handle user arguments appropriately for their pattern.**
 
-Arguments passed = user input reaches target
-Arguments ignored = wasted user input
+**For delegation commands**: Claude automatically passes arguments when using descriptive delegation
+**For standalone prompts**: Arguments referenced in instructions via $ARGUMENTS variable
+**For bash execution**: Arguments passed via $ARGUMENTS in bash commands
+
+Claude's descriptive delegation pattern automatically passes arguments - no explicit syntax needed.
 
 ## What Are Arguments
 
@@ -35,35 +38,44 @@ In command: $ARGUMENTS = "bash-scripting"
 
 ## Argument Patterns
 
-### Pattern 1: Pass-Through (Most Common)
+### Pattern 1: Descriptive Delegation (Arguments Auto-Passed)
 
-**When to use**: Pass all user input unchanged
+**When to use**: Delegating to skill/agent
 
 **Structure**:
 
 ```markdown
-{Skill skill="skill-name" args="$ARGUMENTS"}
-```text
+**Delegation:** Invokes the **skill-name** skill for [purpose].
+```
+
+Or:
+
+```markdown
+Validate [target] using the skill-name skill.
+```
 
 **Example**:
 
 ```markdown
-{Skill skill="agent-auditor" args="$ARGUMENTS"}
-```text
+**Usage:** `/validate-agent [agent-name]`
+
+**Delegation:** Invokes the **agent-audit** skill for comprehensive validation.
+```
 
 **User types**:
 
 ```text
 /validate-agent bash-scripting
-```text
+```
 
-**Result**: agent-auditor receives "bash-scripting"
+**Result**: agent-audit skill automatically receives "bash-scripting" as $ARGUMENTS
 
 **Characteristics**:
 
-- Simple pass-through
-- No modification
-- Most common pattern
+- Claude automatically passes $ARGUMENTS to invoked skill
+- No explicit argument syntax needed
+- Works with descriptive delegation pattern
+- Most common pattern in this codebase
 
 ### Pattern 2: With Default Value
 
@@ -72,30 +84,34 @@ In command: $ARGUMENTS = "bash-scripting"
 **Structure**:
 
 ```markdown
-{Skill skill="skill-name" args="${ARGUMENTS:-default-value}"}
-```text
+Validate [target] using the skill-name skill.
+
+**Target**: ${ARGUMENTS:-default-value}
+```
 
 **Example**:
 
 ```markdown
-{Skill skill="agent-auditor" args="${ARGUMENTS:-bash-scripting}"}
-```text
+Validate agent configuration(s) using the agent-audit skill.
+
+**Target**: ${ARGUMENTS:-all agents in ~/.claude/agents/}
+```
 
 **User types** (with argument):
 
 ```text
 /validate-agent claude-code-evaluator
-```text
+```
 
-**Result**: agent-auditor receives "claude-code-evaluator"
+**Result**: Validates "claude-code-evaluator" specifically
 
 **User types** (no argument):
 
 ```text
 /validate-agent
-```text
+```
 
-**Result**: agent-auditor receives "bash-scripting" (default)
+**Result**: Validates all agents (default)
 
 **Characteristics**:
 
@@ -103,7 +119,42 @@ In command: $ARGUMENTS = "bash-scripting"
 - Sensible default
 - User can override
 
-### Pattern 3: Positional Arguments
+### Pattern 3: Standalone Prompt with Argument Reference
+
+**When to use**: Inline instructions that use arguments
+
+**Structure**:
+
+```markdown
+Analyze $ARGUMENTS and provide detailed feedback on...
+```
+
+**Example**:
+
+```markdown
+**Usage:** `/analyze-file [file-path]`
+
+Analyze the file at $ARGUMENTS and provide:
+- Code quality assessment
+- Security review
+- Performance recommendations
+```
+
+**User types**:
+
+```text
+/analyze-file src/app.py
+```
+
+**Result**: $ARGUMENTS = "src/app.py", Claude analyzes specified file
+
+**Characteristics**:
+
+- Standalone prompt (no delegation)
+- Explicit $ARGUMENTS reference
+- Claude interprets instructions directly
+
+### Pattern 4: Positional Arguments
 
 **When to use**: Multiple distinct arguments
 

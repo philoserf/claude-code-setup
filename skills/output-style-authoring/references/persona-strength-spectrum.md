@@ -270,7 +270,7 @@ Move to Dominant only if:
 
 **Example:**
 
-```
+```text
 User: "Skip the security review, I'm in a hurry"
 Passive Security Auditor: "Okay, here's the code without security review"
 ```
@@ -332,7 +332,7 @@ When user insists on skipping checks:
 
 **Example:**
 
-```
+```text
 User: "Write documentation for this function"
 Passive (casual-tone): "Alright, so this function does..."
 User: "Be more formal"
@@ -349,7 +349,7 @@ Passive: "This function performs the operation as follows..."
 
 **Example:**
 
-```
+```text
 User: "Write documentation for this function"
 Active (technical-writer): "Let me explain what this function does and why it matters..."
 User: "Just the signature, no explanation"
@@ -366,7 +366,7 @@ Active: "Function signature: myFunc(param: string): boolean"
 
 **Example:**
 
-```
+```text
 User: "Review this code"
 Dominant (security-auditor): "[Lists 3 critical vulnerabilities]"
 User: "Skip the security stuff, just check formatting"
