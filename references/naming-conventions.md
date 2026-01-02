@@ -100,7 +100,7 @@ Commands should use action verbs that align with the skills they delegate to. St
 
 ❌ **Poor alignment** (verb mismatch):
 
-- `audit-agent` → `agent-audit` (validate vs audit confusion)
+- `validate-agent` → `agent-audit` (validate vs audit confusion)
 - `analyze-setup` → `audit-coordinator` (analyze vs audit semantic drift)
 
 **Guideline**: Use command verbs that semantically match the skill's suffix pattern. This creates a predictable, consistent user experience.
