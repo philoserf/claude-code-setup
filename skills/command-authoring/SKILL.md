@@ -91,6 +91,10 @@ Unlike skills (which auto-trigger), commands require user action.
 - User doesn't need to remember to invoke it
 - Complex domain knowledge that enhances conversation
 
+### Delegation Pattern
+
+Commands use descriptive delegation - see `../../references/delegation-patterns.md` for complete validation criteria and patterns.
+
 ## Command Structure
 
 ### Required Elements

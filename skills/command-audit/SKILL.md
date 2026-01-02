@@ -8,7 +8,7 @@ allowed-tools: [Read, Grep, Glob, Bash]
 
 Advanced command validation guidance:
 
-- [delegation-patterns.md](references/delegation-patterns.md) - Delegation clarity and target selection validation
+- [delegation-patterns.md](../../references/delegation-patterns.md) - Delegation clarity and target selection validation
 - [simplicity-enforcement.md](references/simplicity-enforcement.md) - Simplicity vs complexity assessment and skill migration criteria
 - [argument-handling.md](references/argument-handling.md) - Argument parsing patterns and default value validation
 - [documentation-proportionality.md](references/documentation-proportionality.md) - Documentation level appropriateness (minimal vs full)
@@ -111,7 +111,7 @@ Do some validation and check the agent file.
 - **Clear invocation**: Uses Task/Skill tool or delegates to agent
 - **Single target**: Delegates to one component (not multiple)
 
-See [delegation-patterns.md](references/delegation-patterns.md) for patterns.
+See [delegation-patterns.md](../../references/delegation-patterns.md) for patterns.
 
 ### Step 3: Enforce Simplicity
 
