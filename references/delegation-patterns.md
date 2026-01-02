@@ -45,7 +45,7 @@ From `audit-bash.md`:
 **Delegation:** Invokes the **bash-audit** skill for comprehensive shell script analysis.
 ```
 
-From `test-claude-skill.md`:
+From `audit-skill.md`:
 
 ```markdown
 **Delegation:** Invokes the **skill-audit** skill to analyze description quality, trigger phrase coverage, progressive disclosure, and discovery score (1-10 scale).
@@ -101,7 +101,7 @@ Validate [target] using the skill-name skill.
 
 **Example**:
 
-From `validate-agent.md`:
+From `audit-agent.md`:
 
 ```markdown
 Validate agent configuration(s) using the agent-audit skill.
@@ -230,7 +230,7 @@ Shows users what will happen if they don't provide an argument. The skill still 
 ### Pattern 3: No Arguments Needed
 
 ```markdown
-**Usage:** `/analyze-claude-setup`
+**Usage:** `/audit-setup`
 
 **Delegation:** Invokes the **audit-coordinator** skill for complete setup evaluation.
 ```
@@ -411,7 +411,7 @@ Guides you through creating a new skill with specialized knowledge and workflows
 
 ### Excellent: Documented Delegator (27 lines)
 
-**File**: `validate-hook.md`
+**File**: `audit-hook.md`
 
 ```markdown
 ---
@@ -485,7 +485,7 @@ Execute the git-workflow skill to handle complete git workflow automation includ
 description: Validates agents
 ---
 
-# validate-agent
+# audit-agent
 
 Validates agent configurations for correctness and effectiveness.
 ```

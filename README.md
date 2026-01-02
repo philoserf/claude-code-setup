@@ -193,7 +193,7 @@ Invokes the **output-style-authoring** skill to guide you through:
 Hooks are created manually as shell scripts. Use the **hook-audit** skill for validation:
 
 ```bash
-/validate-hook [hook-name]
+/audit-hook [hook-name]
 ```
 
 **Key requirements**:

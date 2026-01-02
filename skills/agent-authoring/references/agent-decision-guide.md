@@ -64,7 +64,7 @@ Decision guide for choosing the right customization type for your use case.
 **Examples**:
 
 - `/create-agent` - delegates to agent-authoring skill
-- `/validate-agent` - invokes evaluator agent
+- `/audit-agent` - invokes evaluator agent
 - `/automate-git` - delegates to git-workflow skill
 
 ---

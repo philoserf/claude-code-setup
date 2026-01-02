@@ -31,7 +31,7 @@ Arguments are user-provided input passed to commands:
 **Example**:
 
 ```text
-User types: /validate-agent bash-scripting
+User types: /audit-agent bash-scripting
 
 In command: $ARGUMENTS = "bash-scripting"
 ```text
@@ -57,7 +57,7 @@ Validate [target] using the skill-name skill.
 **Example**:
 
 ```markdown
-**Usage:** `/validate-agent [agent-name]`
+**Usage:** `/audit-agent [agent-name]`
 
 **Delegation:** Invokes the **agent-audit** skill for comprehensive validation.
 ```
@@ -65,7 +65,7 @@ Validate [target] using the skill-name skill.
 **User types**:
 
 ```text
-/validate-agent bash-scripting
+/audit-agent bash-scripting
 ```
 
 **Result**: agent-audit skill automatically receives "bash-scripting" as $ARGUMENTS
@@ -100,7 +100,7 @@ Validate agent configuration(s) using the agent-audit skill.
 **User types** (with argument):
 
 ```text
-/validate-agent claude-code-evaluator
+/audit-agent claude-code-evaluator
 ```
 
 **Result**: Validates "claude-code-evaluator" specifically
@@ -108,7 +108,7 @@ Validate agent configuration(s) using the agent-audit skill.
 **User types** (no argument):
 
 ```text
-/validate-agent
+/audit-agent
 ```
 
 **Result**: Validates all agents (default)
@@ -206,7 +206,7 @@ Analyze the file at $ARGUMENTS and provide:
 **User types**:
 
 ```text
-/validate-agent bash-scripting
+/audit-agent bash-scripting
 ```text
 
 **Result**: Full prompt with "bash-scripting" embedded
@@ -258,7 +258,7 @@ Analyze the file at $ARGUMENTS and provide:
 ```markdown
 ## Usage
 
-    /validate-agent [agent-name]
+    /audit-agent [agent-name]
 
 Validates the specified agent. If no agent name provided, defaults to bash-scripting.
 ```text
@@ -266,7 +266,7 @@ Validates the specified agent. If no agent name provided, defaults to bash-scrip
 **Bad** (no usage docs for complex command):
 
 ```markdown
-# validate-agent
+# audit-agent
 
 [40 lines of docs, no usage section]
 ```text
@@ -286,7 +286,7 @@ Validates the specified agent. If no agent name provided, defaults to bash-scrip
 **User types**:
 
 ```text
-/validate-agent bash-scripting
+/audit-agent bash-scripting
 ```text
 
 **Result**: "bash-scripting" is lost, agent-auditor gets nothing
@@ -308,7 +308,7 @@ Validates the specified agent. If no agent name provided, defaults to bash-scrip
 **User types**:
 
 ```text
-/validate-agent claude-code-evaluator
+/audit-agent claude-code-evaluator
 ```text
 
 **Result**: User wants "claude-code-evaluator", but command always uses "bash-scripting"
@@ -330,7 +330,7 @@ Validates the specified agent. If no agent name provided, defaults to bash-scrip
 **User types** (no argument):
 
 ```text
-/validate-agent
+/audit-agent
 ```text
 
 **Result**: agent-auditor gets empty string, may fail
@@ -406,15 +406,15 @@ description: Audit shell scripts for security and quality
 ```markdown
 ## Usage
 
-    /validate-agent [agent-name]
+    /audit-agent [agent-name]
 
 Validates the specified agent configuration.
 If no agent name provided, defaults to bash-scripting.
 
 ### Examples
 
-    /validate-agent bash-scripting
-    /validate-agent claude-code-evaluator
+    /audit-agent bash-scripting
+    /audit-agent claude-code-evaluator
 ```text
 
 **Components**:
@@ -541,11 +541,11 @@ description: Audit shell scripts for security and quality
 
 ### Good Default Handling
 
-**Command**: validate-agent
+**Command**: audit-agent
 
 ```yaml
 ---
-name: validate-agent
+name: audit-agent
 description: Validate agent configurations
 ---
 
@@ -558,7 +558,7 @@ description: Validate agent configurations
 - ✓ Sensible default (bash-scripting)
 - ✓ User can override
 
-**User types**: `/validate-agent` (no argument)
+**User types**: `/audit-agent` (no argument)
 
 **Result**: agent-auditor receives "bash-scripting" (default)
 

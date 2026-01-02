@@ -49,7 +49,7 @@ ls -la ~/.claude/commands/
 
 # agent-name is optional - validates all if omitted
 
-/test-claude-skill skill-name
+/audit-skill skill-name
 
 # skill-name is required
 ```

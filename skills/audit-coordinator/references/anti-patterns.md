@@ -417,7 +417,7 @@ description: Validates agent configuration
 
 This command delegates to the **claude-code-evaluator** agent to perform comprehensive validation.
 
-Usage: `/validate-agent [agent-name]`
+Usage: `/audit-agent [agent-name]`
 ```
 
 **Why**: Users need to know what agent/skill the command uses.

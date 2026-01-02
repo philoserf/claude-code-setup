@@ -100,14 +100,14 @@ This command delegates to the **claude-code-evaluator** agent...
 
 **Use when**: Command coordinates multiple agents in sequence
 
-**Example** (`/test-claude-skill`):
+**Example** (`/audit-skill`):
 
 ```markdown
 ---
 description: Tests a skill's discoverability and effectiveness with sample queries
 ---
 
-# test-claude-skill
+# audit-skill
 
 ## What It Does
 

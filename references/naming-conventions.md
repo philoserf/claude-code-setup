@@ -60,6 +60,93 @@ Consistent naming patterns for Claude Code subagents, commands, skills, and hook
 - Use `$ARGUMENTS` for all arguments, `$1`, `$2` for positional parameters
 - Commands require `description` in frontmatter to appear in `/help` and be model-invocable via SlashCommand tool
 
+### Command Action Verbs
+
+Commands should use action verbs that align with the skills they delegate to. Standard verbs and their usage:
+
+**audit** - Validate, analyze, or review existing artifacts
+
+- Pattern: `audit-{target}` delegates to `{target}-audit` skill
+- Examples: `audit-agent`, `audit-bash`, `audit-skill`
+- Use when: Invoking validation/analysis skills
+
+**create** - Guide creation of new artifacts
+
+- Pattern: `create-{target}` delegates to `{target}-authoring` skill
+- Examples: `create-agent`, `create-skill`, `create-command`
+- Use when: Invoking authoring/guidance skills
+
+**automate** - Execute multi-step workflows
+
+- Pattern: `automate-{domain}` delegates to `{domain}-workflow` skill
+- Examples: `automate-git` → `git-workflow`
+- Use when: Invoking workflow automation skills
+
+**process** - Transform or manipulate inputs
+
+- Pattern: `process-{target}` delegates to `process-{target}` skill
+- Examples: `process-pdfs`
+- Use when: Invoking transformation skills
+
+### Delegation Alignment Principle
+
+**Commands should align with the skills they delegate to:**
+
+✅ **Good alignment** (verb matches skill capability):
+
+- `audit-agent` → `agent-audit` (audit action → audit capability)
+- `create-skill` → `skill-authoring` (create action → authoring capability)
+- `automate-git` → `git-workflow` (automate action → workflow capability)
+
+❌ **Poor alignment** (verb mismatch):
+
+- `validate-agent` → `agent-audit` (validate vs audit confusion)
+- `analyze-setup` → `audit-coordinator` (analyze vs audit semantic drift)
+
+**Guideline**: Use command verbs that semantically match the skill's suffix pattern. This creates a predictable, consistent user experience.
+
+### Qualifier Guidelines
+
+Avoid redundant qualifiers when context is obvious:
+
+❌ **Unnecessary qualifiers**:
+
+- `audit-skill` - "claude" is redundant (all skills are Claude skills)
+- `audit-setup` - "claude" is redundant (context is clear)
+
+✅ **Clean names**:
+
+- `test-skill` or `audit-skill`
+- `audit-setup`
+
+**Exception**: Keep qualifiers when they distinguish between similar targets:
+
+- `git-workflow` - distinguishes from other workflow types
+- `bash-audit` - distinguishes from other audit types
+
+### Command → Skill Reference Table
+
+Current command inventory and delegation patterns:
+
+| Command               | Delegates To             | Alignment         |
+| --------------------- | ------------------------ | ----------------- |
+| `audit-agent`         | `agent-audit`            | ✅ Perfect        |
+| `audit-bash`          | `bash-audit`             | ✅ Perfect        |
+| `audit-command`       | `command-audit`          | ✅ Perfect        |
+| `audit-hook`          | `hook-audit`             | ✅ Perfect        |
+| `audit-output-style`  | `output-style-audit`     | ✅ Perfect        |
+| `audit-setup`         | `audit-coordinator`      | ✅ Semantic match |
+| `audit-skill`         | `skill-audit`            | ✅ Perfect        |
+| `automate-git`        | `git-workflow`           | ✅ Semantic match |
+| `create-agent`        | `agent-authoring`        | ✅ Semantic match |
+| `create-command`      | `command-authoring`      | ✅ Semantic match |
+| `create-output-style` | `output-style-authoring` | ✅ Semantic match |
+| `create-skill`        | `skill-authoring`        | ✅ Semantic match |
+
+**Pattern**: `{action}-{target}` command → `{target}-{capability}` skill
+
+This alignment ensures users can intuitively predict command names based on the capabilities they want to invoke.
+
 ## Agent Skills (`.claude/skills/`)
 
 ### Naming Pattern
@@ -331,7 +418,7 @@ Expected: Should invoke agent-audit skill
 **Verify command delegation**:
 
 ```text
-User: "/validate-agent my-agent"
+User: "/audit-agent my-agent"
 Expected: Command should delegate to agent-audit skill
 ```
 

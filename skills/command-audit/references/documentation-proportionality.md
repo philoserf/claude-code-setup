@@ -68,17 +68,17 @@ description: Audit shell scripts for security and quality
 
 ```yaml
 ---
-name: validate-agent
+name: audit-agent
 description: Comprehensive agent configuration validation
 ---
 
-# validate-agent
+# audit-agent
 
 Validates agent configurations using specialized auditors.
 
 ## Usage
 
-    /validate-agent [agent-name]
+    /audit-agent [agent-name]
 
 ## What It Does
 
@@ -88,8 +88,8 @@ Validates agent configurations using specialized auditors.
 
 ## Examples
 
-    /validate-agent bash-scripting
-    /validate-agent claude-code-evaluator
+    /audit-agent bash-scripting
+    /audit-agent claude-code-evaluator
 
 {Skill skill="agent-auditor" args="$ARGUMENTS"}
 ```
@@ -121,7 +121,7 @@ Validates agent configurations using specialized auditors.
 ```markdown
 ## Usage
 
-    /validate-agent [agent-name]
+    /audit-agent [agent-name]
 
 Validates the specified agent. Defaults to bash-scripting if no argument.
 ```
@@ -131,7 +131,7 @@ Validates the specified agent. Defaults to bash-scripting if no argument.
 ```markdown
 ## Usage
 
-This command is called validate-agent. You can use it by typing /validate-agent
+This command is called audit-agent. You can use it by typing /audit-agent
 followed by an agent name. If you don't provide an agent name, it will use a
 default value. The default value is bash-scripting. You can override this by
 providing your own agent name when you call the command.
@@ -229,13 +229,13 @@ Use full docs (30-80 lines) when:
 **Examples**:
 
 ```yaml
-# validate-agent - multi-step process
+# audit-agent - multi-step process
 ---
-name: validate-agent
+name: audit-agent
 description: Comprehensive agent configuration validation
 ---
 
-# validate-agent
+# audit-agent
 
 [Full usage, what it does, examples]
 
@@ -318,7 +318,7 @@ You can combine this with other commands...
 
 ## Related Commands
 
-- /validate-agent
+- /audit-agent
 - /test-skill
 
 {Skill skill="hook-auditor" args="$ARGUMENTS"}
@@ -388,8 +388,8 @@ description: Batch validation with filtering and options
 ```markdown
 ## Usage
 
-The validate-agent command is used to validate agents. To use it, type
-/validate-agent followed by the name of the agent you want to validate.
+The audit-agent command is used to validate agents. To use it, type
+/audit-agent followed by the name of the agent you want to validate.
 If you don't provide an agent name, the command will use a default agent
 name, which is bash-scripting. You can override this default by providing
 your own agent name when you type the command.
@@ -402,7 +402,7 @@ your own agent name when you type the command.
 ```markdown
 ## Usage
 
-    /validate-agent [agent-name]
+    /audit-agent [agent-name]
 
 Validates the specified agent. Defaults to bash-scripting if omitted.
 ```
@@ -412,14 +412,14 @@ Validates the specified agent. Defaults to bash-scripting if omitted.
 **Problem**:
 
 ```markdown
-# validate-agent
+# audit-agent
 
 This command validates agents. You provide an agent name and it checks
 the configuration.
 
 ## Examples
 
-    /validate-agent bash-scripting
+    /audit-agent bash-scripting
 
 {Skill skill="agent-auditor" args="$ARGUMENTS"}
 ```
@@ -429,18 +429,18 @@ the configuration.
 **Fix**: Add usage section:
 
 ```markdown
-# validate-agent
+# audit-agent
 
 ## Usage
 
-    /validate-agent [agent-name]
+    /audit-agent [agent-name]
 
 Validates agent configuration. Defaults to bash-scripting if no argument.
 
 ## Examples
 
-    /validate-agent bash-scripting
-    /validate-agent claude-code-evaluator
+    /audit-agent bash-scripting
+    /audit-agent claude-code-evaluator
 
 {Skill skill="agent-auditor" args="$ARGUMENTS"}
 ```
@@ -516,19 +516,19 @@ description: Audit shell scripts for security and quality
 
 ### Excellent Full Docs
 
-**Command**: validate-agent (40 lines)
+**Command**: audit-agent (40 lines)
 
 ```yaml
 ---
-name: validate-agent
+name: audit-agent
 description: Comprehensive agent configuration validation
 ---
 
-# validate-agent
+# audit-agent
 
 ## Usage
 
-    /validate-agent [agent-name]
+    /audit-agent [agent-name]
 
 ## What It Does
 
@@ -539,8 +539,8 @@ description: Comprehensive agent configuration validation
 
 ## Examples
 
-    /validate-agent bash-scripting
-    /validate-agent claude-code-evaluator
+    /audit-agent bash-scripting
+    /audit-agent claude-code-evaluator
 
 {Skill skill="agent-auditor" args="$ARGUMENTS"}
 ```

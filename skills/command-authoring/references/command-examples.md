@@ -65,14 +65,14 @@ This command delegates to the **claude-code-evaluator** agent...
 - Shows what validations occur
 - Optional argument with sensible default
 
-## Example 3: Multi-Agent Orchestrator (`/test-claude-skill`)
+## Example 3: Multi-Agent Orchestrator (`/audit-skill`)
 
 ```markdown
 ---
 description: Tests a skill's discoverability and effectiveness with sample queries
 ---
 
-# test-claude-skill
+# audit-skill
 
 ## What It Does
 

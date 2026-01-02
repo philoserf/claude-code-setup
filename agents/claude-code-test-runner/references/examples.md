@@ -46,18 +46,18 @@ This document provides concrete examples of test cases for different types of Cl
 - Actual: {result}
 - Status: PASS/FAIL
 
-## Command Test Example (validate-agent)
+## Command Test Example (audit-agent)
 
 **Test 1: With Argument**
 
-- Input: `/validate-agent bash`
+- Input: `/audit-agent bash`
 - Expected: Invokes claude-code-evaluator agent on bash-scripting.md
 - Actual: {result}
 - Status: PASS
 
 **Test 2: Without Argument**
 
-- Input: `/validate-agent`
+- Input: `/audit-agent`
 - Expected: Evaluates all agents in agents/
 - Actual: {result}
 - Status: PASS
