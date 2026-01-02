@@ -217,4 +217,4 @@ Generate a structured evaluation report with:
 
 - **command-authoring skill** - Complete guide to creating commands
 - **command-audit skill** - Validation and best practices
-- **skills/command-audit/references/delegation-patterns.md** - Detailed delegation validation criteria
+- **../references/delegation-patterns.md** - Detailed delegation validation criteria

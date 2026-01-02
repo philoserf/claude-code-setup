@@ -93,7 +93,7 @@ Unlike skills (which auto-trigger), commands require user action.
 
 ### Delegation Pattern
 
-Commands use descriptive delegation - see `skills/command-audit/references/delegation-patterns.md` for complete validation criteria and patterns.
+Commands use descriptive delegation - see `../../references/delegation-patterns.md` for complete validation criteria and patterns.
 
 ## Command Structure
 
