@@ -1,19 +1,43 @@
 ---
 name: command-audit
-description: Validates command delegation patterns, simplicity, and documentation proportionality. Use when reviewing, auditing, improving, or fixing commands, checking delegation clarity, enforcing simplicity (6-10 lines simple, 30-80 lines documented), validating argument handling, or assessing documentation appropriateness. Also triggers when user asks about command best practices, whether a command should be a skill instead, or needs help with command structure.
+description: Validates command frontmatter, delegation patterns, simplicity guidelines, and documentation proportionality. Use when reviewing, auditing, analyzing, evaluating, improving, or fixing commands, validating official frontmatter (description, argument-hint, allowed-tools, model), checking delegation clarity or standalone prompts, assessing simplicity guidelines (6-15 simple, 25-80 documented), validating argument handling, or assessing documentation appropriateness. Distinguishes official Anthropic requirements from custom best practices. Also triggers when user asks about command best practices, whether a command should be a skill instead, or needs help with command structure.
 allowed-tools: [Read, Grep, Glob, Bash]
 ---
 
 ## Reference Files
 
-Advanced command validation guidance:
+Command validation guidance (official requirements + custom best practices):
 
-- [delegation-patterns.md](../../references/delegation-patterns.md) - Delegation clarity and target selection validation
-- [simplicity-enforcement.md](references/simplicity-enforcement.md) - Simplicity vs complexity assessment and skill migration criteria
-- [argument-handling.md](references/argument-handling.md) - Argument parsing patterns and default value validation
-- [documentation-proportionality.md](references/documentation-proportionality.md) - Documentation level appropriateness (minimal vs full)
+- [frontmatter-validation.md](references/frontmatter-validation.md) - Official Anthropic frontmatter features and validation rules (OFFICIAL)
+- [delegation-patterns.md](../../references/delegation-patterns.md) - Delegation clarity and target selection validation (BEST PRACTICE)
+- [simplicity-enforcement.md](references/simplicity-enforcement.md) - Simplicity vs complexity assessment and skill migration criteria (GUIDELINES)
+- [argument-handling.md](references/argument-handling.md) - Argument parsing patterns and default value validation (BEST PRACTICE)
+- [documentation-proportionality.md](references/documentation-proportionality.md) - Documentation level appropriateness (minimal vs full) (BEST PRACTICE)
 - [report-format.md](references/report-format.md) - Standardized audit report structure and template
 - [examples.md](references/examples.md) - Good vs poor command comparisons and full audit reports
+
+---
+
+## Official Requirements vs Custom Best Practices
+
+This auditor validates both **official Anthropic requirements** and **custom best practices**:
+
+**Official Anthropic Requirements** (from Claude Code documentation):
+
+- **Frontmatter features**: `description` (required), `argument-hint`, `allowed-tools`, `model`, `disable-model-invocation` (optional)
+- **Command patterns**: Delegation OR standalone prompts OR bash execution (!) OR file references (@)
+- **Multiple valid patterns**: Commands can delegate to skills/agents OR provide inline instructions
+- **No official line count limits**: Simplicity is conceptual, not numeric
+
+**Custom Best Practices** (recommended patterns from this codebase):
+
+- **Delegation clarity**: Descriptive delegation to skills/agents using natural language (preferred pattern)
+- **Simplicity guidelines**: 6-15 lines (simple), 25-80 lines (documented) - guidelines not hard limits
+- **Documentation proportionality**: Match documentation level to command complexity
+- **Single responsibility**: One clear purpose per command
+- **Argument handling**: Pass user input to delegation targets or use in instructions
+
+**Audit reports will distinguish** between violations of official requirements (CRITICAL) and deviations from custom best practices (IMPORTANT or NICE-TO-HAVE).
 
 ---
 
@@ -26,12 +50,13 @@ Validates command configurations for delegation clarity, simplicity, and documen
 **Basic audit workflow**:
 
 1. Read command file
-2. Assess delegation pattern clarity
-3. Enforce simplicity (6-10 simple, 30-80 documented)
-4. Validate argument handling
-5. Check documentation proportionality
-6. Decide: Should this be a skill instead?
-7. Generate audit report
+2. Validate frontmatter features (description required, optional fields valid)
+3. Identify command pattern (delegation, standalone prompt, bash, file reference)
+4. Assess simplicity guidelines (6-15 simple, 25-80 documented)
+5. Validate argument handling
+6. Check documentation proportionality
+7. Decide: Should this be a skill instead?
+8. Generate audit report with official vs custom distinction
 
 **Example usage**:
 
@@ -44,25 +69,26 @@ User: "Audit my validate-agent command"
 
 ## Command Audit Checklist
 
-### Critical Issues
+### Critical Issues (Official Requirements)
 
 Must be fixed for command to function correctly:
 
-- [ ] **Valid markdown file** - Proper frontmatter and structure
-- [ ] **name field present** - Command name defined
-- [ ] **Clear delegation target** - Explicit agent or skill invocation
-- [ ] **Simplicity enforced** - 6-10 lines (simple) or 30-80 lines (documented)
-- [ ] **No complex logic** - Delegates to agent/skill, doesn't implement
+- [ ] **Valid markdown file** - Proper frontmatter and structure (OFFICIAL)
+- [ ] **description field present** - Required for /help visibility and model invocation (OFFICIAL REQUIREMENT)
+- [ ] **Frontmatter features valid** - argument-hint, allowed-tools, model, disable-model-invocation if specified (OFFICIAL)
+- [ ] **Valid command pattern** - Delegation, standalone prompt, bash execution, or file reference (OFFICIAL - all valid)
 
-### Important Issues
+### Important Issues (Best Practices)
 
 Should be fixed for optimal command performance:
 
-- [ ] **Description comprehensive** - 100-300 chars with use cases
-- [ ] **Arguments handled properly** - $ARGUMENTS vs $1, sensible defaults
-- [ ] **Documentation proportional** - Minimal for simple, full for documented
-- [ ] **Single responsibility** - One clear purpose
-- [ ] **Scope correct** - Should be command (not skill)
+- [ ] **Simplicity guideline** - Generally 6-15 lines (simple) or 25-80 lines (documented) (GUIDELINE)
+- [ ] **No complex logic** - Simple delegation/prompt, doesn't implement logic (BEST PRACTICE)
+- [ ] **Delegation clarity** - If delegating, clear target and purpose (BEST PRACTICE)
+- [ ] **Arguments handled properly** - $ARGUMENTS or $1/$2, sensible defaults (BEST PRACTICE)
+- [ ] **Documentation proportional** - Minimal for simple, full for documented (BEST PRACTICE)
+- [ ] **Single responsibility** - One clear purpose (BEST PRACTICE)
+- [ ] **Scope correct** - Should be command, not skill (BEST PRACTICE)
 
 ### Nice-to-Have Improvements
 
@@ -87,54 +113,141 @@ Read commands/validate-agent.md
 Glob commands/*.md
 ```
 
-### Step 2: Assess Delegation Pattern
+### Step 1.5: Validate Frontmatter Features
 
-**Check delegation target**:
+**Check official frontmatter fields** (OFFICIAL REQUIREMENTS):
 
-**Good** (clear delegation):
-
-```markdown
-Launch the claude-code-evaluator agent to validate the configuration:
-
-{Task subagent_type="claude-code-evaluator" description="Validate agent" prompt="..."}
+```bash
+# Read frontmatter (first few lines)
+Read commands/command-name.md | head -15
 ```
 
-**Poor** (unclear delegation):
+**Required validation**:
+
+- [ ] **description present** - CRITICAL: Required for /help visibility and model invocation
+- [ ] **argument-hint format** - If present, uses `[optional]` or `<required>` notation
+- [ ] **allowed-tools valid** - If present, are valid tool names (Read, Write, Edit, Bash, Grep, Glob, Task, Skill, etc.)
+- [ ] **model valid** - If present, is valid model identifier (sonnet, opus, haiku, or full string)
+- [ ] **disable-model-invocation** - If present, is boolean (true/false)
+
+**Common issues**:
+
+- Missing description → Command won't appear in /help (CRITICAL)
+- Invalid model name → Command might fail (CRITICAL)
+- Argument-hint doesn't match usage → Confuses users (IMPORTANT)
+- Restrictive allowed-tools → Command might fail if it needs unlisted tools (IMPORTANT)
+
+See [frontmatter-validation.md](references/frontmatter-validation.md) for complete frontmatter guidance.
+
+### Step 2: Identify Command Pattern
+
+**Commands can use multiple valid patterns** (per official Anthropic guidance):
+
+**Pattern 1: Descriptive Delegation** (most common in this codebase):
 
 ```markdown
-Do some validation and check the agent file.
+**Delegation:** Invokes the **agent-audit** skill for comprehensive validation.
 ```
 
-**Validation criteria**:
+Or:
 
-- **Explicit target**: Clearly names agent or skill to invoke
-- **Clear invocation**: Uses Task/Skill tool or delegates to agent
-- **Single target**: Delegates to one component (not multiple)
+```markdown
+Execute the git-workflow skill to handle complete git workflow automation.
+```
 
-See [delegation-patterns.md](../../references/delegation-patterns.md) for patterns.
+Or:
 
-### Step 3: Enforce Simplicity
+```markdown
+Validate agent configuration(s) using the agent-audit skill.
 
-**Check file size and complexity**:
+**Target**: ${ARGUMENTS:-all agents in ~/.claude/agents/}
+```
+
+**Pattern 2: Standalone Prompt** (also valid):
+
+```markdown
+Analyze the provided file and generate a comprehensive quality report including:
+
+- **Code Style**: Adherence to language conventions and best practices
+- **Security**: Potential vulnerabilities and security concerns
+- **Performance**: Optimization opportunities and bottlenecks
+- **Maintainability**: Code clarity, documentation, and structure
+```
+
+**Pattern 3: Bash Execution** (! syntax):
+
+```markdown
+!git log --oneline -10
+!npm test
+
+Summarize the output above.
+```
+
+**Pattern 4: File Reference** (@ syntax):
+
+```markdown
+@.claude/templates/code-review-checklist.md
+
+Apply this checklist to $ARGUMENTS
+```
+
+**Validation criteria** (for ANY pattern):
+
+For **delegation pattern**:
+
+- **Target named**: Clearly identifies skill or agent
+- **Purpose described**: Explains what skill/agent does
+- **Single target**: Delegates to one component
+- **Descriptive**: Uses natural language, not tool call syntax
+
+For **standalone prompt**:
+
+- **Clear instructions**: Tells Claude what to do
+- **Structured**: Well-organized, actionable
+- **Single purpose**: Focused on one task
+
+For **bash/file patterns**:
+
+- **Valid syntax**: Proper ! or @ usage
+- **Appropriate use**: Bash for commands, @ for templates
+
+**Note**: All patterns are valid per official Anthropic documentation. Evaluate based on:
+
+- Is the pattern clear and understandable?
+- Does it accomplish a single purpose?
+- Is it appropriate for the task?
+
+See [delegation-patterns.md](../../references/delegation-patterns.md) for delegation examples.
+
+### Step 3: Assess Simplicity Guidelines
+
+**Check file size and complexity** (BEST PRACTICE GUIDELINES):
 
 ```bash
 wc -l commands/validate-agent.md
 ```
 
-**Patterns**:
+**Guidelines** (not hard limits):
 
-- **6-10 lines**: Simple delegator (minimal documentation)
-- **30-80 lines**: Documented delegator (full documentation)
-- **>80 lines**: Too complex - should be skill or agent
+- **6-15 lines**: Typical simple command (minimal documentation)
+- **25-80 lines**: Typical documented command (full documentation)
+- **>80 lines**: Consider skill migration (evaluate complexity)
 
-**Red flags**:
+**Focus on principles**:
 
-- Complex logic (if/else, loops)
-- Multiple tool calls
-- Extensive processing
-- > 80 lines
+- Single clear purpose
+- Easy to understand
+- Not implementing complex logic
+- Appropriate for manual invocation
 
-**Decision**: If complex logic or >80 lines → Should be a skill
+**Red flags** (suggest skill migration):
+
+- Complex logic (if/else, loops) - belongs in skill
+- Multiple tool calls - orchestration belongs in skill
+- Extensive processing - implementation belongs in skill
+- > 80 lines - usually indicates skill-worthy complexity
+
+**Note**: Line counts are guidelines. A well-documented command with clear purpose might exceed guidelines and still be appropriate.
 
 See [simplicity-enforcement.md](references/simplicity-enforcement.md) for decision criteria.
 
@@ -266,13 +379,13 @@ Compile findings into standardized report format. See [report-format.md](referen
 - Multiple delegations in one command
 - Complex logic instead of delegation
 
-### Simplicity Enforcement
+### Simplicity Guidelines
 
-**File size targets**:
+**File size guidelines** (not hard limits):
 
-- **6-10 lines**: Simple delegator (frontmatter + 1-2 line delegation)
-- **30-80 lines**: Documented delegator (frontmatter + docs + delegation)
-- **>80 lines**: Too complex (should be skill)
+- **6-15 lines**: Typical simple command (frontmatter + minimal content)
+- **25-80 lines**: Typical documented command (frontmatter + docs + content)
+- **>80 lines**: Consider skill migration (evaluate complexity)
 
 **Complexity indicators**:
 
@@ -330,17 +443,60 @@ Compile findings into standardized report format. See [report-format.md](referen
 
 ## Common Issues
 
-### Issue 1: Too Complex for Command
+### Issue 0: Missing description Frontmatter
 
-**Problem**: >80 lines or complex logic
+**Problem**: No description field in frontmatter
+
+**Severity**: CRITICAL (official requirement)
+
+**Impact**:
+
+- Command won't appear in `/help`
+- SlashCommand tool cannot invoke command
+- Users cannot discover command functionality
+
+**Example**:
+
+```yaml
+# ❌ WRONG
+---
+argument-hint: [file]
+---
+```
+
+**Fix**:
+
+```yaml
+# ✅ CORRECT
+---
+description: Analyze file for security vulnerabilities
+argument-hint: [file]
+---
+```
+
+### Issue 1: Excessive Complexity (Consider Skill)
+
+**Problem**: >80 lines or complex implementation logic
+
+**Severity**: IMPORTANT (best practice recommendation)
 
 **Example**: Command with 120 lines of if/else logic
 
-**Fix**: Convert to skill
+**Impact**:
+
+- Hard to understand and maintain
+- Violates single responsibility principle
+- Better suited as skill with auto-triggering
+
+**Fix**: Convert to skill (recommended, not required)
+
+**Note**: Some commands legitimately exceed 80 lines due to comprehensive documentation. Evaluate based on complexity, not just line count.
 
 ### Issue 2: Unclear Delegation
 
 **Problem**: No explicit target
+
+**Severity**: IMPORTANT (best practice for delegation pattern)
 
 **Example**:
 
@@ -348,31 +504,37 @@ Compile findings into standardized report format. See [report-format.md](referen
 Do some validation on the agent.
 ```
 
-**Fix**:
+**Fix** (use descriptive delegation):
 
 ```markdown
-{Skill skill="agent-auditor" args="$ARGUMENTS"}
+**Delegation:** Invokes the **agent-audit** skill for comprehensive validation.
 ```
 
 ### Issue 3: Arguments Ignored
 
 **Problem**: User provides arguments but command doesn't use them
 
+**Severity**: IMPORTANT (best practice)
+
 **Example**:
 
 ```markdown
-{Task description="Validate agent" prompt="Validate an agent"}
+**Delegation:** Invokes the **agent-audit** skill.
 
 # User types: /validate-agent bash-scripting
 
-# But "bash-scripting" is ignored
+# But "bash-scripting" is ignored - not passed to skill
 ```
 
-**Fix**:
+**Fix** (ensure arguments are passed):
 
 ```markdown
-{Skill skill="agent-auditor" args="$ARGUMENTS"}
+Validate agent configuration(s) using the agent-audit skill.
+
+**Target**: ${ARGUMENTS:-all agents}
 ```
+
+Or simply rely on automatic argument passing with descriptive delegation - Claude automatically passes $ARGUMENTS to invoked skills.
 
 ### Issue 4: Over-Documented Simple Command
 
