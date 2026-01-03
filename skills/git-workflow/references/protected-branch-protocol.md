@@ -1,6 +1,8 @@
 # Protected Branch Push Protocol
 
-This document details the protocol for preventing direct pushes to protected branches (main/master/develop/production/staging).
+This document details the protocol for preventing direct **pushes** to protected branches (main/master/develop/production/staging).
+
+**Note**: This is Phase 5 protection (push-time). For Phase 0 protection (when starting work on protected branch), see [phase-0-protocol.md](phase-0-protocol.md).
 
 ## Overview
 
@@ -67,7 +69,7 @@ fi
 
 When a push to a protected branch is detected, **BLOCK** the operation and present this message:
 
-```
+```text
 🛑 BLOCKED: Cannot push directly to `{branch}` branch
 
 Direct pushes to protected branches are not allowed.
@@ -106,7 +108,7 @@ Use **AskUserQuestion** to present these options with descriptions.
 
 2. **Show the migration plan:**
 
-   ```
+   ```text
    I'll help you move these commits to a feature branch:
 
    1. Create new branch: {suggested-name}
@@ -180,7 +182,7 @@ Use **AskUserQuestion** to present these options with descriptions.
 
 2. **Show the plan:**
 
-   ```
+   ```text
    I'll rename your current branch and recreate {protected-branch}:
 
    1. Rename {protected-branch} → {feature-branch}
@@ -237,7 +239,7 @@ Use **AskUserQuestion** to present these options with descriptions.
 
 1. **Explain the severity:**
 
-   ```
+   ```text
    ⚠️ EMERGENCY OVERRIDE REQUIRED
 
    This should ONLY be used for critical hotfixes that must go
@@ -295,7 +297,7 @@ Use **AskUserQuestion** to present these options with descriptions.
    - Execute `git push` (includes audit commit)
    - **Still recommend creating a PR for documentation:**
 
-   ```
+   ```text
    Push completed with audit trail.
 
    ⚠️ IMPORTANT: Even though you pushed directly, please create a
@@ -332,7 +334,7 @@ which can vary across git versions.
 
 **If force push needed to protected branch:**
 
-```
+```text
 🛑 ABSOLUTELY BLOCKED: Force push to {protected-branch}
 
 Force pushing to protected branches is extremely dangerous:
@@ -371,7 +373,7 @@ fi
 
 **Message:**
 
-```
+```text
 This is a hotfix branch that will merge to {protected-branch}.
 
 Allowing push to {current-branch}, but you MUST:
@@ -405,7 +407,7 @@ git log origin/{protected-branch}..HEAD
 
 **If some commits are new, some already pushed:**
 
-```
+```text
 ⚠️ WARNING: Some commits already pushed to origin/{protected-branch}
 
 This is unusual. You have {n} commits:
@@ -424,7 +426,7 @@ What would you like to do?
 
 If in detached HEAD state:
 
-```
+```text
 ⚠️ You are in detached HEAD state
 
 Before proceeding with protected branch protocol, let's
@@ -440,7 +442,7 @@ Would you like to:
 
 If no remote exists:
 
-```
+```text
 ⚠️ No remote repository configured
 
 Cannot determine if branch is behind remote.
@@ -572,7 +574,7 @@ If you're unsure about the state or recovery:
 
 Protected branches can be configured in the skill. Default list:
 
-```
+```bash
 PROTECTED_BRANCHES=("main" "master" "develop" "production" "staging")
 ```
 

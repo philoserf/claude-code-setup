@@ -39,13 +39,13 @@ The skill follows a 6-phase workflow:
 
 ## Phase 0: Branch Management
 
-**Goal**: Ensure work is happening on an appropriate branch.
+**Goal**: Prevent accidental work on protected branches and ensure proper isolation.
 
-If the user is on a protected branch (main/master/develop), suggest creating a feature branch with an appropriate name based on the type of work (feature/, fix/, refactor/, docs/, test/).
+If the user is on a protected branch (main/master/develop/production/staging) with uncommitted changes, BLOCK and require creating a feature branch. If working directory is clean, proactively suggest branching. Provides 3 options: auto-suggested branch (recommended), custom branch name, or override with confirmation.
 
-Skip this phase if the user is already on a feature branch or explicitly wants to commit to the current branch.
+Skip this phase if the user is already on a feature branch, hotfix branch, or release branch.
 
-**For detailed steps, see [references/workflow-phases.md#phase-0-branch-management](references/workflow-phases.md#phase-0-branch-management).**
+**For detailed steps, see [references/phase-0-protocol.md](references/phase-0-protocol.md) and [references/workflow-phases.md#phase-0-branch-management](references/workflow-phases.md#phase-0-branch-management).**
 
 ## Phase 1: Repository Analysis
 
@@ -189,16 +189,12 @@ Always perform these checks during the workflow:
 - Ask if user wants to add remote
 - Help set up origin if needed
 
-**Protected branch** (pushing to main/master/develop/production/staging):
+**Protected branch** (working on main/master/develop/production/staging):
 
-- **BLOCK the push operation** - do not just warn
-- Enter Protected Branch Push Protocol
-- Offer 3 options:
-  1. Create feature branch and migrate commits (recommended)
-  2. Rename current branch to feature branch
-  3. Emergency override with explicit reason (logged)
-- **Absolutely block** force pushes to protected branches
-- See [references/protected-branch-protocol.md](references/protected-branch-protocol.md) for details
+- **Phase 0**: Blocks if uncommitted changes exist, requires branching
+- **Phase 5**: Blocks if trying to push commits, requires migration
+- See [references/phase-0-protocol.md](references/phase-0-protocol.md) for start-of-work protocol
+- See [references/protected-branch-protocol.md](references/protected-branch-protocol.md) for push-time protocol
 
 **Rebase in progress**:
 

@@ -4,27 +4,43 @@ This document provides detailed instructions for each phase of the git-workflow 
 
 ## Phase 0: Branch Management
 
-**Goal**: Ensure work is happening on an appropriate branch.
+**Goal**: Prevent accidental work on protected branches and ensure proper isolation.
+
+**CRITICAL**: This phase is MANDATORY when on protected branch with uncommitted changes.
 
 **Steps**:
 
 1. Check current branch: `git branch --show-current`
-2. If on main/master/develop (protected branches):
-   - Analyze changes to understand the type of work
-   - Suggest appropriate branch name:
-     - `feature/<description>` for new features
-     - `fix/<description>` for bug fixes
-     - `refactor/<description>` for refactoring
-     - `docs/<description>` for documentation
-     - `test/<description>` for test additions
-   - Use kebab-case for descriptions
-   - Ask user if they want to create a new branch
-3. If confirmed: `git checkout -b <branch-name>`
+
+2. Check if on protected branch (main/master/develop/production/staging)
+
+3. Check for uncommitted changes: `git diff-index --quiet HEAD --`
+
+4. **If on protected branch WITH uncommitted changes:**
+   - **BLOCK** the workflow
+   - Show blocking message explaining risks
+   - Present 3 options via AskUserQuestion:
+     1. Create feature branch with auto-suggested name (RECOMMENDED)
+     2. Create feature branch with custom name
+     3. Override and continue on protected branch (requires confirmation)
+   - Execute chosen option
+   - See **[phase-0-protocol.md](phase-0-protocol.md)** for detailed protocol
+
+5. **If on protected branch with CLEAN working directory:**
+   - Show friendly proactive suggestion
+   - Offer to create feature branch now
+   - Allow user to skip (will check again if changes appear)
 
 **Skip this phase if**:
 
 - User is already on a feature branch
-- User explicitly wants to commit to current branch
+- User is on hotfix/_or release/_ branch (special handling)
+- User is in detached HEAD state (separate edge case handling)
+
+**Key differences from Phase 5**:
+
+- Phase 0: Deals with UNCOMMITTED changes (uses `git stash`)
+- Phase 5: Deals with COMMITTED changes (uses `git cherry-pick`)
 
 ## Phase 1: Repository Analysis
 

@@ -404,6 +404,154 @@ Changes safely isolated on feature branch, main stays clean.
 
 ---
 
+## Example 4.5: Protected Branch with Uncommitted Changes
+
+### Scenario
+
+User accidentally started working on main branch and made several changes without realizing they should be on a feature branch.
+
+### Repository State
+
+```bash
+$ git branch --show-current
+main
+
+$ git status --short
+ M src/auth/LoginForm.js
+ M src/auth/api.js
+ A src/auth/validators.js
+?? src/auth/tests/validators.test.js
+```
+
+### Workflow
+
+**Phase 0**: Protected Branch Detection
+
+The new proactive Phase 0 protocol catches this immediately:
+
+1. **Detection**:
+   - Current branch: `main` (protected)
+   - Uncommitted changes: Yes
+   - **BLOCKS** workflow with protection message
+
+2. **Blocking Message**:
+
+   ```text
+   🛑 STOP: You're working on protected branch `main` with uncommitted changes
+
+   Working directly on protected branches is risky:
+   • Bypasses code review process
+   • Changes can accidentally get pushed to main
+   • Makes it harder to organize work into logical commits
+
+   I detected changes in:
+   src/auth/LoginForm.js
+   src/auth/api.js
+   src/auth/validators.js
+   src/auth/tests/validators.test.js
+
+   Let me help you create a feature branch to safely isolate this work.
+   ```
+
+3. **Analysis and Auto-Suggestion**:
+   - Changed files: Authentication-related modifications
+   - Detected type: New files + test files → `feature` prefix
+   - Main file: `validators.js`
+   - **Suggested branch name**: `feature/login-validators`
+
+4. **Present 3 Options**:
+   - **Option 1 (Recommended)**: Create `feature/login-validators`
+   - **Option 2**: Create feature branch with custom name
+   - **Option 3**: Override and continue on main (requires confirmation)
+
+5. **User selects Option 1**
+
+6. **Migration Execution**:
+
+   ```bash
+   # Stash uncommitted changes (including untracked)
+   git stash push -u -m "Phase 0: Migrating to feature/login-validators"
+
+   # Create and checkout new branch
+   git checkout -b feature/login-validators
+
+   # Apply stashed changes
+   git stash pop
+   ```
+
+7. **Success**:
+
+   ```text
+   ✓ Stashed changes
+   ✓ Created branch feature/login-validators
+   ✓ Applied changes to feature/login-validators
+
+   ✓ SUCCESS: main is now clean
+   ✓ Your changes are on feature/login-validators
+   ```
+
+**Phase 1-6**: Proceed with normal workflow on feature branch
+
+- Repository analysis on `feature/login-validators`
+- Organize changes into atomic commits
+- Create commits with proper messages
+- Push to remote
+- Create pull request
+
+### Result
+
+- User is **educated** about protected branch best practices
+- Work is **properly isolated** on feature branch
+- Main branch remains **clean** and production-ready
+- **Proactive prevention** caught the issue before any commits were made
+- User can now follow proper PR workflow
+
+### Alternative: User Selects Override (Option 3)
+
+If user had selected Option 3 instead:
+
+1. **Strong Warning**:
+
+   ```text
+   ⚠️ OVERRIDE REQUIRED
+
+   Continuing on main is strongly discouraged.
+
+   This should ONLY be done if:
+   ✓ You're making a tiny configuration change
+   ✓ You're fixing a critical production bug
+   ✓ You absolutely cannot use a feature branch
+
+   This override will be logged in your git history.
+
+   To proceed, type exactly: CONTINUE ON PROTECTED
+   ```
+
+2. **User types confirmation**
+
+3. **Audit Commit Created**:
+
+   ```bash
+   git commit --allow-empty -m "Phase 0 Override: Continuing work on main
+
+   Override-Date: 2026-01-02 15:30:00 UTC
+   Override-User: John Doe <john@example.com>
+
+   The user chose to continue working on main despite
+   Phase 0 recommending a feature branch.
+
+   Changes in progress:
+   M src/auth/LoginForm.js
+   M src/auth/api.js
+   A src/auth/validators.js
+   ?? src/auth/tests/validators.test.js"
+   ```
+
+4. **Workflow continues on main** (not recommended)
+5. **Phase 5 will catch** the push attempt later and require migration
+
+---
+
 ## Example 5: Cleaning Up Messy History
 
 ### Scenario
