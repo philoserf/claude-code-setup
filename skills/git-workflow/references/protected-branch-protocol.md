@@ -14,15 +14,43 @@ Direct pushes to protected branches are dangerous because they:
 4. **Lose history** - Can't easily revert without force push
 5. **Team disruption** - Unexpected changes appear in main
 
+## Requirements
+
+**Shell Requirements:**
+
+- Bash 4.0+ (for array syntax)
+- Standard git 2.23+ (for `git branch --show-current`)
+
+**Portability Note:** This protocol uses bash-specific features. For POSIX sh compatibility, alternative implementations would be needed.
+
 ## Detection Logic
 
-**Before pushing, check if the current branch is protected:**
+**Before pushing, perform these checks in order:**
 
 ```bash
+# 1. Check for detached HEAD state first
 CURRENT_BRANCH=$(git branch --show-current)
+
+if [ -z "$CURRENT_BRANCH" ]; then
+  # Detached HEAD state - handle before protected branch check
+  echo "⚠️ You are in detached HEAD state"
+  # Offer to create branch (see Detached HEAD edge case)
+  exit 1
+fi
+
+# 2. Fetch latest remote state to avoid race conditions
+git fetch origin "$CURRENT_BRANCH" 2>/dev/null || true
+
+# 3. Check for uncommitted changes (will interfere with migration)
+if ! git diff-index --quiet HEAD --; then
+  echo "⚠️ You have uncommitted changes"
+  echo "Please commit or stash changes before pushing"
+  exit 1
+fi
+
+# 4. Check if current branch is protected
 PROTECTED_BRANCHES=("main" "master" "develop" "production" "staging")
 
-# Check if current branch is in protected list
 if [[ " ${PROTECTED_BRANCHES[@]} " =~ " ${CURRENT_BRANCH} " ]]; then
   # STOP - Enter protected branch push protocol
   # Do NOT push - block the operation
@@ -31,8 +59,9 @@ fi
 
 **When to check**:
 
-- In Phase 5, before showing the push confirmation dialog
+- In Phase 5, BEFORE showing the push confirmation dialog
 - After user has created commits, before actually pushing
+- After verifying working directory is clean
 
 ## Protected Branch Push Protocol
 
@@ -96,15 +125,29 @@ Use **AskUserQuestion** to present these options with descriptions.
 3. **Execute the migration:**
 
    ```bash
-   # Get commits to migrate (not in origin)
-   COMMITS=$(git log origin/{protected-branch}..HEAD --format="%H" | tac)
+   # Get commits to migrate (not in origin) in chronological order
+   # Use git's --reverse flag instead of tac for portability
+   COMMITS=$(git log origin/{protected-branch}..HEAD --format="%H" --reverse)
+
+   # Verify we have commits to migrate
+   if [ -z "$COMMITS" ]; then
+     echo "No commits to migrate"
+     exit 1
+   fi
 
    # Create feature branch from origin/{protected-branch}
    git checkout -b {feature-branch} origin/{protected-branch}
 
    # Cherry-pick commits to feature branch
    for commit in $COMMITS; do
-     git cherry-pick $commit
+     if ! git cherry-pick $commit; then
+       echo "Cherry-pick failed. Rolling back..."
+       git cherry-pick --abort
+       git checkout {protected-branch}
+       git branch -D {feature-branch}
+       echo "Migration failed. Your commits remain on {protected-branch}"
+       exit 1
+     fi
    done
 
    # Switch back to protected branch and reset to origin
@@ -223,21 +266,37 @@ Use **AskUserQuestion** to present these options with descriptions.
 
 3. **Log the override:**
 
+   Create an audit commit that logs the override decision:
+
    ```bash
-   # Log to git note for audit trail
-   git notes append -m "EMERGENCY OVERRIDE: Direct push to {protected-branch}
-   Reason: {user-reason}
-   Date: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
-   User: $(git config user.email)"
+   # Create empty commit with audit information
+   git commit --allow-empty -m "$(cat <<EOF
+   EMERGENCY OVERRIDE: Direct push to {protected-branch}
+
+   Override-Reason: {user-reason}
+   Override-Date: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+   Override-User: $(git config user.name) <$(git config user.email)>
+   Override-Approved-By: $(git config user.name)
+
+   This commit documents an emergency override of the protected branch
+   push prevention protocol. The changes were pushed directly to
+   {protected-branch} without going through the normal PR process.
+
+   Previous commit: $(git log -1 --format="%H" HEAD~1)
+   EOF
+   )"
    ```
+
+   **Security Note:** User identity in git can be spoofed. For serious audit
+   requirements, consider using GPG commit signing (`git commit -S`).
 
 4. **Proceed with push:**
    - Show final warning
-   - Execute `git push`
+   - Execute `git push` (includes audit commit)
    - **Still recommend creating a PR for documentation:**
 
    ```
-   Push completed.
+   Push completed with audit trail.
 
    ⚠️ IMPORTANT: Even though you pushed directly, please create a
    PR for documentation and tracking purposes:
@@ -255,11 +314,21 @@ Use **AskUserQuestion** to present these options with descriptions.
 Force pushing to protected branches is **ABSOLUTELY BLOCKED** with no override:
 
 ```bash
-# Detect force push requirement
-if git push --dry-run 2>&1 | grep -q "rejected.*non-fast-forward"; then
-  NEEDS_FORCE_PUSH=true
+# Detect if force push would be required
+# Check if remote branch has commits we don't have (non-fast-forward)
+if git fetch origin "$CURRENT_BRANCH" 2>/dev/null; then
+  # Count commits on remote that we don't have
+  REMOTE_AHEAD=$(git rev-list --count HEAD..origin/"$CURRENT_BRANCH" 2>/dev/null || echo "0")
+
+  if [ "$REMOTE_AHEAD" -gt 0 ]; then
+    # Remote has commits we don't have - would need force push
+    NEEDS_FORCE_PUSH=true
+  fi
 fi
 ```
+
+**Note:** This detection is more reliable than parsing git push error messages,
+which can vary across git versions.
 
 **If force push needed to protected branch:**
 
@@ -380,6 +449,124 @@ Would you like to:
 1. Add remote repository (recommended)
 2. Proceed without remote verification (risky)
 ```
+
+## Rollback Procedures
+
+If an option fails midway during execution, follow these recovery procedures:
+
+### Option 1 Failed (Feature Branch Migration)
+
+**If cherry-pick fails:**
+
+The script includes automatic rollback (see Option 1 Step 3). Manual recovery:
+
+```bash
+# Abort the cherry-pick
+git cherry-pick --abort
+
+# Return to original branch
+git checkout {protected-branch}
+
+# Delete the incomplete feature branch
+git branch -D {feature-branch}
+```
+
+**Result:** Your commits remain on {protected-branch}, unchanged.
+
+**If reset fails after cherry-pick:**
+
+```bash
+# Your commits are now on both {feature-branch} and {protected-branch}
+# This is safe - just push the feature branch
+
+git checkout {feature-branch}
+git push -u origin {feature-branch}
+
+# Then fix protected branch
+git checkout {protected-branch}
+git reset --hard origin/{protected-branch}
+```
+
+### Option 2 Failed (Branch Rename)
+
+**If branch rename fails:**
+
+```bash
+# Check current state
+git branch
+
+# If rename partially completed, you may see both old and new branch
+# Determine which has your commits
+git log {old-branch} --oneline
+git log {new-branch} --oneline
+
+# Keep the one with your commits, delete the other
+git branch -D {unwanted-branch}
+```
+
+**If recreating protected branch fails:**
+
+```bash
+# You renamed the branch but couldn't recreate protected
+# Your work is safe on the renamed branch
+
+git checkout {renamed-branch}
+git push -u origin {renamed-branch}
+
+# Recreate protected branch manually
+git fetch origin
+git checkout -b {protected-branch} origin/{protected-branch}
+```
+
+### Option 3 Failed (Emergency Override)
+
+**If push fails after override approval:**
+
+```bash
+# The audit commit was created but push failed
+# Check what went wrong
+git status
+git log -1
+
+# If it's a network/auth issue, just retry
+git push
+
+# If you want to abort the override
+git reset --soft HEAD~1  # Remove audit commit
+# Your original commits remain
+```
+
+### General Recovery
+
+**Check repository state:**
+
+```bash
+git status              # See current branch and uncommitted changes
+git log --oneline -10   # See recent commits
+git branch -a           # See all branches (local and remote)
+git reflog              # See recent HEAD movements
+```
+
+**Restore to known good state:**
+
+```bash
+# Return to origin state (CAUTION: loses local commits)
+git fetch origin
+git reset --hard origin/{branch-name}
+
+# Recover "lost" commits
+git reflog  # Find the commit hash
+git checkout -b recovery-branch {commit-hash}
+```
+
+**Get help:**
+
+If you're unsure about the state or recovery:
+
+1. Don't force anything
+2. Run `git status` and `git log --oneline -10`
+3. Ask for help - your commits are likely still in reflog
+4. Git rarely loses data permanently
 
 ## Configuration
 

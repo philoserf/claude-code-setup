@@ -170,10 +170,29 @@ Bad examples:
 1. **CRITICAL: Protected Branch Detection** (MUST BE FIRST):
 
    ```bash
+   # 1a. Check for detached HEAD state first
    CURRENT_BRANCH=$(git branch --show-current)
+
+   if [ -z "$CURRENT_BRANCH" ]; then
+     # Detached HEAD state - handle before protected branch check
+     echo "⚠️ You are in detached HEAD state"
+     # Offer to create branch, then exit
+     exit 1
+   fi
+
+   # 1b. Fetch latest remote state to avoid race conditions
+   git fetch origin "$CURRENT_BRANCH" 2>/dev/null || true
+
+   # 1c. Check for uncommitted changes (will interfere with migration)
+   if ! git diff-index --quiet HEAD --; then
+     echo "⚠️ You have uncommitted changes"
+     echo "Please commit or stash changes before pushing"
+     exit 1
+   fi
+
+   # 1d. Check if current branch is protected
    PROTECTED_BRANCHES=("main" "master" "develop" "production" "staging")
 
-   # Check if current branch is protected
    if [[ " ${PROTECTED_BRANCHES[@]} " =~ " ${CURRENT_BRANCH} " ]]; then
      # STOP - Do NOT proceed with normal push flow
      # Enter Protected Branch Push Protocol
@@ -187,22 +206,28 @@ Bad examples:
    - Present 3 options using AskUserQuestion:
      1. Create feature branch and migrate commits (recommended)
      2. Rename current branch to feature branch
-     3. Emergency override with reason (logged)
+     3. Emergency override with reason (logged via audit commit)
    - Execute chosen option from protocol
    - See **[protected-branch-protocol.md](protected-branch-protocol.md)** for complete details
 
 2. **Check for force push requirement:**
 
    ```bash
-   # Detect if force push would be needed
-   if git push --dry-run 2>&1 | grep -q "rejected.*non-fast-forward"; then
-     # Force push required
+   # Detect if force push would be required
+   # Check if remote branch has commits we don't have (non-fast-forward)
+   if git fetch origin "$CURRENT_BRANCH" 2>/dev/null; then
+     # Count commits on remote that we don't have
+     REMOTE_AHEAD=$(git rev-list --count HEAD..origin/"$CURRENT_BRANCH" 2>/dev/null || echo "0")
 
-     # If current branch is protected - ABSOLUTELY BLOCK
-     if [[ " ${PROTECTED_BRANCHES[@]} " =~ " ${CURRENT_BRANCH} " ]]; then
-       echo "🛑 ABSOLUTELY BLOCKED: Force push to protected branch"
-       # See protected-branch-protocol.md for blocking message
-       # Exit - do not allow
+     if [ "$REMOTE_AHEAD" -gt 0 ]; then
+       # Remote has commits we don't have - would need force push
+
+       # If current branch is protected - ABSOLUTELY BLOCK
+       if [[ " ${PROTECTED_BRANCHES[@]} " =~ " ${CURRENT_BRANCH} " ]]; then
+         echo "🛑 ABSOLUTELY BLOCKED: Force push to protected branch"
+         # See protected-branch-protocol.md for blocking message
+         # Exit - do not allow
+       fi
      fi
    fi
    ```
