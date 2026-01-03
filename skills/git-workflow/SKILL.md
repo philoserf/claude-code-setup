@@ -16,6 +16,7 @@ This skill provides intelligent, end-to-end Git workflow automation. It analyzes
 - [Phase 2: Organize into Atomic Commits](#phase-2-organize-into-atomic-commits)
 - [Phase 3: Create Commits](#phase-3-create-commits)
 - [Phase 4: Commit History Cleanup (Optional)](#phase-4-commit-history-cleanup-optional)
+- [Phase 4.5: Pre-Push Quality Review (Mandatory)](#phase-45-pre-push-quality-review-mandatory)
 - [Phase 5: Push with Confirmation](#phase-5-push-with-confirmation)
 - [Phase 6: Pull Request Creation (Optional)](#phase-6-pull-request-creation-optional)
 - [Safety Checks](#safety-checks)
@@ -27,13 +28,14 @@ This skill provides intelligent, end-to-end Git workflow automation. It analyzes
 
 ## Workflow Overview
 
-The skill follows a 6-phase workflow:
+The skill follows a 7-phase workflow:
 
 0. **Branch Management** - Ensure work is on appropriate branch
 1. **Repository Analysis** - Understand current state and changes
 2. **Organize into Atomic Commits** - Group related changes logically
 3. **Create Commits** - Generate well-formatted commit messages
 4. **Commit History Cleanup** - Optionally reorganize commits before push
+   4.5. **Pre-Push Quality Review** - Analyze commit quality and run tests (MANDATORY)
 5. **Push with Confirmation** - Push changes to remote after approval
 6. **Pull Request Creation** - Optionally create PR with generated description
 
@@ -97,6 +99,34 @@ Offer cleanup when multiple commits could be squashed, messages need improvement
 **For detailed rebase safety guidelines, commands, and examples, see [references/rebase-guide.md](references/rebase-guide.md).**
 
 **For detailed steps, see [references/workflow-phases.md#phase-4-commit-history-cleanup-optional](references/workflow-phases.md#phase-4-commit-history-cleanup-optional).**
+
+## Phase 4.5: Pre-Push Quality Review (Mandatory)
+
+**Goal**: Ensure commit quality and verify tests before pushing to remote.
+
+**This phase is MANDATORY** - it always runs before Phase 5 to catch quality issues early.
+
+Performs automated analysis of commits including generic message detection, squash opportunity identification, format compliance verification, and offers test execution.
+
+Shows push preview with commit list, stats, and quality report. If issues found, provides clear options to fix or override with justification.
+
+**Quality checks performed**:
+
+- **Generic message detection** - Flags "WIP", "fix", "update", "temp" and other vague messages
+- **Squash opportunity detection** - Identifies related commits that could be combined
+- **Format compliance** - Verifies 72-char limit, imperative mood, capitalization
+- **Test integration** - Detects and offers to run npm, pytest, go test, cargo test, make test
+
+**User options when issues detected**:
+
+- **Fix issues** - Return to Phase 3 or 4 to reword or squash commits
+- **Run tests** - Execute test suite before push (optional)
+- **Override** - Push anyway with justification (required for blockers)
+- **Cancel** - Exit workflow to investigate
+
+**For detailed quality checks, test detection, and user interaction patterns, see [references/phase-4.5-protocol.md](references/phase-4.5-protocol.md).**
+
+**For detailed steps, see [references/workflow-phases.md#phase-45-pre-push-quality-review-mandatory](references/workflow-phases.md#phase-45-pre-push-quality-review-mandatory).**
 
 ## Phase 5: Push with Confirmation
 

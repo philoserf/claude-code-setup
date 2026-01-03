@@ -472,6 +472,49 @@ Bump [package] from [old version] to [new version]
 - [Conventional Commits](https://www.conventionalcommits.org/) specification
 - [Git commit message guidelines](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project) from Pro Git book
 
+## Quality Review Integration
+
+As of Phase 4.5, all commits are automatically checked for format compliance before pushing.
+
+**Automatic Checks**:
+
+- Summary line ≤72 characters (BLOCKER if >80, WARNING if 73-80)
+- Imperative mood (Add, Fix, Update - not Added, Fixed, Updated)
+- First word capitalized
+- No period at end of summary
+- Body wrapped at 72 characters
+
+**If Issues Detected**:
+
+You'll see a quality report with specific suggestions before pushing:
+
+```text
+⚠ FORMAT ISSUE DETECTED
+
+Commit abc123: Summary too long (78 chars, max 72)
+Current: "Add comprehensive user authentication system with JWT and OAuth support"
+Suggestion: "Add user authentication with JWT and OAuth support"
+
+Commit def456: Past tense detected
+Current: "Added retry logic for API requests"
+Fix: Use imperative mood - "Add retry logic for API requests"
+
+What would you like to do?
+1. Fix format issues (recommended)
+2. Override and push anyway
+3. Cancel
+```
+
+**Best Practice**: Fix issues when prompted. Clean commits are easier to review and understand.
+
+**Why It Matters**:
+
+- **72-character limit**: Ensures messages display correctly in all contexts (terminals, GitHub, email)
+- **Imperative mood**: Reads naturally ("This commit will Add feature" not "This commit will Added feature")
+- **Proper formatting**: Makes history scannable and professional
+
+For complete Phase 4.5 quality review details, see [phase-4.5-protocol.md](phase-4.5-protocol.md).
+
 ## Summary
 
 Good commit messages:

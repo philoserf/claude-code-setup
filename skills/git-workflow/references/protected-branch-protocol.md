@@ -65,6 +65,26 @@ fi
 - After user has created commits, before actually pushing
 - After verifying working directory is clean
 
+## Integration with Phase 4.5
+
+Note: Phase 4.5 (Quality Review) runs BEFORE the protected branch check in Phase 5.
+
+**Workflow Sequence**:
+
+1. Phase 4: Commit history cleanup (optional)
+2. **Phase 4.5: Quality review and tests** (MANDATORY)
+3. Phase 5: Protected branch detection → push confirmation → push
+
+Quality issues (generic messages, format violations) are caught in Phase 4.5 even before we check if the branch is protected. This ensures commits are clean regardless of which branch the user is on.
+
+**Why This Order Matters**:
+
+- Quality review is universal (applies to all branches)
+- Protected branch check is specific (only applies to main/master/etc.)
+- Better UX: Fix quality issues once, even if also need to migrate branch
+
+For Phase 4.5 details, see [phase-4.5-protocol.md](phase-4.5-protocol.md).
+
 ## Protected Branch Push Protocol
 
 When a push to a protected branch is detected, **BLOCK** the operation and present this message:
