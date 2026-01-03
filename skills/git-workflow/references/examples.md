@@ -477,6 +477,7 @@ The new proactive Phase 0 protocol catches this immediately:
 
    # Apply stashed changes
    git stash pop
+
    ```
 
 7. **Success**:
@@ -525,11 +526,12 @@ If user had selected Option 3 instead:
    This override will be logged in your git history.
 
    To proceed, type exactly: CONTINUE ON PROTECTED
+
    ```
 
-2. **User types confirmation**
+1. **User types confirmation**
 
-3. **Audit Commit Created**:
+1. **Audit Commit Created**:
 
    ```bash
    git commit --allow-empty -m "Phase 0 Override: Continuing work on main
@@ -547,8 +549,8 @@ If user had selected Option 3 instead:
    ?? src/auth/tests/validators.test.js"
    ```
 
-4. **Workflow continues on main** (not recommended)
-5. **Phase 5 will catch** the push attempt later and require migration
+1. **Workflow continues on main** (not recommended)
+1. **Phase 5 will catch** the push attempt later and require migration
 
 ---
 
@@ -560,7 +562,7 @@ User made several quick commits while developing and now wants to clean up befor
 
 ### Current History
 
-```bash
+````bash
 $ git log --oneline -n 7
 a1b2c3d WIP
 d4e5f6g fix typo
@@ -569,7 +571,6 @@ j0k1l2m fix chart
 m3n4o5p oops forgot to add file
 p6q7r8s add dashboard
 s9t0u1v update styles
-```
 
 ### Analysis
 
@@ -715,6 +716,7 @@ Unmerged paths:
   3. Edit to resolve conflicts
   4. git add src/api/endpoints.js
   5. git commit
+
   ```
 
 - Exit workflow
@@ -894,6 +896,470 @@ Clean repository with proper gitignore, no secrets committed.
 
 ---
 
+## Example 11: Phase 4.5 Catches Generic Messages
+
+### Scenario
+
+User has created commits locally and wants to push, but some commit messages are generic and need improvement.
+
+### Repository State
+
+```bash
+$ git log --oneline -3
+a1b2c3d WIP
+d4e5f6g fix login
+g7h8i9j Add user authentication module
+```
+
+User is on `feature/user-auth` branch, ready to push.
+
+### Workflow Execution
+
+**Phases 1-3**: Commits already created
+
+**Phase 4**: User skipped optional cleanup
+
+**Phase 4.5**: Quality Review (MANDATORY)
+
+Skill enters Phase 4.5 before allowing push:
+
+```text
+╔════════════════════════════════════════════════════════════╗
+║        PHASE 4.5: PRE-PUSH QUALITY REVIEW                  ║
+╚════════════════════════════════════════════════════════════╝
+
+┌─ Push Preview ─────────────────────────────────────────────┐
+│                                                             │
+│ Branch:          feature/user-auth                         │
+│ Commits to push: 3                                         │
+│ Files changed:   5 files (+187, -23)                       │
+│                                                             │
+│ Commits:                                                    │
+│   1. g7h8i9j Add user authentication module                │
+│   2. d4e5f6g fix login                                     │
+│   3. a1b2c3d WIP                                           │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+
+┌─ Quality Analysis ─────────────────────────────────────────┐
+│                                                             │
+│ ⚠ ISSUES DETECTED (2 blockers)                             │
+│                                                             │
+│ BLOCKER (2):                                                │
+│   • Commit a1b2c3d: Generic message "WIP"                  │
+│     Suggestion: Describe what was accomplished             │
+│                                                             │
+│   • Commit d4e5f6g: Generic message "fix login"            │
+│     Suggestion: Be specific about what was fixed           │
+│     Example: "Fix null pointer in login validation"        │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+
+┌─ Test Detection ───────────────────────────────────────────┐
+│                                                             │
+│ ✓ Found test commands:                                     │
+│   • npm test                                                │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+
+What would you like to do?
+1. Fix quality issues (recommended)
+2. Run tests before pushing
+3. Override and push anyway
+4. Cancel
+```
+
+### User Choice: Fix Issues
+
+User selects option 1 to fix quality issues.
+
+Skill determines issue type:
+
+- Both issues are commit **messages** (not history structure)
+- Return to Phase 4 for squash + reword
+
+**Suggestion shown**:
+
+```text
+These commits could be improved:
+
+Option A: Squash all three into one commit
+  - They all relate to the same feature (user authentication)
+  - Would create cleaner history for PR review
+
+Option B: Reword individual messages
+  - Keep separate commits but improve descriptions
+  - Maintain granular history
+
+Which would you prefer? [A/B]
+```
+
+User chooses A (squash).
+
+### Phase 4: Interactive Cleanup
+
+Reset to before the three commits:
+
+```bash
+git reset --soft HEAD~3
+```
+
+All changes now staged. Create single well-formed commit:
+
+```bash
+$ git commit -m "$(cat <<'EOF'
+Add user authentication module
+
+Implement JWT-based authentication for API endpoints with login
+validation and session management.
+
+- Add authentication middleware
+- Implement login endpoint with email validation
+- Add session token generation and verification
+- Include input sanitization for login form
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+EOF
+)"
+```
+
+### Return to Phase 4.5
+
+Workflow re-runs Phase 4.5 with new commit:
+
+```text
+╔════════════════════════════════════════════════════════════╗
+║        PHASE 4.5: PRE-PUSH QUALITY REVIEW                  ║
+╚════════════════════════════════════════════════════════════╝
+
+┌─ Push Preview ─────────────────────────────────────────────┐
+│                                                             │
+│ Branch:          feature/user-auth                         │
+│ Commits to push: 1                                         │
+│ Files changed:   5 files (+187, -23)                       │
+│                                                             │
+│ Commits:                                                    │
+│   1. h9i0j1k Add user authentication module                │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+
+┌─ Quality Analysis ─────────────────────────────────────────┐
+│                                                             │
+│ ✓ No issues detected                                       │
+│                                                             │
+│ Analysis completed:                                         │
+│   • Generic message check: PASSED                          │
+│   • Format compliance: PASSED                              │
+│   • Squash detection: N/A (single commit)                  │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+
+┌─ Test Detection ───────────────────────────────────────────┐
+│                                                             │
+│ ✓ Found: npm test                                          │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+
+Quality looks good! Run tests before pushing?
+1. Yes, run tests
+2. No, skip tests
+```
+
+User selects 2 (skip tests this time).
+
+### Phase 5: Push
+
+Proceed to Phase 5 with clean commit:
+
+```bash
+git push -u origin feature/user-auth
+```
+
+Success!
+
+### Result
+
+Clean, professional commit with descriptive message ready for PR review. No "WIP" or vague "fix" in shared history.
+
+### Alternative: User Overrides
+
+If user had chosen option 3 (Override) in Phase 4.5:
+
+```text
+You're choosing to push despite quality issues.
+
+⚠ This means generic messages like "WIP" and "fix login" will
+be in shared history, visible to team and in PR reviews.
+
+Why are you pushing with quality issues?
+(minimum 10 characters)
+
+> _
+```
+
+User provides justification:
+
+```text
+Quick WIP push to share progress with team for early feedback. Will squash and clean up messages before final merge to main.
+```
+
+Skill logs override and proceeds:
+
+```text
+╔════════════════════════════════════════════════════════════╗
+║              QUALITY REVIEW SUMMARY                        ║
+╚════════════════════════════════════════════════════════════╝
+
+Status: OVERRIDDEN
+
+Issues detected: 2 blockers (generic messages)
+Override reason: "Quick WIP push to share progress with team for early feedback. Will squash and clean up messages before final merge to main."
+
+User: John Doe <john@example.com>
+Date: 2026-01-02 16:30:00 UTC
+
+⚠ NOTE: These commits have known quality issues.
+Remember to clean up before merging to main.
+
+Proceeding to Phase 5...
+```
+
+---
+
+## Example 12: Test Runner Integration
+
+### Scenario
+
+User has clean commits and wants to run tests before pushing to ensure code quality.
+
+### Repository State
+
+```bash
+$ git log --oneline -2
+f3e4d5c Add retry logic for failed API requests
+a9b8c7d Add tests for retry logic
+```
+
+User is on `feature/api-retry` branch. Commits are well-formatted, tests available.
+
+### Workflow Execution
+
+**Phases 1-4**: Commits created and cleaned up
+
+**Phase 4.5**: Quality Review
+
+```text
+╔════════════════════════════════════════════════════════════╗
+║        PHASE 4.5: PRE-PUSH QUALITY REVIEW                  ║
+╚════════════════════════════════════════════════════════════╝
+
+┌─ Push Preview ─────────────────────────────────────────────┐
+│                                                             │
+│ Branch:          feature/api-retry                         │
+│ Commits to push: 2                                         │
+│ Files changed:   4 files (+156, -12)                       │
+│                                                             │
+│ Commits:                                                    │
+│   1. f3e4d5c Add retry logic for failed API requests       │
+│   2. a9b8c7d Add tests for retry logic                     │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+
+┌─ Quality Analysis ─────────────────────────────────────────┐
+│                                                             │
+│ ✓ No issues detected                                       │
+│                                                             │
+│ Analysis completed:                                         │
+│   • Generic message check: PASSED                          │
+│   • Format compliance: PASSED                              │
+│   • Squash detection: PASSED (commits are independent)     │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+
+┌─ Test Detection ───────────────────────────────────────────┐
+│                                                             │
+│ ✓ Found test commands:                                     │
+│   • npm test                                                │
+│   • npm run test:integration                               │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+
+Quality looks good! Run tests before pushing?
+1. Yes, run tests
+2. No, skip tests
+```
+
+### User Choice: Run Tests
+
+User selects option 1.
+
+**Follow-up question**:
+
+```text
+Which tests would you like to run?
+1. npm test (recommended - runs all tests)
+2. npm run test:integration
+3. Skip tests
+```
+
+User selects 1 (npm test).
+
+### Test Execution
+
+```text
+Running: npm test
+Timeout: 300s
+────────────────────────────────────────────────────────────
+
+> api-service@2.1.0 test
+> jest
+
+PASS  src/api/__tests__/retry.test.js
+  Retry Logic
+    ✓ should retry failed requests up to 3 times (45 ms)
+    ✓ should return success on first retry (12 ms)
+    ✓ should fail after max retries exceeded (38 ms)
+    ✓ should use exponential backoff (52 ms)
+
+PASS  src/api/__tests__/endpoints.test.js
+  API Endpoints
+    ✓ GET /users should return user list (23 ms)
+    ✓ POST /users should create user (18 ms)
+    [... 18 more tests ...]
+
+Test Suites: 2 passed, 2 total
+Tests:       24 passed, 24 total
+Snapshots:   0 total
+Time:        4.235s
+
+────────────────────────────────────────────────────────────
+✓ Tests PASSED
+```
+
+### Phase 5: Push
+
+Tests passed, proceed to push:
+
+```text
+Tests passed successfully!
+
+Proceeding to Phase 5...
+```
+
+Protected branch check (none - on feature branch), then:
+
+```bash
+git push -u origin feature/api-retry
+```
+
+Success!
+
+### Result
+
+Code pushed to remote with confidence that tests pass. Team members can review PR knowing the code is tested.
+
+### Alternative: Tests Fail
+
+If tests had failed:
+
+```text
+Running: npm test
+Timeout: 300s
+────────────────────────────────────────────────────────────
+
+> api-service@2.1.0 test
+> jest
+
+FAIL  src/api/__tests__/retry.test.js
+  Retry Logic
+    ✓ should retry failed requests up to 3 times (45 ms)
+    ✗ should return success on first retry (12 ms)
+    ✓ should fail after max retries exceeded (38 ms)
+    ✓ should use exponential backoff (52 ms)
+
+  ● Retry Logic › should return success on first retry
+
+    expect(received).toBe(expected)
+
+    Expected: 200
+    Received: 500
+
+      at Object.<anonymous> (src/api/__tests__/retry.test.js:45:28)
+
+PASS  src/api/__tests__/endpoints.test.js
+  [... other tests pass ...]
+
+Test Suites: 1 failed, 1 passed, 2 total
+Tests:       1 failed, 23 passed, 24 total
+
+────────────────────────────────────────────────────────────
+✗ Tests FAILED (exit code: 1)
+```
+
+**Skill presents options**:
+
+```text
+Tests failed. What would you like to do?
+
+1. Fix code and add commit (recommended)
+   - Fix the failing test
+   - Add a new commit with the fix
+   - Re-run workflow
+
+2. Push anyway with reason (NOT recommended)
+   - Requires justification
+   - Will push failing tests to remote
+   - May break CI/CD pipeline
+
+3. Cancel and investigate
+   - Exit workflow
+   - Investigate failure locally
+   - Re-run when ready
+```
+
+User chooses option 1 (Fix code).
+
+**Skill exits workflow**:
+
+```text
+Exiting workflow to allow code fixes.
+
+Failing test: "should return success on first retry"
+Error: Expected 200, received 500
+
+After fixing:
+1. Test your changes locally: npm test
+2. Add new commit with fix: git add . && git commit -m "..."
+3. Re-run workflow to push
+```
+
+User fixes the bug in retry logic, tests locally:
+
+```bash
+$ npm test
+# All tests pass now
+
+$ git add src/api/retry.js
+$ git commit -m "Fix status code handling in retry logic"
+```
+
+User re-runs workflow:
+
+- Phase 4.5 runs again
+- Quality check passes (3 commits now)
+- Tests run again
+- All tests PASS
+- Proceeds to Phase 5
+- Push succeeds
+
+### Result
+
+Bug caught before pushing to remote. Tests ensure code quality. Team doesn't see broken code in PR.
+
+---
+
 ## Key Patterns
 
 ### Pattern 1: One Logical Change = One Commit
@@ -935,3 +1401,4 @@ The git-workflow skill handles diverse scenarios from simple single-file changes
 5. **Communicate** - Clear PRs help reviewers
 
 Good Git workflow is about telling a clear story of how the code evolved.
+````

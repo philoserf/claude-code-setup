@@ -177,6 +177,226 @@ Bad examples:
 
 **For detailed rebase safety guidelines, commands, and examples, see [rebase-guide.md](rebase-guide.md).**
 
+## Phase 4.5: Pre-Push Quality Review (Mandatory)
+
+**Goal**: Ensure commit quality and verify tests before pushing to remote.
+
+**This phase is MANDATORY** - always runs before Phase 5 to catch quality issues early.
+
+**When Phase 4.5 Runs**:
+
+- After Phase 3 (commits created) or Phase 4 (optional cleanup completed)
+- Before Phase 5 (push to remote)
+- ONLY if there are commits to push
+- ONLY if working directory is clean
+
+**Steps**:
+
+1. **Generate Push Preview**:
+
+   ```bash
+   # Get commits to be pushed
+   COMMITS=$(git log origin/"$CURRENT_BRANCH"..HEAD --format="%h %s" 2>/dev/null || \
+             git log -n 5 --format="%h %s")  # Fallback for new branch
+
+   # Get statistics
+   STATS=$(git diff --stat origin/"$CURRENT_BRANCH"..HEAD 2>/dev/null || \
+           git diff --stat HEAD~5..HEAD)  # Fallback for new branch
+
+   # Count commits and files
+   COMMIT_COUNT=$(echo "$COMMITS" | wc -l | tr -d ' ')
+   FILES_CHANGED=$(echo "$STATS" | tail -1)  # Last line has summary
+
+   ```
+
+1. **Run Quality Analysis**:
+
+   Run three quality checks on all commits to be pushed:
+
+   **a. Generic Message Detection**
+   - Check for patterns: WIP, fix, update, temp, oops, minor, changes, etc.
+   - Case-insensitive matching at start or as whole word
+   - Severity: **BLOCKER** - requires fix or explicit override
+
+   **b. Squash Opportunity Detection**
+   - Compare adjacent commits for same files modified
+   - Detect fix relationships ("Add X" → "Fix typo in X")
+   - Check for same component/module mentions
+   - Severity: **WARNING** - suggests cleanup, doesn't block
+
+   **c. Format Compliance Verification**
+   - Summary ≤72 characters (BLOCKER if >80, WARNING if 73-80)
+   - Imperative mood ("Add" not "Added" or "Adds")
+   - First word capitalized
+   - No period at end of summary
+   - Body wrapped at 72 characters
+   - Severity: Mixed (BLOCKER for >80 chars, MEDIUM for mood, LOW for others)
+
+   **Classify issues by severity**: BLOCKER, WARNING, INFO
+
+1. **Detect Test Commands**:
+
+   Check for test commands in priority order:
+
+   ```bash
+   # 1. Node.js - package.json
+   if [ -f "package.json" ]; then
+     # Extract test script with jq or grep
+     npm test, npm run test:*, etc.
+   fi
+
+   # 2. Make - Makefile
+   if [ -f "Makefile" ]; then
+     # Find test targets
+     grep -E '^test[^:]*:' Makefile
+   fi
+
+   # 3. Python - pytest
+   if [ -f "pytest.ini" ] || [ -f "pyproject.toml" ] || [ -d "tests" ]; then
+     pytest or python3 -m pytest
+   fi
+
+   # 4. Go - go.mod
+   if [ -f "go.mod" ]; then
+     go test ./...
+   fi
+
+   # 5. Rust - Cargo.toml
+   if [ -f "Cargo.toml" ]; then
+     cargo test
+   fi
+   ```
+
+1. **Present Quality Report**:
+
+   Show formatted report with:
+   - Push preview (branch, commit count, files changed, commit list)
+   - Quality analysis results (issues categorized by severity)
+   - Available test commands (if any detected)
+
+   Example format:
+
+   ```text
+   ╔══════════════════════════════════════════════╗
+   ║   PHASE 4.5: PRE-PUSH QUALITY REVIEW         ║
+   ╚══════════════════════════════════════════════╝
+
+   ┌─ Push Preview ──────────────────────────────┐
+   │ Branch: feature/user-auth                   │
+   │ Commits: 3                                  │
+   │ Files: 8 files (+245, -67)                  │
+   │ Commits:                                    │
+   │   1. a1b2c3d Add authentication             │
+   │   2. d4e5f6g Fix typo                       │
+   │   3. g7h8i9j Add tests                      │
+   └─────────────────────────────────────────────┘
+
+   ┌─ Quality Analysis ──────────────────────────┐
+   │ ✓ No issues detected                        │
+   └─────────────────────────────────────────────┘
+
+   ┌─ Test Detection ────────────────────────────┐
+   │ ✓ Found: npm test                           │
+   └─────────────────────────────────────────────┘
+
+   ```
+
+1. **User Decision**:
+
+   Present different options based on findings:
+
+   **If NO issues and NO tests**:
+   - Proceed directly to Phase 5
+
+   **If NO issues and tests available**:
+   - Ask: "Run tests before pushing?"
+   - Options: Yes/No/Cancel
+
+   **If issues detected (no tests)**:
+   - Show quality report
+   - Options: Fix/Override/Cancel
+
+   **If issues detected AND tests available**:
+   - Show quality report
+   - Options: Fix/Run tests/Override/Cancel
+
+1. **Handle User Choice**:
+
+   **Choice: Fix Issues**
+   - Determine issue type:
+     - Message issues (generic, format) → Return to Phase 3 for reword
+     - History issues (squash opportunities) → Return to Phase 4 for cleanup
+   - User makes changes
+   - Workflow re-runs from that phase and returns to Phase 4.5
+
+   **Choice: Run Tests**
+   - Execute test command with 5-minute timeout
+   - Show live output
+   - Handle results:
+     - **PASS**: Continue (or back to quality decision if issues remain)
+     - **FAIL**: Offer Fix code/Override/Cancel
+     - **TIMEOUT**: Offer Retry/Skip/Cancel
+     - **ERROR**: Offer Skip/Cancel
+
+   **Choice: Override**
+   - If BLOCKER severity: Require justification (min 10 chars)
+   - If WARNING/INFO only: Optional justification
+   - If test failure: Require strong justification (min 20 chars)
+   - Log override reason (shown in summary, not persisted)
+   - Proceed to Phase 5
+
+   **Choice: Cancel**
+   - Exit workflow
+   - User can investigate and re-run later
+
+1. **Proceed to Phase 5**:
+
+   Once quality is verified (passed or overridden) and tests complete (passed, skipped, or overridden):
+   - Quality review complete
+   - Continue to Phase 5 for protected branch check and push confirmation
+
+**Quality Check Algorithms**:
+
+For complete bash implementation of all quality checks, test detection patterns, and user interaction flows, see **[phase-4.5-protocol.md](phase-4.5-protocol.md)**.
+
+**Key Principles**:
+
+- **Always run** - This phase is not optional
+- **Educate users** - Explain why issues matter
+- **Allow override** - Permit push with justification
+- **Fast analysis** - Complete in < 2 seconds (excluding test runs)
+- **Be helpful** - Suggest specific fixes, not just complaints
+
+**Edge Cases**:
+
+- **No commits to push**: Skip Phase 4.5, exit workflow
+- **Only one commit**: Skip squash detection
+- **All commits already pushed**: Skip Phase 4.5
+- **Test command not found**: Offer skip/cancel
+- **Tests pass + issues remain**: Show both, ask Fix/Override
+- **Tests fail + quality good**: Strong recommendation to fix
+- **Multiple test commands**: Let user choose which to run
+- **User returns 3+ times**: Offer examples and help
+
+**Performance Targets**:
+
+- Quality analysis: < 2 seconds for 50 commits
+- Test detection: < 0.5 seconds
+- Total overhead: < 3 seconds (excluding test execution)
+
+**Error Handling**:
+
+Never block workflow due to Phase 4.5 internal errors - only due to actual quality issues:
+
+```bash
+# If analysis fails
+if ! analyze_commits 2>/dev/null; then
+  echo "⚠ Quality analysis failed, proceeding anyway"
+  echo "Manually review commits before pushing"
+  # Continue to Phase 5
+fi
+```
+
 ## Phase 5: Push with Confirmation
 
 **Goal**: Push commits to remote safely after user approval.
@@ -246,6 +466,7 @@ Bad examples:
        fi
      fi
    fi
+
    ```
 
 3. Show summary of commits to be pushed:
