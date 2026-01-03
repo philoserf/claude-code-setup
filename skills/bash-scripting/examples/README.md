@@ -78,10 +78,12 @@ shellcheck script.sh
 
 Each example references specific sections from the bash-scripting reference documentation:
 
-- **[patterns-and-conventions.md](../references/patterns-and-conventions.md)** - Core patterns
-- **[safety-and-security.md](../references/safety-and-security.md)** - Security practices
-- **[error-handling.md](../references/error-handling.md)** - Error strategies
-- **[tools-and-frameworks.md](../references/tools-and-frameworks.md)** - Testing and tooling
+- **[patterns-and-conventions.md](../references/patterns-and-conventions.md)** -
+  Core patterns and error handling strategies
+- **[safety-and-security.md](../references/safety-and-security.md)** - Security
+  practices and input validation
+- **[tools-and-frameworks.md](../references/tools-and-frameworks.md)** - Testing
+  and tooling (ShellCheck, Bats)
 
 ## Contributing
 
