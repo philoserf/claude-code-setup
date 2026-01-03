@@ -109,7 +109,7 @@ Mixed conventions (spaces vs dashes, capitalization) cause confusion:
 
 For detailed guidance on specific topics, see the reference documentation:
 
-### [document-collection-organization.md](references/document-collection-organization.md)
+### [document-collection-organization.md](document-collection-organization.md)
 
 Comprehensive guide for organizing PDF and document collections:
 
@@ -121,7 +121,7 @@ Comprehensive guide for organizing PDF and document collections:
 - Collection README.md templates
 - Handling inherited disorganized collections
 
-### [naming-conventions.md](references/naming-conventions.md)
+### [naming-conventions.md](naming-conventions.md)
 
 Complete naming conventions for all file types:
 
@@ -133,7 +133,7 @@ Complete naming conventions for all file types:
 - Batch renaming strategies and scripts
 - Enforcement during audits
 
-### [organization-patterns.md](references/organization-patterns.md)
+### [organization-patterns.md](organization-patterns.md)
 
 Decision frameworks and pattern selection:
 
@@ -143,7 +143,7 @@ Decision frameworks and pattern selection:
 - Reorganization strategies and when to reorganize
 - Effective pattern combinations
 
-### [examples-and-workflows.md](references/examples-and-workflows.md)
+### [examples-and-workflows.md](examples-and-workflows.md)
 
 Step-by-step walkthroughs and templates:
 

@@ -50,7 +50,7 @@ Similarly, for skills supporting multiple frameworks or variants, organize by va
 ```text
 cloud-deploy/
 ├── SKILL.md (workflow + provider selection)
-└── references/
+└── (reference files)
     ├── aws.md (AWS deployment patterns)
     ├── gcp.md (GCP deployment patterns)
     └── azure.md (Azure deployment patterns)

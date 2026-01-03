@@ -10,33 +10,33 @@ Command validation guidance (official requirements + custom best practices):
 
 **Quick Start**:
 
-- [INDEX.md](references/INDEX.md) - **Start here**: Navigation guide mapping
+- [INDEX.md](INDEX.md) - **Start here**: Navigation guide mapping
   use cases to reference files
-- [audit-checklist.md](references/audit-checklist.md) - Quick validation
+- [audit-checklist.md](audit-checklist.md) - Quick validation
   checklist for rapid reviews
-- [audit-workflow-steps.md](references/audit-workflow-steps.md) - Complete
+- [audit-workflow-steps.md](audit-workflow-steps.md) - Complete
   7-step audit process
 
 **Detailed Validation**:
 
-- [frontmatter-validation.md](references/frontmatter-validation.md) - Official
+- [frontmatter-validation.md](frontmatter-validation.md) - Official
   Anthropic frontmatter features and validation rules (OFFICIAL)
 - [delegation-patterns.md](../../references/delegation-patterns.md) -
   Delegation clarity and target selection validation (BEST PRACTICE)
-- [simplicity-enforcement.md](references/simplicity-enforcement.md) -
+- [simplicity-enforcement.md](simplicity-enforcement.md) -
   Simplicity vs complexity assessment and skill migration criteria (GUIDELINES)
-- [argument-handling.md](references/argument-handling.md) - Argument parsing
+- [argument-handling.md](argument-handling.md) - Argument parsing
   patterns and default value validation (BEST PRACTICE)
-- [documentation-proportionality.md](references/documentation-proportionality.md) -
+- [documentation-proportionality.md](documentation-proportionality.md) -
   Documentation level appropriateness (minimal vs full) (BEST PRACTICE)
 
 **Common Issues & Reporting**:
 
-- [common-issues-and-antipatterns.md](references/common-issues-and-antipatterns.md) -
+- [common-issues-and-antipatterns.md](common-issues-and-antipatterns.md) -
   9 frequent issues with examples and fixes
-- [report-format.md](references/report-format.md) - Standardized audit report
+- [report-format.md](report-format.md) - Standardized audit report
   structure and template
-- [examples.md](references/examples.md) - Good vs poor command comparisons and
+- [examples.md](examples.md) - Good vs poor command comparisons and
   full audit reports
 
 ---
@@ -72,13 +72,13 @@ documentation proportionality.
 ## Quick Start
 
 **New to command auditing?** Start with
-[INDEX.md](references/INDEX.md) for navigation guidance.
+[INDEX.md](INDEX.md) for navigation guidance.
 
 **For quick validation**: Use
-[audit-checklist.md](references/audit-checklist.md)
+[audit-checklist.md](audit-checklist.md)
 
 **For comprehensive audit**: Follow the 7-step process in
-[audit-workflow-steps.md](references/audit-workflow-steps.md):
+[audit-workflow-steps.md](audit-workflow-steps.md):
 
 1. Read command file
 2. Validate frontmatter features (description required, optional fields valid)
@@ -91,7 +91,7 @@ documentation proportionality.
 8. Generate audit report
 
 **Common issues?** See
-[common-issues-and-antipatterns.md](references/common-issues-and-antipatterns.md)
+[common-issues-and-antipatterns.md](common-issues-and-antipatterns.md)
 for 9 frequent problems with fixes.
 
 ## Command-Specific Validation
@@ -174,7 +174,7 @@ for 9 frequent problems with fixes.
 **Rule**: Documentation should match complexity
 
 See
-[documentation-proportionality.md](references/documentation-proportionality.md)
+[documentation-proportionality.md](documentation-proportionality.md)
 for detailed guidelines and examples.
 
 ## Integration with audit-coordinator
@@ -203,7 +203,7 @@ User: "Audit my command"
 ## Examples
 
 For complete command examples and full audit reports, see
-[examples.md](references/examples.md).
+[examples.md](examples.md).
 
 **Quick examples**:
 

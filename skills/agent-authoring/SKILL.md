@@ -162,7 +162,7 @@ Example: When agent only needs to read and ask questions
 
 Three proven patterns for building effective agents. Each pattern includes complete templates you can copy and customize.
 
-**📄 See [references/design-patterns.md](references/design-patterns.md) for detailed templates**
+**📄 See [design-patterns.md](design-patterns.md) for detailed templates**
 
 **Quick overview**:
 
@@ -374,7 +374,7 @@ Choosing the right customization type is critical. Each has distinct characteris
 
 Real-world examples showing what makes a good agent. Each example is analyzed to explain why it works well.
 
-**📄 See [references/examples.md](references/examples.md) for detailed analysis**
+**📄 See [examples.md](examples.md) for detailed analysis**
 
 **Examples covered**:
 

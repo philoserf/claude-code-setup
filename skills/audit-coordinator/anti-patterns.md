@@ -312,7 +312,7 @@ skills/my-skill/
 ```markdown
 # SKILL.md
 
-See the [guide](references/guide.md) for details.
+See the [guide](guide.md) for details.
 
 <!-- references/orphan.md exists but is never linked -->
 ```
@@ -322,7 +322,7 @@ See the [guide](references/guide.md) for details.
 ```markdown
 # SKILL.md
 
-See the [guide](references/guide.md) and [examples](references/examples.md) for details.
+See the [guide](guide.md) and [examples](examples.md) for details.
 
 <!-- All reference files are linked -->
 ```

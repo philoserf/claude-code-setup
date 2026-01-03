@@ -9,8 +9,8 @@
 # See ANALYSIS.md for detailed explanation of each pattern.
 #
 # References:
-# - ../references/patterns-and-conventions.md (Strict mode section)
-# - ../references/safety-and-security.md (Basic safety)
+# - ../patterns-and-conventions.md (Strict mode section)
+# - ../safety-and-security.md (Basic safety)
 
 #
 # STRICT MODE - The foundation of defensive bash

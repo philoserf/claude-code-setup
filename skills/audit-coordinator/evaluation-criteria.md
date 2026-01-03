@@ -304,9 +304,9 @@ For a simple skill (overly permissive, no restrictions)
 ```markdown
 ## Reference Documentation
 
-- **[Workflow Phases](references/workflow-phases.md)** - Detailed breakdown of each workflow phase
-- **[Commit Format](references/commit-format.md)** - Conventional commit message templates
-- **[Examples](references/examples.md)** - Common scenarios and solutions
+- **[Workflow Phases](workflow-phases.md)** - Detailed breakdown of each workflow phase
+- **[Commit Format](commit-format.md)** - Conventional commit message templates
+- **[Examples](examples.md)** - Common scenarios and solutions
 ```
 
 **Bad Navigation**:

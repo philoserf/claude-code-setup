@@ -1,6 +1,6 @@
 # Progressive Disclosure
 
-Progressive disclosure keeps skills lean and discoverable by moving detailed content to reference files.
+Progressive disclosure keeps skills lean and discoverable by moving detailed content to separate reference files alongside SKILL.md.
 
 ## Core Principle
 
@@ -8,7 +8,7 @@ Progressive disclosure keeps skills lean and discoverable by moving detailed con
 
 1. **Frontmatter** (~100-500 chars) - Always loaded, enables discovery
 2. **SKILL.md body** (<500 lines) - Loaded when skill is triggered
-3. **Reference files** (<500 lines each) - Loaded as needed by Claude
+3. **Reference files** (<500 lines each) - Loaded as needed by Claude, stored alongside SKILL.md
 
 ## SKILL.md Size Guidelines
 
@@ -44,12 +44,12 @@ Progressive disclosure keeps skills lean and discoverable by moving detailed con
 **Too Large** (>500 lines):
 
 - Needs refactoring
-- Move content to references/
+- Move content to separate reference files
 - Consider splitting into multiple skills
 
-## When to Use References
+## When to Use Reference Files
 
-### Use references/ when
+### Use separate reference files when
 
 1. **Detailed Examples** - Extensive code examples or before/after comparisons
 2. **Comprehensive Guides** - Step-by-step workflows that are >100 lines
@@ -69,84 +69,86 @@ Progressive disclosure keeps skills lean and discoverable by moving detailed con
 
 ### Pattern 1: By Topic
 
-Organize references by subject area:
+Organize reference files by subject area:
 
-````text
-references/
+```text
+skill-name/
+├── SKILL.md
 ├── configurations.md    # Config examples
 ├── error-codes.md       # Error reference
 ├── fixes.md            # Common fixes
 ├── integrations.md     # CI/CD integration
 ├── performance.md      # Optimization
 └── workflows.md        # Complete workflows
-```text
+```
 
-**Example**: bash-audit skill (6 topic-based references)
+**Example**: bash-audit skill (6 topic-based reference files)
 
 ### Pattern 2: By Use Case
 
-Organize references by user scenario:
+Organize reference files by user scenario:
 
 ```text
-references/
+skill-name/
+├── SKILL.md
 ├── getting-started.md  # New users
 ├── advanced-usage.md   # Power users
 ├── troubleshooting.md  # Problem solving
 └── examples.md         # Code examples
-```text
+```
 
 ### Pattern 3: By Depth
 
-Organize references by detail level:
+Organize reference files by detail level:
 
 ```text
-references/
+skill-name/
+├── SKILL.md
 ├── overview.md         # High-level concepts
 ├── detailed-guide.md   # Step-by-step instructions
 ├── api-reference.md    # Complete API docs
 └── edge-cases.md       # Rare scenarios
-```text
+```
 
 ### Pattern 4: By Content Type
 
-Organize references by format:
+Organize reference files by format:
 
 ```text
-references/
+skill-name/
+├── SKILL.md
 ├── examples.md         # Code examples
 ├── templates.md        # Reusable templates
 ├── checklists.md       # Validation checklists
 └── comparisons.md      # Before/after, good/bad
-```text
+```
 
-## One-Level-Deep Rule
+## Flat Structure Rule
 
-**Critical**: References must be flat, no nested subdirectories.
+**Critical**: All skill files must be at the same level - no subdirectories within skills.
 
 **Good**:
 
 ```text
 skill-name/
 ├── SKILL.md
-└── references/
-    ├── file1.md
-    ├── file2.md
-    └── file3.md
-```text
+├── file1.md
+├── file2.md
+└── file3.md
+```
 
 **Bad**:
 
 ```text
 skill-name/
 ├── SKILL.md
-└── references/
-    ├── basics/           # ✗ No subdirectories!
-    │   └── intro.md
-    └── advanced/         # ✗ No subdirectories!
-        └── expert.md
-```text
+├── basics/           # ✗ No subdirectories!
+│   └── intro.md
+└── advanced/         # ✗ No subdirectories!
+    └── expert.md
+```
 
-**Why**: Simplicity, easy navigation, clear structure.
+**Why**: Simplicity, easy navigation, clear structure, flat linking.
 
 ## Linking References
 
@@ -154,14 +156,14 @@ skill-name/
 
 Every reference file should be linked from SKILL.md:
 
-```markdown
+````markdown
 ## Reference Files
 
 Advanced patterns and detailed guides:
 
-- [configurations.md](references/configurations.md) - Config examples
-- [error-codes.md](references/error-codes.md) - Error reference
-- [workflows.md](references/workflows.md) - Complete workflows
+- [configurations.md](configurations.md) - Config examples
+- [error-codes.md](error-codes.md) - Error reference
+- [workflows.md](workflows.md) - Complete workflows
 ```text
 
 ### Descriptive Link Text
@@ -171,15 +173,15 @@ Make link text helpful:
 **Good**:
 
 ```markdown
-- [exit-codes.md](references/exit-codes.md) - Exit code semantics (0=allow, 2=block)
-- [json-handling.md](references/json-handling.md) - Safe JSON stdin parsing patterns
+- [exit-codes.md](exit-codes.md) - Exit code semantics (0=allow, 2=block)
+- [json-handling.md](json-handling.md) - Safe JSON stdin parsing patterns
 ```text
 
 **Bad**:
 
 ```markdown
-- [Click here](references/exit-codes.md)
-- [Reference 1](references/json-handling.md)
+- [Click here](exit-codes.md)
+- [Reference 1](json-handling.md)
 ```text
 
 ## Reference File Size
@@ -203,8 +205,8 @@ name: skill-name
 
 ## Reference Files
 
-- [file1.md](references/file1.md) - Description
-- [file2.md](references/file2.md) - Description
+- [file1.md](file1.md) - Description
+- [file2.md](file2.md) - Description
 
 ---
 
@@ -216,11 +218,11 @@ name: skill-name
 ### Pattern 2: Inline References
 
 ```markdown
-For detailed configuration examples, see [configurations.md](references/configurations.md).
+For detailed configuration examples, see [configurations.md](configurations.md).
 
 ... main content ...
 
-For complete workflow patterns, see [workflows.md](references/workflows.md).
+For complete workflow patterns, see [workflows.md](workflows.md).
 ```text
 
 ### Pattern 3: Section-Specific
@@ -230,13 +232,13 @@ For complete workflow patterns, see [workflows.md](references/workflows.md).
 
 Basic configuration...
 
-For advanced configuration, see [configurations.md](references/configurations.md).
+For advanced configuration, see [configurations.md](configurations.md).
 
 ## Workflows
 
 Quick workflow...
 
-For complete workflows, see [workflows.md](references/workflows.md).
+For complete workflows, see [workflows.md](workflows.md).
 ```text
 
 ## Example: bash-audit Skill
@@ -286,10 +288,10 @@ Good structure with comprehensive references:
 Use this to refactor a skill >500 lines:
 
 1. **Identify moveable content**:
-   - [ ] Detailed examples (move to references/examples.md)
-   - [ ] Comprehensive guides (move to references/detailed-guide.md)
-   - [ ] Reference tables (move to references/reference.md)
-   - [ ] Advanced topics (move to references/advanced.md)
+   - [ ] Detailed examples (move to examples.md)
+   - [ ] Comprehensive guides (move to detailed-guide.md)
+   - [ ] Reference tables (move to reference.md)
+   - [ ] Advanced topics (move to advanced.md)
 
 2. **Create reference files**:
    - [ ] Group related content
@@ -341,20 +343,21 @@ Use this to refactor a skill >500 lines:
 **Problem**:
 
 ```text
-references/
+skill-name/
+  SKILL.md
   basics/
     intro.md
   advanced/
     expert.md
-```text
+```
 
 **Issues**:
 
-- Violates one-level rule
+- Violates flat structure rule
 - Confusing structure
 - Hard to link
 
-**Fix**: Flatten to references/ with all files at top level
+**Fix**: Flatten all files to skill root with all files at top level
 
 ### Mistake 4: Orphaned References
 
@@ -407,13 +410,13 @@ Use this to score skill organization:
 **Progressive Disclosure Best Practices**:
 
 1. **SKILL.md <500 lines** - Keep main file lean
-2. **Use references for details** - Examples, guides, tables
-3. **One level deep** - No subdirectories in references/
+2. **Use reference files for details** - Examples, guides, tables
+3. **Flat structure** - All files at skill root, no subdirectories
 4. **Link all references** - Make content discoverable
 5. **4-8 references ideal** - Not too few, not too many
 6. **Each reference <500 lines** - Split if needed
 7. **Clear navigation** - Reference list at top
 8. **Descriptive links** - Explain what's in each file
 
-**Golden Rule**: Main file has essential workflow, references have depth and details.
+**Golden Rule**: Main file has essential workflow, reference files have depth and details.
 ````

@@ -15,7 +15,7 @@ description: This skill should be used when the user wants to "create a skill", 
 **Ours (First-Person):**
 
 ```yaml
-description: Guide for authoring effective skills. Use when creating, building, updating, designing, packaging, reviewing, evaluating, or improving skills that extend Claude's capabilities with specialized knowledge, workflows, or tool integrations. Helps with skill structure, SKILL.md frontmatter, progressive disclosure, resource organization (scripts/references/assets), initialization templates, validation, and packaging. Also use when asking how to create a skill, what makes a good skill, learning about skill development, or troubleshooting skill issues. Includes proven design patterns for workflows and output quality.
+description: Guide for authoring effective skills. Use when creating, building, updating, designing, packaging, reviewing, evaluating, or improving skills that extend Claude's capabilities with specialized knowledge, workflows, or tool integrations. Helps with skill structure, SKILL.md frontmatter, progressive disclosure, resource organization (scripts/assets/reference files), initialization templates, validation, and packaging. Also use when asking how to create a skill, what makes a good skill, learning about skill development, or troubleshooting skill issues. Includes proven design patterns for workflows and output quality.
 ```
 
 **What we should learn:**
@@ -149,7 +149,7 @@ description: Guide for authoring effective skills. Use when creating, building, 
 **Official:**
 
 - Has dedicated "Progressive Disclosure in Practice" section
-- Breaks down what goes where (SKILL.md, references/, examples/, scripts/)
+- Breaks down what goes where (SKILL.md, reference files, examples/, scripts/)
 - Each category has specific guidance
 - Includes word count ranges for each
 
@@ -163,7 +163,7 @@ description: Guide for authoring effective skills. Use when creating, building, 
 
 - Official makes the practical application clearer
 - In-document guidance is more immediately accessible
-- Word count ranges for references/ files (2,000-5,000+ words) is helpful
+- Word count ranges for reference files (2,000-5,000+ words) is helpful
 - **Action:** Expand progressive disclosure section with practical guidance
 
 ### 9. Implementation Workflow

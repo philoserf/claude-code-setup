@@ -88,7 +88,7 @@ allowed-tools: [Read, Bash, Grep, Glob, Edit]
 ```yaml
 ---
 name: skill-authoring
-description: Guide for authoring effective skills. Use when creating, building, updating, designing, packaging, reviewing, evaluating, or improving skills that extend Claude's capabilities with specialized knowledge, workflows, or tool integrations. Helps with skill structure, SKILL.md frontmatter, progressive disclosure, resource organization (scripts/references/assets), initialization templates, validation, and packaging. Also use when asking how to create a skill, what makes a good skill, learning about skill development, or troubleshooting skill issues. Includes proven design patterns for workflows and output quality.
+description: Guide for authoring effective skills. Use when creating, building, updating, designing, packaging, reviewing, evaluating, or improving skills that extend Claude's capabilities with specialized knowledge, workflows, or tool integrations. Helps with skill structure, SKILL.md frontmatter, progressive disclosure, resource organization (scripts/assets/reference files), initialization templates, validation, and packaging. Also use when asking how to create a skill, what makes a good skill, learning about skill development, or troubleshooting skill issues. Includes proven design patterns for workflows and output quality.
 allowed-tools: [Read, Glob, Grep, Bash, Edit, Write]
 ---
 ```
@@ -296,8 +296,8 @@ Automates complete git workflows...
 ```markdown
 ## Reference Files
 
-- [configurations.md](references/configurations.md) - Config examples
-- [error-codes.md](references/error-codes.md) - Error reference
+- [configurations.md](configurations.md) - Config examples
+- [error-codes.md](error-codes.md) - Error reference
   ...
 
 # Bash Script Audit
@@ -305,7 +305,7 @@ Automates complete git workflows...
 Quick workflow, common patterns, integration
 ```
 
-**references/workflows.md** (250 lines):
+**workflows.md** (250 lines):
 
 ```markdown
 # Complete Audit Workflows

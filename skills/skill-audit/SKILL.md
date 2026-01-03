@@ -8,10 +8,10 @@ allowed-tools: [Read, Glob, Grep, Bash]
 
 Advanced skill discovery and optimization guidance:
 
-- [trigger-analysis.md](references/trigger-analysis.md) - Description analysis methodology and keyword extraction
-- [progressive-disclosure.md](references/progressive-disclosure.md) - SKILL.md size guidelines and reference organization
-- [discovery-testing.md](references/discovery-testing.md) - Test query generation and scoring methodology
-- [examples.md](references/examples.md) - Good vs poor skill examples with before/after fixes
+- [trigger-analysis.md](trigger-analysis.md) - Description analysis methodology and keyword extraction
+- [progressive-disclosure.md](progressive-disclosure.md) - SKILL.md size guidelines and reference organization
+- [discovery-testing.md](discovery-testing.md) - Test query generation and scoring methodology
+- [examples.md](examples.md) - Good vs poor skill examples with before/after fixes
 
 ---
 
@@ -24,7 +24,7 @@ Audits skills for discoverability and triggering effectiveness by analyzing desc
 - **Description Completeness** - What the skill does AND when to use it
 - **Trigger Phrase Coverage** - Keywords and patterns that should activate the skill
 - **Metadata Quality** - Frontmatter completeness and accuracy
-- **Progressive Disclosure** - SKILL.md size vs references/ structure
+- **Progressive Disclosure** - SKILL.md size vs reference file organization
 - **Reference Organization** - File structure, linking, navigation
 - **Tool Appropriateness** - allowed-tools matches actual needs
 
@@ -51,7 +51,7 @@ Audits skills for discoverability and triggering effectiveness by analyzing desc
 
 3. **Progressive Disclosure Compliance**:
    - SKILL.md lean (<500 lines target)
-   - Details in references/ directory
+   - Details in separate reference files
    - References clearly linked from SKILL.md
    - One level deep (no nested subdirectories)
 
@@ -97,7 +97,7 @@ Test the description against these questions:
 - 4-6: Adequate but missing key triggers
 - 1-3: Poor, would rarely be discovered
 
-For detailed trigger analysis methodology, see [trigger-analysis.md](references/trigger-analysis.md).
+For detailed trigger analysis methodology, see [trigger-analysis.md](trigger-analysis.md).
 
 ### Step 3: Check for Body Boundary Violations
 
@@ -115,9 +115,9 @@ Search SKILL.md body for anti-patterns:
 Assess information architecture:
 
 1. **SKILL.md Size**: Count lines (target <500)
-2. **References Structure**: Check references/ directory
-3. **Navigation**: Verify links from SKILL.md to references
-4. **Depth**: Ensure references are one level deep
+2. **Reference Files**: Check for separate reference files alongside SKILL.md
+3. **Navigation**: Verify links from SKILL.md to reference files
+4. **Flat Structure**: Ensure all files are at skill root, no subdirectories
 5. **Orphans**: Find references not linked from SKILL.md
 
 **Scoring**:
@@ -126,7 +126,7 @@ Assess information architecture:
 - NEEDS IMPROVEMENT: SKILL.md >500 lines or poor organization
 - N/A: Skill is simple enough to not need references
 
-For progressive disclosure guidelines, see [progressive-disclosure.md](references/progressive-disclosure.md).
+For progressive disclosure guidelines, see [progressive-disclosure.md](progressive-disclosure.md).
 
 ### Step 5: Assess allowed-tools Appropriateness
 
@@ -211,7 +211,7 @@ Provide audit reports in this standardized structure:
 ## Progressive Disclosure Assessment
 
 - **SKILL.md Size**: {line count} lines ({UNDER|OVER} target of 500)
-- **References**: {count} files in references/ directory
+- **References**: {count} reference files
 - **Navigation**: {CLEAR|UNCLEAR} - {explanation}
 - **Orphaned Files**: {list of unreferenced files}
 
@@ -349,7 +349,7 @@ Queries:
 3. "My commits are messy" (might need cleanup)
 ```
 
-For complete discovery testing methodology, see [discovery-testing.md](references/discovery-testing.md).
+For complete discovery testing methodology, see [discovery-testing.md](discovery-testing.md).
 
 ## Best Practices for Skill Discovery
 
@@ -357,7 +357,7 @@ For complete discovery testing methodology, see [discovery-testing.md](reference
 2. **Plain Language**: Include how users actually ask, not just technical terms
 3. **Use Cases First**: List when to use before explaining how it works
 4. **Keywords Matter**: Include all relevant trigger phrases
-5. **Progressive Disclosure**: Keep SKILL.md lean, use references/ for details
+5. **Progressive Disclosure**: Keep SKILL.md lean, use separate reference files for details
 6. **allowed-tools**: Always specify (documents intent, enables restrictions)
 7. **Link References**: Every reference file should be linked from SKILL.md
 8. **One Level Deep**: Don't nest references in subdirectories
@@ -407,4 +407,4 @@ User: "Is my skill-authoring skill too long?"
 Assistant: [Checks size, references structure, provides recommendations]
 ```
 
-For detailed examples of good and poor skills, see [examples.md](references/examples.md).
+For detailed examples of good and poor skills, see [examples.md](examples.md).

@@ -6,8 +6,8 @@
 # Key patterns: mktemp, EXIT trap, cleanup verification
 #
 # References:
-# - ../references/patterns-and-conventions.md (Temp file handling)
-# - ../references/safety-and-security.md (Secure temp files)
+# - ../patterns-and-conventions.md (Temp file handling)
+# - ../safety-and-security.md (Secure temp files)
 
 set -euo pipefail
 

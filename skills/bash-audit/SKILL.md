@@ -8,12 +8,12 @@ allowed-tools: [Read, Bash, Grep, Edit, Write, Glob]
 
 Advanced ShellCheck guidance and workflows:
 
-- [configurations.md](references/configurations.md) - ShellCheck configuration examples and .shellcheckrc templates
-- [error-codes.md](references/error-codes.md) - Detailed ShellCheck error code reference with fixes
-- [fixes.md](references/fixes.md) - Solutions to common ShellCheck violations
-- [integrations.md](references/integrations.md) - Pre-commit hooks, GitHub Actions, GitLab CI
-- [performance.md](references/performance.md) - Optimization techniques for batch processing
-- [workflows.md](references/workflows.md) - End-to-end workflows for development and CI/CD
+- [configurations.md](configurations.md) - ShellCheck configuration examples and .shellcheckrc templates
+- [error-codes.md](error-codes.md) - Detailed ShellCheck error code reference with fixes
+- [fixes.md](fixes.md) - Solutions to common ShellCheck violations
+- [integrations.md](integrations.md) - Pre-commit hooks, GitHub Actions, GitLab CI
+- [performance.md](performance.md) - Optimization techniques for batch processing
+- [workflows.md](workflows.md) - End-to-end workflows for development and CI/CD
 
 ---
 
@@ -72,7 +72,7 @@ find . -name "*.sh" -exec shellcheck --format=gcc --severity=warning {} \;
 - `SC2155` - Declare and assign separately
 - `SC2164` - Use `cd ... || exit` pattern
 
-For detailed error code reference and fixes, see [error-codes.md](references/error-codes.md) and [fixes.md](references/fixes.md).
+For detailed error code reference and fixes, see [error-codes.md](error-codes.md) and [fixes.md](fixes.md).
 
 **ShellCheck Configuration**:
 
@@ -90,15 +90,15 @@ enable=require-variable-braces
 disable=SC1091  # Can't follow external sources
 ```
 
-For complete configuration examples (minimal, development, CI/CD), see [configurations.md](references/configurations.md).
+For complete configuration examples (minimal, development, CI/CD), see [configurations.md](configurations.md).
 
 **CI/CD Integration**:
 
-For pre-commit hooks, GitHub Actions, and GitLab CI pipelines, see [integrations.md](references/integrations.md).
+For pre-commit hooks, GitHub Actions, and GitLab CI pipelines, see [integrations.md](integrations.md).
 
 **Advanced Workflows**:
 
-For complete audit workflows including batch processing, legacy migration, and baseline approaches, see [workflows.md](references/workflows.md).
+For complete audit workflows including batch processing, legacy migration, and baseline approaches, see [workflows.md](workflows.md).
 
 ### 3. Defensive Programming Review
 

@@ -9,8 +9,8 @@
 # See ANALYSIS.md for detailed explanation.
 #
 # References:
-# - ../references/patterns-and-conventions.md (Parameter validation)
-# - ../references/safety-and-security.md (Input validation)
+# - ../patterns-and-conventions.md (Parameter validation)
+# - ../safety-and-security.md (Input validation)
 
 set -euo pipefail
 

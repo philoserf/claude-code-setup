@@ -1,6 +1,6 @@
 ---
 name: skill-authoring
-description: Guide for authoring effective skills. Use when creating, building, updating, designing, packaging, reviewing, evaluating, or improving skills that extend Claude's capabilities with specialized knowledge, workflows, or tool integrations. Helps with skill structure, SKILL.md frontmatter, progressive disclosure, resource organization (scripts/references/assets), initialization templates, validation, and packaging. Also use when asking how to create a skill, what makes a good skill, learning about skill development, or troubleshooting skill issues. Includes proven design patterns for workflows and output quality.
+description: Guide for authoring effective skills. Use when creating, building, updating, designing, packaging, reviewing, evaluating, or improving skills that extend Claude's capabilities with specialized knowledge, workflows, or tool integrations. Helps with skill structure, SKILL.md frontmatter, progressive disclosure, resource organization (scripts/assets/reference files), initialization templates, validation, and packaging. Also use when asking how to create a skill, what makes a good skill, learning about skill development, or troubleshooting skill issues. Includes proven design patterns for workflows and output quality.
 allowed-tools: [Read, Write, Edit, Glob, Grep, Bash]
 license: Complete terms in LICENSE.txt
 ---
@@ -9,11 +9,11 @@ license: Complete terms in LICENSE.txt
 
 This skill includes additional reference files:
 
-- [progressive-disclosure.md](references/progressive-disclosure.md) - Content organization patterns
-- [complete-example.md](references/complete-example.md) - Full skill creation walkthrough
-- [troubleshooting.md](references/troubleshooting.md) - Error solutions
-- [output-patterns.md](references/output-patterns.md) - Output quality patterns
-- [workflows.md](references/workflows.md) - Workflow patterns
+- [progressive-disclosure.md](progressive-disclosure.md) - Content organization patterns
+- [complete-example.md](complete-example.md) - Full skill creation walkthrough
+- [troubleshooting.md](troubleshooting.md) - Error solutions
+- [output-patterns.md](output-patterns.md) - Output quality patterns
+- [workflows.md](workflows.md) - Workflow patterns
 
 ---
 
@@ -70,7 +70,7 @@ skill-name/
 │   └── Markdown instructions (required)
 └── Bundled Resources (optional)
     ├── scripts/          - Executable code (Python/Bash/etc.)
-    ├── references/       - Documentation intended to be loaded into context as needed
+    ├── (reference files)  - Documentation files loaded into context as needed
     └── assets/           - Files used in output (templates, icons, fonts, etc.)
 ```
 
@@ -92,12 +92,12 @@ Executable code (Python/Bash/etc.) for tasks that require deterministic reliabil
 - **Benefits**: Token efficient, deterministic, may be executed without loading into context
 - **Note**: Scripts may still need to be read by Claude for patching or environment-specific adjustments
 
-##### References (`references/`)
+##### Reference Files
 
 Documentation and reference material intended to be loaded as needed into context to inform Claude's process and thinking.
 
 - **When to include**: For documentation that Claude should reference while working
-- **Examples**: `references/finance.md` for financial schemas, `references/mnda.md` for company NDA template, `references/policies.md` for company policies, `references/api_docs.md` for API specifications
+- **Examples**: `finance.md` for financial schemas, `mnda.md` for company NDA template, `policies.md` for company policies, `api_docs.md` for API specifications
 - **Use cases**: Database schemas, API documentation, domain knowledge, company policies, detailed workflow guides
 - **Benefits**: Keeps SKILL.md lean, loaded only when Claude determines it's needed
 - **Best practice**: If files are large (>10k words), include grep search patterns in SKILL.md
@@ -134,7 +134,7 @@ Skills use a three-level loading system to manage context efficiently:
 
 #### Progressive Disclosure Patterns
 
-Keep SKILL.md under 500 lines. See [progressive-disclosure.md](references/progressive-disclosure.md) for patterns:
+Keep SKILL.md under 500 lines. See [progressive-disclosure.md](progressive-disclosure.md) for patterns:
 
 - **High-level guide with references** - Quick start + links to advanced features
 - **Domain-specific organization** - Separate files per domain/framework
@@ -192,7 +192,7 @@ Example: When designing a `frontend-webapp-builder` skill for queries like "Buil
 Example: When building a `big-query` skill to handle queries like "How many users have logged in today?" the analysis shows:
 
 1. Querying BigQuery requires re-discovering the table schemas and relationships each time
-2. A `references/schema.md` file documenting the table schemas would be helpful to store in the skill
+2. A `schema.md` reference file documenting the table schemas would be helpful to store in the skill
 
 To establish the skill's contents, analyze each concrete example to create a list of the reusable resources to include: scripts, references, and assets.
 
@@ -214,7 +214,7 @@ The script:
 
 - Creates the skill directory at the specified path
 - Generates a SKILL.md template with proper frontmatter and TODO placeholders
-- Creates example resource directories: `scripts/`, `references/`, and `assets/`
+- Creates example resource directories: `scripts/` and `assets/`
 - Adds example files in each directory that can be customized or deleted
 
 After initialization, customize or remove the generated SKILL.md and example files as needed.
@@ -227,18 +227,18 @@ When editing the (newly-generated or existing) skill, remember that the skill is
 
 Consult these helpful guides based on your skill's needs:
 
-- **Multi-step processes**: See references/workflows.md for sequential workflows and conditional logic
-- **Specific output formats or quality standards**: See references/output-patterns.md for template and example patterns
+- **Multi-step processes**: See workflows.md for sequential workflows and conditional logic
+- **Specific output formats or quality standards**: See output-patterns.md for template and example patterns
 
 These files contain established best practices for effective skill design.
 
 #### Start with Reusable Skill Contents
 
-To begin implementation, start with the reusable resources identified above: `scripts/`, `references/`, and `assets/` files. Note that this step may require user input. For example, when implementing a `brand-guidelines` skill, the user may need to provide brand assets or templates to store in `assets/`, or documentation to store in `references/`.
+To begin implementation, start with the reusable resources identified above: `scripts/`, `assets/`, and reference files. Note that this step may require user input. For example, when implementing a `brand-guidelines` skill, the user may need to provide brand assets or templates to store in `assets/`, or documentation as reference files.
 
 Added scripts must be tested by actually running them to ensure there are no bugs and that the output matches what is expected. If there are many similar scripts, only a representative sample needs to be tested to ensure confidence that they all work while balancing time to completion.
 
-Any example files and directories not needed for the skill should be deleted. The initialization script creates example files in `scripts/`, `references/`, and `assets/` to demonstrate structure, but most skills won't need all of them.
+Any example files and directories not needed for the skill should be deleted. The initialization script creates example files in `scripts/` and `assets/` to demonstrate structure, but most skills won't need all of them.
 
 #### Update SKILL.md
 
@@ -318,7 +318,7 @@ After testing the skill, users may request improvements. Often this happens righ
 
 ## Troubleshooting
 
-See [troubleshooting.md](references/troubleshooting.md) for:
+See [troubleshooting.md](troubleshooting.md) for:
 
 **Validation Errors**: Invalid names, missing frontmatter, triggering issues
 **Development Issues**: File size, scripts, resources
@@ -327,7 +327,7 @@ Read when you encounter errors during skill development or validation.
 
 ## Complete Example
 
-See [complete-example.md](references/complete-example.md) for full `code-formatter` skill walkthrough demonstrating:
+See [complete-example.md](complete-example.md) for full `code-formatter` skill walkthrough demonstrating:
 
 - Gathering requirements
 - Planning contents

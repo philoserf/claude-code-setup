@@ -9,14 +9,14 @@ model: sonnet
 
 ### Audit Orchestration
 
-- [workflow-patterns.md](references/workflow-patterns.md) - Multi-auditor invocation patterns and decision matrix
-- [report-compilation.md](references/report-compilation.md) - Unified report structure and priority reconciliation
+- [workflow-patterns.md](workflow-patterns.md) - Multi-auditor invocation patterns and decision matrix
+- [report-compilation.md](report-compilation.md) - Unified report structure and priority reconciliation
 
 ### Evaluation Standards and Troubleshooting
 
-- [evaluation-criteria.md](references/evaluation-criteria.md) - Comprehensive standards for each component type
-- [common-issues.md](references/common-issues.md) - Frequent problems and specific fixes with examples
-- [anti-patterns.md](references/anti-patterns.md) - Common mistakes to avoid when building customizations
+- [evaluation-criteria.md](evaluation-criteria.md) - Comprehensive standards for each component type
+- [common-issues.md](common-issues.md) - Frequent problems and specific fixes with examples
+- [anti-patterns.md](anti-patterns.md) - Common mistakes to avoid when building customizations
 
 ### Shared References (Used by All Authoring Skills)
 
@@ -437,8 +437,8 @@ Quick reference for which auditors to invoke:
 
 **Best for**: Multi-component audits, setup-wide analysis, coordinated validation
 
-For detailed orchestration patterns, see [workflow-patterns.md](references/workflow-patterns.md).
-For report compilation guidance, see [report-compilation.md](references/report-compilation.md).
+For detailed orchestration patterns, see [workflow-patterns.md](workflow-patterns.md).
+For report compilation guidance, see [report-compilation.md](report-compilation.md).
 
 ## Guidance Workflows
 

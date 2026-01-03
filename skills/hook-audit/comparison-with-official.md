@@ -44,7 +44,7 @@ The official skill **strongly emphasizes prompt-based hooks first**:
 
 - Hook-audit currently focuses heavily on command hooks (Python/Bash)
 - Should add guidance on auditing prompt-based hooks
-- Add reference file: `references/prompt-hooks.md`
+- Add reference file: `prompt-hooks.md`
 
 ### 2. Two Configuration Formats Need Clear Distinction
 
@@ -110,7 +110,7 @@ Their Do's/Don'ts checklist is concise and actionable:
 **Our improvement**:
 
 - Add similar format to hook-audit's "Quick Start" section
-- Create `references/quick-checklist.md` with audit-focused do's/don'ts
+- Create `quick-checklist.md` with audit-focused do's/don'ts
 
 ### 5. Event-Specific Guidance is Comprehensive
 
@@ -164,7 +164,7 @@ Rather than isolating security in one section, they integrate it across:
 **Our improvement**:
 
 - Add dedicated security audit checklist
-- Create `references/security-patterns.md`
+- Create `security-patterns.md`
 
 ### 7. Temporarily Active Hooks Pattern
 
@@ -187,7 +187,7 @@ input=$(cat)
 
 - Add this pattern to hook-audit as "Conditional Execution"
 - Include in audit checklist: "Does hook need conditional activation?"
-- Add to `references/examples.md`
+- Add to `examples.md`
 
 ### 8. Matcher Pattern Progression
 
@@ -287,7 +287,7 @@ Looking at the pattern of our other skills:
 ### Priority 1: High Value Additions
 
 1. **Add Prompt-Based Hook Auditing**
-   - Create `references/prompt-hooks.md`
+   - Create `prompt-hooks.md`
    - Audit criteria for prompt hooks
    - Validation patterns differ from command hooks
    - ~300-400 lines
@@ -300,7 +300,7 @@ Looking at the pattern of our other skills:
    - Update Hook Type Reference section
 
 3. **Create Security Audit Checklist**
-   - Create `references/security-patterns.md`
+   - Create `security-patterns.md`
    - Input validation patterns
    - Path safety checks
    - Secret handling
@@ -316,7 +316,7 @@ Looking at the pattern of our other skills:
 ### Priority 2: Enhancements
 
 1. **Add Quick Do's/Don'ts Section**
-   - Create `references/quick-checklist.md`
+   - Create `quick-checklist.md`
    - Audit-focused do's and don'ts
    - Common mistakes to flag
    - ~150-200 lines
@@ -330,7 +330,7 @@ Looking at the pattern of our other skills:
 3. **Add Conditional Execution Pattern**
    - Temporarily active hooks pattern
    - Flag file approach
-   - Add to `references/examples.md`
+   - Add to `examples.md`
    - Audit item: "Is conditional activation needed?"
 
 4. **Performance Targets by Event Type**
@@ -415,9 +415,9 @@ allowed-tools: [Read, Write, Edit, Grep, Glob, Bash]
 
 ### For hook-audit improvements
 
-- [ ] Create `references/prompt-hooks.md` (prompt hook auditing)
-- [ ] Create `references/security-patterns.md` (security audit patterns)
-- [ ] Create `references/quick-checklist.md` (audit do's/don'ts)
+- [ ] Create `prompt-hooks.md` (prompt hook auditing)
+- [ ] Create `security-patterns.md` (security audit patterns)
+- [ ] Create `quick-checklist.md` (audit do's/don'ts)
 - [ ] Expand Hook Type Reference with all 8 events
 - [ ] Add performance targets to each event type
 - [ ] Add matcher validation to audit checklist
@@ -430,11 +430,11 @@ allowed-tools: [Read, Write, Edit, Grep, Glob, Bash]
 
 - [ ] Create skill directory structure
 - [ ] Write SKILL.md with decision guides
-- [ ] Create `references/prompt-hooks.md` (adapted from official)
-- [ ] Create `references/command-hooks.md`
-- [ ] Create `references/event-guide.md`
-- [ ] Create `references/templates.md` with starter patterns
-- [ ] Create `references/testing-guide.md`
+- [ ] Create `prompt-hooks.md` (adapted from official)
+- [ ] Create `command-hooks.md`
+- [ ] Create `event-guide.md`
+- [ ] Create `templates.md` with starter patterns
+- [ ] Create `testing-guide.md`
 - [ ] Add integration guidance with hook-audit
 - [ ] Test skill with hook creation scenarios
 - [ ] Run /audit-skill hook-authoring

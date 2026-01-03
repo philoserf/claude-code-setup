@@ -8,11 +8,11 @@ allowed-tools: [Read, Grep, Glob, Bash]
 
 Advanced output-style validation guidance:
 
-- [persona-definition.md](references/persona-definition.md) - Persona clarity assessment and role definition quality
-- [behavior-specification.md](references/behavior-specification.md) - Behavior concreteness and actionability validation
-- [coding-instructions-decision.md](references/coding-instructions-decision.md) - Decision matrix for keep-coding-instructions field
-- [scope-alignment.md](references/scope-alignment.md) - User vs project scope selection guidance
-- [examples.md](references/examples.md) - Good vs poor output-style comparisons and full audit reports
+- [persona-definition.md](persona-definition.md) - Persona clarity assessment and role definition quality
+- [behavior-specification.md](behavior-specification.md) - Behavior concreteness and actionability validation
+- [coding-instructions-decision.md](coding-instructions-decision.md) - Decision matrix for keep-coding-instructions field
+- [scope-alignment.md](scope-alignment.md) - User vs project scope selection guidance
+- [examples.md](examples.md) - Good vs poor output-style comparisons and full audit reports
 
 ---
 
@@ -115,7 +115,7 @@ You are a professional content editor with expertise in clarity and readability.
 - Missing persona: No persona section
 - Too abstract: "You embody excellence"
 
-See [persona-definition.md](references/persona-definition.md) for assessment methodology.
+See [persona-definition.md](persona-definition.md) for assessment methodology.
 
 ### Step 3: Validate Behavior Specification
 
@@ -145,7 +145,7 @@ See [persona-definition.md](references/persona-definition.md) for assessment met
 - Too many (>15): Overwhelming, unfocused
 - No behaviors: Missing section
 
-See [behavior-specification.md](references/behavior-specification.md) for concreteness validation.
+See [behavior-specification.md](behavior-specification.md) for concreteness validation.
 
 ### Step 4: Check keep-coding-instructions Decision
 
@@ -170,7 +170,7 @@ keep-coding-instructions: false # Explicit decision
 - Non-engineering role with true: Content editor gets coding instructions
 - Inconsistent with persona: Mismatch between role and decision
 
-See [coding-instructions-decision.md](references/coding-instructions-decision.md) for decision matrix.
+See [coding-instructions-decision.md](coding-instructions-decision.md) for decision matrix.
 
 ### Step 5: Verify Scope Alignment
 
@@ -191,7 +191,7 @@ See [coding-instructions-decision.md](references/coding-instructions-decision.md
 - Team style in user scope (not shared with team)
 - No clear audience definition
 
-See [scope-alignment.md](references/scope-alignment.md) for selection guidance.
+See [scope-alignment.md](scope-alignment.md) for selection guidance.
 
 ### Step 6: Generate Audit Report
 
@@ -500,7 +500,7 @@ User: "Audit my output-style"
 
 **Score**: 4/10 - Requires significant improvement
 
-See [examples.md](references/examples.md) for complete audit reports.
+See [examples.md](examples.md) for complete audit reports.
 
 ---
 
