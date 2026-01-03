@@ -1,7 +1,19 @@
 ---
 name: git-workflow
-description: Automates complete git workflows including branch management, atomic commits with formatted messages, history cleanup, and PR creation. Use when the user wants to commit changes, push to remote, create a PR, clean up commits, mentions atomic commits, git workflow, or needs help organizing git changes. Also use when user is on main/master with uncommitted changes (suggest branching), has messy commit history to clean up before pushing, wants to squash or reorder commits, or needs help creating pull requests.
-allowed-tools: Bash, AskUserQuestion, TodoWrite
+description: Automates complete git workflows including branch management, atomic commits with formatted messages, history cleanup, and PR creation. Use when the user wants to commit/make commits, push to remote, create/open a PR, clean up commits, create branches, write commit messages, mentions atomic commits, git workflow, git best practices, or needs help organizing git changes. Also use when user is on main/master with uncommitted changes (suggest branching), has messy commit history to clean up before pushing, wants to squash or reorder commits, or needs help creating pull requests.
+allowed-tools: Read, Bash, AskUserQuestion, TodoWrite
+model: sonnet
+---
+
+## Reference Files
+
+Detailed git workflow guidance:
+
+- [workflow-phases.md](references/workflow-phases.md) - Step-by-step instructions for each workflow phase (0-6) with specific commands, safety checks, and decision points
+- [commit-format.md](references/commit-format.md) - Comprehensive commit message formatting guide with rules, examples, templates, and common mistakes
+- [rebase-guide.md](references/rebase-guide.md) - Interactive rebase safety guidelines, commands, conflict resolution, and recovery techniques
+- [examples.md](references/examples.md) - Real-world workflow scenarios showing the skill in action across different situations
+
 ---
 
 # Git Workflow Skill
