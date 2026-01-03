@@ -163,11 +163,76 @@ Bad examples:
 
 ## Phase 5: Push with Confirmation
 
-**Goal**: Push commits to remote after user approval.
+**Goal**: Push commits to remote safely after user approval.
 
 **Steps**:
 
-1. Show summary of commits to be pushed:
+1. **CRITICAL: Protected Branch Detection** (MUST BE FIRST):
+
+   ```bash
+   # 1a. Check for detached HEAD state first
+   CURRENT_BRANCH=$(git branch --show-current)
+
+   if [ -z "$CURRENT_BRANCH" ]; then
+     # Detached HEAD state - handle before protected branch check
+     echo "⚠️ You are in detached HEAD state"
+     # Offer to create branch, then exit
+     exit 1
+   fi
+
+   # 1b. Fetch latest remote state to avoid race conditions
+   git fetch origin "$CURRENT_BRANCH" 2>/dev/null || true
+
+   # 1c. Check for uncommitted changes (will interfere with migration)
+   if ! git diff-index --quiet HEAD --; then
+     echo "⚠️ You have uncommitted changes"
+     echo "Please commit or stash changes before pushing"
+     exit 1
+   fi
+
+   # 1d. Check if current branch is protected
+   PROTECTED_BRANCHES=("main" "master" "develop" "production" "staging")
+
+   if [[ " ${PROTECTED_BRANCHES[@]} " =~ " ${CURRENT_BRANCH} " ]]; then
+     # STOP - Do NOT proceed with normal push flow
+     # Enter Protected Branch Push Protocol
+     # See references/protected-branch-protocol.md
+   fi
+   ```
+
+   **If protected branch detected:**
+   - **BLOCK the push** - do not show confirmation dialog
+   - Display blocking message explaining why
+   - Present 3 options using AskUserQuestion:
+     1. Create feature branch and migrate commits (recommended)
+     2. Rename current branch to feature branch
+     3. Emergency override with reason (logged via audit commit)
+   - Execute chosen option from protocol
+   - See **[protected-branch-protocol.md](protected-branch-protocol.md)** for complete details
+
+2. **Check for force push requirement:**
+
+   ```bash
+   # Detect if force push would be required
+   # Check if remote branch has commits we don't have (non-fast-forward)
+   if git fetch origin "$CURRENT_BRANCH" 2>/dev/null; then
+     # Count commits on remote that we don't have
+     REMOTE_AHEAD=$(git rev-list --count HEAD..origin/"$CURRENT_BRANCH" 2>/dev/null || echo "0")
+
+     if [ "$REMOTE_AHEAD" -gt 0 ]; then
+       # Remote has commits we don't have - would need force push
+
+       # If current branch is protected - ABSOLUTELY BLOCK
+       if [[ " ${PROTECTED_BRANCHES[@]} " =~ " ${CURRENT_BRANCH} " ]]; then
+         echo "🛑 ABSOLUTELY BLOCKED: Force push to protected branch"
+         # See protected-branch-protocol.md for blocking message
+         # Exit - do not allow
+       fi
+     fi
+   fi
+   ```
+
+3. Show summary of commits to be pushed:
 
    ```bash
    git log origin/<branch>..HEAD --oneline
@@ -175,26 +240,29 @@ Bad examples:
 
    (or just `git log --oneline -n <count>` if new branch)
 
-2. Present summary to user:
+4. Present summary to user:
    - Number of commits
    - Branch name
    - First line of each commit message
    - Whether this is a new branch or existing branch
 
-3. Ask user for confirmation to push using AskUserQuestion
+5. Ask user for confirmation to push using AskUserQuestion
 
-4. If user confirms:
+6. If user confirms:
    - For new branch: `git push -u origin <branch-name>`
    - For existing branch: `git push`
 
-5. Verify push succeeded and show result
+7. Verify push succeeded and show result
 
-**Safety Checks**:
+**Safety Checks** (in order):
 
-- Verify remote exists: `git remote -v`
-- If no remote, help user set one up before pushing
-- Check if push is to main/master without PR - warn user
-- Handle push failures gracefully (show error, suggest fixes)
+1. **Protected branch check** - MUST be first, blocks if protected
+2. **Force push to protected branch** - Absolutely blocked, no override
+3. Verify remote exists: `git remote -v`
+4. If no remote, help user set one up before pushing
+5. Handle push failures gracefully (show error, suggest fixes)
+
+**Key Principle**: Always check for protected branch BEFORE showing push confirmation. The user should never get to confirmation if on a protected branch.
 
 ## Phase 6: Pull Request Creation (Optional)
 
