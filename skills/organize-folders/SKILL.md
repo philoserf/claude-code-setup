@@ -104,3 +104,52 @@ Mixed conventions (spaces vs dashes, capitalization) cause confusion:
 
 - **Solution**: Pick one convention and apply consistently
 - **Recommended**: kebab-case for code projects, Title Case for documents
+
+## References
+
+For detailed guidance on specific topics, see the reference documentation:
+
+### [document-collection-organization.md](references/document-collection-organization.md)
+
+Comprehensive guide for organizing PDF and document collections:
+
+- Publisher-first hierarchy strategies
+- Size thresholds and when to split directories (30/50/100+ file triggers)
+- PDF examination workflow (pdfinfo, pdftotext)
+- Duplicate prevention and detection methods
+- Periodic audit processes and checklists
+- Collection README.md templates
+- Handling inherited disorganized collections
+
+### [naming-conventions.md](references/naming-conventions.md)
+
+Complete naming conventions for all file types:
+
+- Document collections: Title Case with spaces
+- Code projects: kebab-case for directories, language-specific for files
+- Media libraries: date-based (YYYY-MM-DD) vs event-based naming
+- Research papers: Author-Year-Title patterns
+- Common mistakes and how to fix them
+- Batch renaming strategies and scripts
+- Enforcement during audits
+
+### [organization-patterns.md](references/organization-patterns.md)
+
+Decision frameworks and pattern selection:
+
+- Pattern decision tree (topic, chronological, publisher, type, project, hybrid)
+- When to split directories (quantitative and qualitative triggers)
+- Anti-patterns to avoid (excessive nesting, premature organization, misc dumping grounds)
+- Reorganization strategies and when to reorganize
+- Effective pattern combinations
+
+### [examples-and-workflows.md](references/examples-and-workflows.md)
+
+Step-by-step walkthroughs and templates:
+
+- Organizing 200+ PDF research collection (complete 6-hour workflow)
+- Migrating from disorganized to organized structure
+- README.md templates for document and code collections
+- Quarterly collection audit checklist
+- Adding new files to existing collections
+- Reorganizing when structure is outgrown
