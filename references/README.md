@@ -43,6 +43,15 @@ This directory contains documentation shared across all Claude Code customizatio
 
 ### Reference Documentation
 
+**[delegation-patterns.md](delegation-patterns.md)** (595 lines)
+
+- Command delegation patterns and best practices
+- 4 valid patterns: Descriptive delegation, standalone prompts, bash execution,
+  file references
+- Clear vs unclear delegation examples
+- Use when: Writing commands or validating delegation clarity
+- Referenced by: command-audit skill, command-authoring skill
+
 **[hook-events.md](hook-events.md)** (241 lines)
 
 - Hook lifecycle events reference
@@ -51,6 +60,15 @@ This directory contains documentation shared across all Claude Code customizatio
 - Exit codes and error handling
 - Use when: Implementing hooks
 - Referenced by: frontmatter-requirements.md
+
+**[plugin-structure-comparison.md](plugin-structure-comparison.md)** (369 lines)
+
+- Comparison with official Claude Code plugin-structure skill
+- Applicable organizational patterns and best practices
+- Progressive disclosure strategy guidance
+- Scalability planning and reorganization triggers
+- Use when: Planning structure improvements or scaling decisions
+- Links to: Official Anthropic plugin-structure documentation
 
 ## Navigation Flow
 
@@ -136,5 +154,7 @@ When updating shared references:
 
 ---
 
-Last updated: 2026-01-01
-File count: 5 files (decision-matrix.md, when-to-use-what.md, naming-conventions.md, frontmatter-requirements.md, hook-events.md)
+Last updated: 2026-01-03
+File count: 7 files (decision-matrix.md, when-to-use-what.md,
+naming-conventions.md, frontmatter-requirements.md, delegation-patterns.md,
+hook-events.md, plugin-structure-comparison.md)
