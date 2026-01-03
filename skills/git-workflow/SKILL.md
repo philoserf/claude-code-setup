@@ -100,11 +100,15 @@ Offer cleanup when multiple commits could be squashed, messages need improvement
 
 ## Phase 5: Push with Confirmation
 
-**Goal**: Push commits to remote after user approval.
+**Goal**: Push commits to remote safely after user approval.
+
+**CRITICAL**: Before allowing push, check if current branch is protected (main/master/develop/production/staging). If protected, **BLOCK the push** and enter the Protected Branch Push Protocol.
 
 Show summary of commits to be pushed (number, branch, commit messages), ask for confirmation, then push. Use `-u` flag for new branches.
 
-Perform safety checks: verify remote exists, warn if pushing to main/master without PR, handle failures gracefully.
+Perform safety checks: verify remote exists, detect and block protected branch pushes, prevent force pushes to protected branches, handle failures gracefully.
+
+**For protected branch handling, see [references/protected-branch-protocol.md](references/protected-branch-protocol.md).**
 
 **For detailed steps, see [references/workflow-phases.md#phase-5-push-with-confirmation](references/workflow-phases.md#phase-5-push-with-confirmation).**
 
@@ -138,8 +142,9 @@ Always perform these checks during the workflow:
 
 4. **Before pushing**:
    - Verify remote exists
-   - Check if pushing to protected branch directly
-   - Confirm with user
+   - **CRITICAL**: Check if current branch is protected - if yes, BLOCK and enter Protected Branch Push Protocol
+   - Detect force push requirement - if pushing to protected branch, BLOCK absolutely
+   - Confirm with user (only if not blocked)
 
 5. **Before creating PR**:
    - Verify push succeeded
@@ -184,11 +189,16 @@ Always perform these checks during the workflow:
 - Ask if user wants to add remote
 - Help set up origin if needed
 
-**Protected branch** (committing to main/master):
+**Protected branch** (pushing to main/master/develop/production/staging):
 
-- Warn user this is not recommended
-- Strongly suggest creating feature branch
-- Only proceed if user explicitly confirms
+- **BLOCK the push operation** - do not just warn
+- Enter Protected Branch Push Protocol
+- Offer 3 options:
+  1. Create feature branch and migrate commits (recommended)
+  2. Rename current branch to feature branch
+  3. Emergency override with explicit reason (logged)
+- **Absolutely block** force pushes to protected branches
+- See [references/protected-branch-protocol.md](references/protected-branch-protocol.md) for details
 
 **Rebase in progress**:
 
@@ -294,6 +304,8 @@ For detailed information, see supporting files:
 - **[references/commit-format.md](references/commit-format.md)** - Comprehensive commit message formatting guide with detailed rules, examples, templates, and common mistakes. Read this when you need specific guidance on commit message format, character limits, imperative mood examples, or want to see good vs. bad examples.
 
 - **[references/rebase-guide.md](references/rebase-guide.md)** - Interactive rebase safety guidelines, commands, conflict resolution, and recovery techniques. Read this when planning commit history cleanup, before rebasing, or when handling rebase conflicts.
+
+- **[references/protected-branch-protocol.md](references/protected-branch-protocol.md)** - Protected branch push prevention protocol with detection logic, 3-option handling (feature branch migration, branch rename, emergency override), force push blocking, and edge cases. Read this when Phase 5 detects a push to protected branch, or when implementing protected branch safety checks.
 
 - **[references/examples.md](references/examples.md)** - Real-world workflow scenarios showing the skill in action across different situations: simple features, bug fixes, large refactorings, messy history cleanup, edge cases, and more. Read this to understand how to apply the workflow in practice.
 
