@@ -1,6 +1,6 @@
 ---
 name: agent-authoring
-description: Guide for authoring, designing, and building specialized AI agents. Use when creating, updating, reviewing, or improving agents that handle specific tasks with focused expertise. Helps design AGENT.md files, choose models (Sonnet/Haiku/Opus), define focus areas, configure tool restrictions, and decide between agents, skills, and commands. Expert in agent validation, best practices, and troubleshooting.
+description: Guide for authoring, designing, building, writing, and developing specialized AI agents. Use when creating, updating, reviewing, or improving agents that handle specific tasks with focused expertise. Helps design AGENT.md files, choose models (Sonnet/Haiku/Opus), define focus areas, configure tool restrictions, and decide between agents, skills, and commands. Expert in agent validation, best practices, and troubleshooting.
 allowed-tools:
   - Read
   - Grep
@@ -362,6 +362,8 @@ This will check:
 ## Agents vs Skills vs Commands
 
 Choosing the right customization type is critical. Each has distinct characteristics and use cases.
+
+**📄 See [agent-decision-guide.md](agent-decision-guide.md) for agent-specific decision framework**
 
 **📄 See [when-to-use-what.md](../../references/when-to-use-what.md) for detailed decision guide (shared)**
 
