@@ -5,7 +5,7 @@
 # Demonstrates safe array operations: creation, iteration, and manipulation.
 #
 # References:
-# - ../references/patterns-and-conventions.md (Arrays)
+# - ../patterns-and-conventions.md (Arrays)
 
 set -euo pipefail
 

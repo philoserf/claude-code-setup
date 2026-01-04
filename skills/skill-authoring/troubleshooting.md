@@ -87,7 +87,7 @@ Description must be at least 50 characters
 **Solution**: Apply progressive disclosure by moving content to reference files:
 
 1. Identify content that isn't always needed (detailed examples, advanced features, variant-specific patterns)
-2. Create appropriately named reference files in `references/` directory
+2. Create appropriately named reference files alongside SKILL.md
 3. Link to reference files from SKILL.md with clear guidance on when to read them
 
 ### Issue: Scripts aren't working when executed
@@ -103,7 +103,7 @@ Description must be at least 50 characters
 
 **Solution**: Ensure proper reference from SKILL.md:
 
-1. Link to reference files explicitly: `See [filename.md](references/filename.md)`
+1. Link to reference files explicitly: `See [filename.md](filename.md)`
 2. Explain when Claude should read each reference file
 3. Keep references one level deep (no deeply nested references)
 

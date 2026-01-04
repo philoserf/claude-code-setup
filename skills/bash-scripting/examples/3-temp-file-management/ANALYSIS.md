@@ -62,5 +62,5 @@ kill %1
 
 ## References
 
-- [patterns-and-conventions.md](../../references/patterns-and-conventions.md)
-- [safety-and-security.md](../../references/safety-and-security.md)
+- [patterns-and-conventions.md](../../patterns-and-conventions.md)
+- [safety-and-security.md](../../safety-and-security.md)

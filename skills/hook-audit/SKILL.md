@@ -8,11 +8,11 @@ allowed-tools: [Read, Grep, Glob, Bash]
 
 Advanced hook patterns and best practices:
 
-- [exit-codes.md](references/exit-codes.md) - Exit code semantics (0=allow, 2=block) with examples
-- [json-handling.md](references/json-handling.md) - Safe JSON stdin parsing patterns
-- [error-patterns.md](references/error-patterns.md) - Error handling and graceful degradation
-- [performance.md](references/performance.md) - Timeout guidelines and optimization
-- [examples.md](references/examples.md) - Good vs bad hook patterns with before/after examples
+- [exit-codes.md](exit-codes.md) - Exit code semantics (0=allow, 2=block) with examples
+- [json-handling.md](json-handling.md) - Safe JSON stdin parsing patterns
+- [error-patterns.md](error-patterns.md) - Error handling and graceful degradation
+- [performance.md](performance.md) - Timeout guidelines and optimization
+- [examples.md](examples.md) - Good vs bad hook patterns with before/after examples
 
 ---
 
@@ -153,7 +153,7 @@ except Exception as e:
 sys.exit(1)  # ✗ Wrong, use 0 or 2
 ```
 
-For details on exit code patterns, see [exit-codes.md](references/exit-codes.md).
+For details on exit code patterns, see [exit-codes.md](exit-codes.md).
 
 ### Step 5: Review Error Handling
 
@@ -181,7 +181,7 @@ except Exception as e:
     sys.exit(0)  # Don't block user
 ```
 
-For error handling patterns, see [error-patterns.md](references/error-patterns.md).
+For error handling patterns, see [error-patterns.md](error-patterns.md).
 
 ### Step 6: Validate settings.json Registration
 
@@ -351,7 +351,7 @@ except ImportError:
 - Use faster parsing (regex instead of full AST)
 - Move non-critical checks to PostToolUse
 
-For performance optimization, see [performance.md](references/performance.md).
+For performance optimization, see [performance.md](performance.md).
 
 ## Report Format
 
@@ -438,7 +438,7 @@ The `validate-config.py` hook validates YAML frontmatter in agents/skills. The h
 
 ## Examples
 
-For detailed examples of good and bad hook patterns, including before/after refactoring, see [examples.md](references/examples.md).
+For detailed examples of good and bad hook patterns, including before/after refactoring, see [examples.md](examples.md).
 
 **Quick Examples**:
 

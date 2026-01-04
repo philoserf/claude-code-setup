@@ -9,13 +9,13 @@ model: sonnet
 
 Advanced agent validation guidance:
 
-- [model-selection.md](references/model-selection.md) - Model choice decision matrix, use cases, and appropriateness criteria
-- [tool-restrictions.md](references/tool-restrictions.md) - Tool permission patterns, security implications, and restriction fit
-- [focus-area-quality.md](references/focus-area-quality.md) - Focus area specificity assessment, quality scoring, and criteria
-- [approach-methodology.md](references/approach-methodology.md) - Approach completeness, required components, and methodology patterns
-- [examples.md](references/examples.md) - Good vs poor agent comparisons and full audit reports
-- [report-format.md](references/report-format.md) - Standardized audit report template and structure
-- [common-issues.md](references/common-issues.md) - Frequent problems, fixes, and troubleshooting patterns
+- [model-selection.md](model-selection.md) - Model choice decision matrix, use cases, and appropriateness criteria
+- [tool-restrictions.md](tool-restrictions.md) - Tool permission patterns, security implications, and restriction fit
+- [focus-area-quality.md](focus-area-quality.md) - Focus area specificity assessment, quality scoring, and criteria
+- [approach-methodology.md](approach-methodology.md) - Approach completeness, required components, and methodology patterns
+- [examples.md](examples.md) - Good vs poor agent comparisons and full audit reports
+- [report-format.md](report-format.md) - Standardized audit report template and structure
+- [common-issues.md](common-issues.md) - Frequent problems, fixes, and troubleshooting patterns
 
 ---
 
@@ -113,7 +113,7 @@ model: opus    # Check: Is complexity justified?
 - Haiku underperformance: Too simple for task complexity
 - Missing model: No model field specified (defaults to Sonnet)
 
-See [model-selection.md](references/model-selection.md) for detailed decision matrix.
+See [model-selection.md](model-selection.md) for detailed decision matrix.
 
 ### Step 3: Validate Tool Restrictions
 
@@ -141,7 +141,7 @@ allowed_tools:
 - **Code generator**: [Read, Write, Edit, Grep, Glob, Bash]
 - **Orchestrator**: [Task, Skill, Read, AskUserQuestion]
 
-See [tool-restrictions.md](references/tool-restrictions.md) for security analysis.
+See [tool-restrictions.md](tool-restrictions.md) for security analysis.
 
 ### Step 4: Assess Focus Area Quality
 
@@ -179,7 +179,7 @@ See [tool-restrictions.md](references/tool-restrictions.md) for security analysi
 
 **Score**: 5/5 areas, all specific and concrete → GOOD
 
-See [focus-area-quality.md](references/focus-area-quality.md) for scoring methodology.
+See [focus-area-quality.md](focus-area-quality.md) for scoring methodology.
 
 ### Step 5: Review Approach Methodology
 
@@ -215,7 +215,7 @@ Output: Production-ready Bash script with full error handling
 Write good Bash scripts following best practices.
 ```
 
-See [approach-methodology.md](references/approach-methodology.md) for templates.
+See [approach-methodology.md](approach-methodology.md) for templates.
 
 ### Step 6: Check Context Economy
 
@@ -242,20 +242,20 @@ wc -l skills/bash-scripting/SKILL.md
 
 ### Step 7: Generate Audit Report
 
-Compile findings into standardized report format. See [report-format.md](references/report-format.md) for the complete template.
+Compile findings into standardized report format. See [report-format.md](report-format.md) for the complete template.
 
 ## Agent-Specific Validation
 
 For detailed validation criteria in each area, see the reference files:
 
-- **Model Selection**: See [model-selection.md](references/model-selection.md) for appropriateness criteria, use cases, and red flags
-- **Tool Restrictions**: See [tool-restrictions.md](references/tool-restrictions.md) for security implications and restriction fit analysis
-- **Focus Area Quality**: See [focus-area-quality.md](references/focus-area-quality.md) for specificity assessment and scoring methodology
-- **Approach Completeness**: See [approach-methodology.md](references/approach-methodology.md) for required components and impact analysis
+- **Model Selection**: See [model-selection.md](model-selection.md) for appropriateness criteria, use cases, and red flags
+- **Tool Restrictions**: See [tool-restrictions.md](tool-restrictions.md) for security implications and restriction fit analysis
+- **Focus Area Quality**: See [focus-area-quality.md](focus-area-quality.md) for specificity assessment and scoring methodology
+- **Approach Completeness**: See [approach-methodology.md](approach-methodology.md) for required components and impact analysis
 
 ## Common Issues
 
-For detailed troubleshooting guidance, see [common-issues.md](references/common-issues.md).
+For detailed troubleshooting guidance, see [common-issues.md](common-issues.md).
 
 Common patterns include:
 
@@ -267,7 +267,7 @@ Common patterns include:
 
 ## Report Format
 
-Use the standardized template in [report-format.md](references/report-format.md) for all agent audit reports.
+Use the standardized template in [report-format.md](report-format.md) for all agent audit reports.
 
 ## Integration with audit-coordinator
 
@@ -341,7 +341,7 @@ For comprehensive audits, use audit-coordinator which will invoke the appropriat
 
 **Score**: 4/10 - Requires significant improvement
 
-See [examples.md](references/examples.md) for complete audit reports.
+See [examples.md](examples.md) for complete audit reports.
 
 ---
 

@@ -10,7 +10,7 @@
 # - Progress reporting
 #
 # References:
-# - All ../references/ documents
+# - All ../ documents
 
 set -Eeuo pipefail
 

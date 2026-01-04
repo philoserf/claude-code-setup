@@ -9,10 +9,10 @@ model: sonnet
 
 Detailed git workflow guidance:
 
-- [workflow-phases.md](references/workflow-phases.md) - Step-by-step instructions for each workflow phase (0-6) with specific commands, safety checks, and decision points
-- [commit-format.md](references/commit-format.md) - Comprehensive commit message formatting guide with rules, examples, templates, and common mistakes
-- [rebase-guide.md](references/rebase-guide.md) - Interactive rebase safety guidelines, commands, conflict resolution, and recovery techniques
-- [examples.md](references/examples.md) - Real-world workflow scenarios showing the skill in action across different situations
+- [workflow-phases.md](workflow-phases.md) - Step-by-step instructions for each workflow phase (0-6) with specific commands, safety checks, and decision points
+- [commit-format.md](commit-format.md) - Comprehensive commit message formatting guide with rules, examples, templates, and common mistakes
+- [rebase-guide.md](rebase-guide.md) - Interactive rebase safety guidelines, commands, conflict resolution, and recovery techniques
+- [examples.md](examples.md) - Real-world workflow scenarios showing the skill in action across different situations
 
 ---
 
@@ -59,7 +59,7 @@ If the user is on a protected branch (main/master/develop/production/staging) wi
 
 Skip this phase if the user is already on a feature branch, hotfix branch, or release branch.
 
-**For detailed steps, see [references/phase-0-protocol.md](references/phase-0-protocol.md) and [references/workflow-phases.md#phase-0-branch-management](references/workflow-phases.md#phase-0-branch-management).**
+**For detailed steps, see [phase-0-protocol.md](phase-0-protocol.md) and [workflow-phases.md#phase-0-branch-management](workflow-phases.md#phase-0-branch-management).**
 
 ## Phase 1: Repository Analysis
 
@@ -69,7 +69,7 @@ Run git commands to see changed files, diffs, and recent history. Analyze to ide
 
 Perform safety checks for merge conflicts and rebase-in-progress before proceeding.
 
-**For detailed steps, see [references/workflow-phases.md#phase-1-repository-analysis](references/workflow-phases.md#phase-1-repository-analysis).**
+**For detailed steps, see [workflow-phases.md#phase-1-repository-analysis](workflow-phases.md#phase-1-repository-analysis).**
 
 ## Phase 2: Organize into Atomic Commits
 
@@ -81,7 +81,7 @@ Group changes by priority: bug fixes → tests → refactoring → features → 
 
 Create a commit plan and present to user for approval. Use TodoWrite to track commits if there are 3+.
 
-**For detailed steps and grouping strategy, see [references/workflow-phases.md#phase-2-organize-into-atomic-commits](references/workflow-phases.md#phase-2-organize-into-atomic-commits).**
+**For detailed steps and grouping strategy, see [workflow-phases.md#phase-2-organize-into-atomic-commits](workflow-phases.md#phase-2-organize-into-atomic-commits).**
 
 ## Phase 3: Create Commits
 
@@ -96,9 +96,9 @@ For each commit: stage files, generate well-formatted commit message (≤72 char
 - Explain WHY, not WHAT
 - Summary ≤72 characters, body wrapped at 72
 
-**For detailed formatting rules, examples, and templates, see [references/commit-format.md](references/commit-format.md).**
+**For detailed formatting rules, examples, and templates, see [commit-format.md](commit-format.md).**
 
-**For detailed steps, see [references/workflow-phases.md#phase-3-create-commits](references/workflow-phases.md#phase-3-create-commits).**
+**For detailed steps, see [workflow-phases.md#phase-3-create-commits](workflow-phases.md#phase-3-create-commits).**
 
 ## Phase 4: Commit History Cleanup (Optional)
 
@@ -108,9 +108,9 @@ Offer cleanup when multiple commits could be squashed, messages need improvement
 
 **IMPORTANT**: NEVER use `git rebase -i` (requires interactive input). Instead, explain manual commands to user or use non-interactive alternatives like `git reset --soft`.
 
-**For detailed rebase safety guidelines, commands, and examples, see [references/rebase-guide.md](references/rebase-guide.md).**
+**For detailed rebase safety guidelines, commands, and examples, see [rebase-guide.md](rebase-guide.md).**
 
-**For detailed steps, see [references/workflow-phases.md#phase-4-commit-history-cleanup-optional](references/workflow-phases.md#phase-4-commit-history-cleanup-optional).**
+**For detailed steps, see [workflow-phases.md#phase-4-commit-history-cleanup-optional](workflow-phases.md#phase-4-commit-history-cleanup-optional).**
 
 ## Phase 4.5: Pre-Push Quality Review (Mandatory)
 
@@ -136,9 +136,9 @@ Shows push preview with commit list, stats, and quality report. If issues found,
 - **Override** - Push anyway with justification (required for blockers)
 - **Cancel** - Exit workflow to investigate
 
-**For detailed quality checks, test detection, and user interaction patterns, see [references/phase-4.5-protocol.md](references/phase-4.5-protocol.md).**
+**For detailed quality checks, test detection, and user interaction patterns, see [phase-4.5-protocol.md](phase-4.5-protocol.md).**
 
-**For detailed steps, see [references/workflow-phases.md#phase-45-pre-push-quality-review-mandatory](references/workflow-phases.md#phase-45-pre-push-quality-review-mandatory).**
+**For detailed steps, see [workflow-phases.md#phase-45-pre-push-quality-review-mandatory](workflow-phases.md#phase-45-pre-push-quality-review-mandatory).**
 
 ## Phase 5: Push with Confirmation
 
@@ -150,9 +150,9 @@ Show summary of commits to be pushed (number, branch, commit messages), ask for 
 
 Perform safety checks: verify remote exists, detect and block protected branch pushes, prevent force pushes to protected branches, handle failures gracefully.
 
-**For protected branch handling, see [references/protected-branch-protocol.md](references/protected-branch-protocol.md).**
+**For protected branch handling, see [protected-branch-protocol.md](protected-branch-protocol.md).**
 
-**For detailed steps, see [references/workflow-phases.md#phase-5-push-with-confirmation](references/workflow-phases.md#phase-5-push-with-confirmation).**
+**For detailed steps, see [workflow-phases.md#phase-5-push-with-confirmation](workflow-phases.md#phase-5-push-with-confirmation).**
 
 ## Phase 6: Pull Request Creation (Optional)
 
@@ -162,7 +162,7 @@ After successful push, ask if user wants a PR. Verify `gh` CLI is available, det
 
 If `gh` not available, provide GitHub web URL for manual PR creation.
 
-**For detailed steps, see [references/workflow-phases.md#phase-6-pull-request-creation-optional](references/workflow-phases.md#phase-6-pull-request-creation-optional).**
+**For detailed steps, see [workflow-phases.md#phase-6-pull-request-creation-optional](workflow-phases.md#phase-6-pull-request-creation-optional).**
 
 ## Safety Checks
 
@@ -235,8 +235,8 @@ Always perform these checks during the workflow:
 
 - **Phase 0**: Blocks if uncommitted changes exist, requires branching
 - **Phase 5**: Blocks if trying to push commits, requires migration
-- See [references/phase-0-protocol.md](references/phase-0-protocol.md) for start-of-work protocol
-- See [references/protected-branch-protocol.md](references/protected-branch-protocol.md) for push-time protocol
+- See [phase-0-protocol.md](phase-0-protocol.md) for start-of-work protocol
+- See [protected-branch-protocol.md](protected-branch-protocol.md) for push-time protocol
 
 **Rebase in progress**:
 
@@ -337,15 +337,15 @@ Use **Bash** for:
 
 For detailed information, see supporting files:
 
-- **[references/workflow-phases.md](references/workflow-phases.md)** - Detailed step-by-step instructions for each workflow phase (0-6). Read this when you need the complete procedure for any phase including specific commands, safety checks, and decision points.
+- **[workflow-phases.md](workflow-phases.md)** - Detailed step-by-step instructions for each workflow phase (0-6). Read this when you need the complete procedure for any phase including specific commands, safety checks, and decision points.
 
-- **[references/commit-format.md](references/commit-format.md)** - Comprehensive commit message formatting guide with detailed rules, examples, templates, and common mistakes. Read this when you need specific guidance on commit message format, character limits, imperative mood examples, or want to see good vs. bad examples.
+- **[commit-format.md](commit-format.md)** - Comprehensive commit message formatting guide with detailed rules, examples, templates, and common mistakes. Read this when you need specific guidance on commit message format, character limits, imperative mood examples, or want to see good vs. bad examples.
 
-- **[references/rebase-guide.md](references/rebase-guide.md)** - Interactive rebase safety guidelines, commands, conflict resolution, and recovery techniques. Read this when planning commit history cleanup, before rebasing, or when handling rebase conflicts.
+- **[rebase-guide.md](rebase-guide.md)** - Interactive rebase safety guidelines, commands, conflict resolution, and recovery techniques. Read this when planning commit history cleanup, before rebasing, or when handling rebase conflicts.
 
-- **[references/protected-branch-protocol.md](references/protected-branch-protocol.md)** - Protected branch push prevention protocol with detection logic, 3-option handling (feature branch migration, branch rename, emergency override), force push blocking, and edge cases. Read this when Phase 5 detects a push to protected branch, or when implementing protected branch safety checks.
+- **[protected-branch-protocol.md](protected-branch-protocol.md)** - Protected branch push prevention protocol with detection logic, 3-option handling (feature branch migration, branch rename, emergency override), force push blocking, and edge cases. Read this when Phase 5 detects a push to protected branch, or when implementing protected branch safety checks.
 
-- **[references/examples.md](references/examples.md)** - Real-world workflow scenarios showing the skill in action across different situations: simple features, bug fixes, large refactorings, messy history cleanup, edge cases, and more. Read this to understand how to apply the workflow in practice.
+- **[examples.md](examples.md)** - Real-world workflow scenarios showing the skill in action across different situations: simple features, bug fixes, large refactorings, messy history cleanup, edge cases, and more. Read this to understand how to apply the workflow in practice.
 
 ## Summary
 

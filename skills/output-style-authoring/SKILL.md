@@ -13,15 +13,15 @@ allowed-tools:
 
 **Start here:**
 
-- [minimal-template.md](references/minimal-template.md) - 40-line baseline template (start simple!)
-- [persona-strength-spectrum.md](references/persona-strength-spectrum.md) - Passive/Active/Dominant modes
+- [minimal-template.md](minimal-template.md) - 40-line baseline template (start simple!)
+- [persona-strength-spectrum.md](persona-strength-spectrum.md) - Passive/Active/Dominant modes
 
 **Deep dives:**
 
-- [design-principles.md](references/design-principles.md) - Core authoring principles
-- [design-patterns.md](references/design-patterns.md) - Pattern catalog with templates
-- [complete-examples.md](references/complete-examples.md) - Production-ready examples
-- [anti-patterns.md](references/anti-patterns.md) - Warning signs and smells
+- [design-principles.md](design-principles.md) - Core authoring principles
+- [design-patterns.md](design-patterns.md) - Pattern catalog with templates
+- [complete-examples.md](complete-examples.md) - Production-ready examples
+- [anti-patterns.md](anti-patterns.md) - Warning signs and smells
 
 ---
 
@@ -31,7 +31,7 @@ Guide for creating output-styles that transform Claude's behavior and personalit
 
 ## Quick Start
 
-**New to output-styles?** Start with [minimal-template.md](references/minimal-template.md)—a 40-line baseline.
+**New to output-styles?** Start with [minimal-template.md](minimal-template.md)—a 40-line baseline.
 
 ## What Are Output-Styles?
 
@@ -48,11 +48,11 @@ System prompts that transform Claude into specialized personas. They modify beha
 
 ## Core Principles
 
-**See [design-principles.md](references/design-principles.md) for deep dive.**
+**See [design-principles.md](design-principles.md) for deep dive.**
 
 1. **Transform WHO, not HOW** - Define persona and approach, not rigid processes
 2. **Start at 40-60 lines** - Add complexity only when proven necessary
-3. **Choose strength wisely** - Most should be Active, not Passive or Dominant (see [persona-strength-spectrum.md](references/persona-strength-spectrum.md))
+3. **Choose strength wisely** - Most should be Active, not Passive or Dominant (see [persona-strength-spectrum.md](persona-strength-spectrum.md))
 
 ## File Structure
 
@@ -73,11 +73,11 @@ System prompts that transform Claude into specialized personas. They modify beha
 - User: `~/.claude/output-styles/style-name.md` (just you)
 - Project: `.claude/output-styles/style-name.md` (whole team)
 
-**Patterns:** See [design-patterns.md](references/design-patterns.md) for Role Transformation, Teaching Mode, Specialized Professional, and Quality/Audit templates.
+**Patterns:** See [design-patterns.md](design-patterns.md) for Role Transformation, Teaching Mode, Specialized Professional, and Quality/Audit templates.
 
 ## Creation Process
 
-**Prefer starting with [minimal-template.md](references/minimal-template.md) and customizing.**
+**Prefer starting with [minimal-template.md](minimal-template.md) and customizing.**
 
 ### Step 1: Define Role
 
@@ -111,7 +111,7 @@ Include WHO Claude is, primary goal, and key differentiators.
 **Good:** "1. Start with why it matters 2. Use examples within 3 paragraphs 3. Define terms on first use"
 **Bad:** "Be helpful and explanatory" (doesn't change behavior)
 
-See [anti-patterns.md](references/anti-patterns.md) #7 for more on this.
+See [anti-patterns.md](anti-patterns.md) #7 for more on this.
 
 ### Step 6: Write Description
 
@@ -124,7 +124,7 @@ See [anti-patterns.md](references/anti-patterns.md) #7 for more on this.
 
 - Filename: `style-name.md` (lowercase-with-hyphens)
 - Location: `~/.claude/output-styles/` or `.claude/output-styles/`
-- Use [minimal-template.md](references/minimal-template.md) as starting point
+- Use [minimal-template.md](minimal-template.md) as starting point
 
 ### Step 8: Test
 
@@ -137,7 +137,7 @@ Activate with `/output-style style-name` and verify:
 
 ## When to Use What
 
-**See [when-to-use-what.md](references/when-to-use-what.md) for complete guide.**
+**See [when-to-use-what.md](when-to-use-what.md) for complete guide.**
 
 **Quick:**
 
@@ -147,7 +147,7 @@ Activate with `/output-style style-name` and verify:
 
 ## Critical Warnings
 
-**See [anti-patterns.md](references/anti-patterns.md) for full diagnostic checklist.**
+**See [anti-patterns.md](anti-patterns.md) for full diagnostic checklist.**
 
 **Common smells:**
 
@@ -165,10 +165,10 @@ Activate with `/output-style style-name` and verify:
 
 ## Examples & Resources
 
-- [minimal-template.md](references/minimal-template.md) - Start here (40-line baseline)
-- [complete-examples.md](references/complete-examples.md) - Production examples
-- [persona-strength-spectrum.md](references/persona-strength-spectrum.md) - Passive/Active/Dominant modes
-- [anti-patterns.md](references/anti-patterns.md) - Warning signs and recovery
+- [minimal-template.md](minimal-template.md) - Start here (40-line baseline)
+- [complete-examples.md](complete-examples.md) - Production examples
+- [persona-strength-spectrum.md](persona-strength-spectrum.md) - Passive/Active/Dominant modes
+- [anti-patterns.md](anti-patterns.md) - Warning signs and recovery
 
 ## Quick Checklist
 

@@ -101,7 +101,7 @@ Enriches abstract content with concrete examples:
 - Specific instances and applications
 - Analogies and metaphors
 
-See references/add-examples.md for detailed guidelines.
+See add-examples.md for detailed guidelines.
 
 ### 7. Add Sources & Citations
 
@@ -114,7 +114,7 @@ Adds inline Markdown source links:
 - Prioritizes primary/official sources
 - Uses proper Markdown link syntax
 
-See references/add-sources.md for source selection hierarchy.
+See add-sources.md for source selection hierarchy.
 
 ### 8. Comprehensive Proofread
 
@@ -127,7 +127,7 @@ Full review including:
 - Source citation
 - Readability improvements
 
-See references/proofread.md for complete guidelines.
+See proofread.md for complete guidelines.
 
 ### 9. Retain Detail
 

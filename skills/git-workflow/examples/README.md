@@ -22,6 +22,6 @@ Each example contains:
 ## Comprehensive Reference
 
 For all 12 detailed examples with full narrative, see:
-[../references/examples.md](../references/examples.md)
+[../examples.md](../examples.md)
 
 These standalone examples extract common patterns for quick reference.

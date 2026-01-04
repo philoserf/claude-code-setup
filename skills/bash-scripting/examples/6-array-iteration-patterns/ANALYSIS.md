@@ -52,4 +52,4 @@ Document in `edge-cases.md`:
 
 ## References
 
-- [patterns-and-conventions.md](../../references/patterns-and-conventions.md)
+- [patterns-and-conventions.md](../../patterns-and-conventions.md)

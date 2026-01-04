@@ -289,5 +289,5 @@ shellcheck script.sh
 
 ## References
 
-- [patterns-and-conventions.md](../../references/patterns-and-conventions.md) - Strict mode details
-- [safety-and-security.md](../../references/safety-and-security.md) - Security best practices
+- [patterns-and-conventions.md](../../patterns-and-conventions.md) - Strict mode details
+- [safety-and-security.md](../../safety-and-security.md) - Security best practices

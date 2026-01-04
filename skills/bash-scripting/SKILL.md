@@ -8,13 +8,13 @@ allowed-tools: [Read, Edit, Write, Grep, Glob, Bash]
 
 Deep-dive guides for specific topics:
 
-- [patterns-and-conventions.md](references/patterns-and-conventions.md) - Defensive programming patterns, strict mode, and code style
-- [safety-and-security.md](references/safety-and-security.md) - Security patterns, input validation, and hardening
-- [portability-and-compatibility.md](references/portability-and-compatibility.md) - Cross-platform compatibility and Bash version features
-- [documentation-and-ci-cd.md](references/documentation-and-ci-cd.md) - Documentation standards and CI/CD integration
-- [performance-and-optimization.md](references/performance-and-optimization.md) - Optimization techniques and profiling
-- [advanced-techniques.md](references/advanced-techniques.md) - Advanced patterns, dependencies, and common pitfalls
-- [tools-and-frameworks.md](references/tools-and-frameworks.md) - Essential tools, testing frameworks, and external resources
+- [patterns-and-conventions.md](patterns-and-conventions.md) - Defensive programming patterns, strict mode, and code style
+- [safety-and-security.md](safety-and-security.md) - Security patterns, input validation, and hardening
+- [portability-and-compatibility.md](portability-and-compatibility.md) - Cross-platform compatibility and Bash version features
+- [documentation-and-ci-cd.md](documentation-and-ci-cd.md) - Documentation standards and CI/CD integration
+- [performance-and-optimization.md](performance-and-optimization.md) - Optimization techniques and profiling
+- [advanced-techniques.md](advanced-techniques.md) - Advanced patterns, dependencies, and common pitfalls
+- [tools-and-frameworks.md](tools-and-frameworks.md) - Essential tools, testing frameworks, and external resources
 
 ---
 
@@ -39,7 +39,7 @@ Use this skill when writing new bash scripts or improving existing ones to follo
 
 ## Core Approach
 
-Essential defensive programming patterns (see [patterns-and-conventions.md](references/patterns-and-conventions.md) for complete details):
+Essential defensive programming patterns (see [patterns-and-conventions.md](patterns-and-conventions.md) for complete details):
 
 - **Strict mode**: Always use `set -Eeuo pipefail` with error trapping
 - **Quote variables**: Prevent word splitting and globbing issues
@@ -81,10 +81,10 @@ Production-ready deliverables:
 ## Where to Find What
 
 - **Getting started**: Review Focus Areas and Core Approach above
-- **Defensive patterns**: [patterns-and-conventions.md](references/patterns-and-conventions.md) - Strict mode, quoting, code style
-- **Security**: [safety-and-security.md](references/safety-and-security.md) - Input validation, secure file ops, hardening
-- **Cross-platform**: [portability-and-compatibility.md](references/portability-and-compatibility.md) - Platform detection, Bash versions
-- **CI/CD setup**: [documentation-and-ci-cd.md](references/documentation-and-ci-cd.md) - GitHub Actions, pre-commit hooks
-- **Performance**: [performance-and-optimization.md](references/performance-and-optimization.md) - Profiling, logging, optimization
-- **Advanced patterns**: [advanced-techniques.md](references/advanced-techniques.md) - Complex patterns, dependencies, pitfalls
-- **Tools**: [tools-and-frameworks.md](references/tools-and-frameworks.md) - ShellCheck, bats-core, external resources
+- **Defensive patterns**: [patterns-and-conventions.md](patterns-and-conventions.md) - Strict mode, quoting, code style
+- **Security**: [safety-and-security.md](safety-and-security.md) - Input validation, secure file ops, hardening
+- **Cross-platform**: [portability-and-compatibility.md](portability-and-compatibility.md) - Platform detection, Bash versions
+- **CI/CD setup**: [documentation-and-ci-cd.md](documentation-and-ci-cd.md) - GitHub Actions, pre-commit hooks
+- **Performance**: [performance-and-optimization.md](performance-and-optimization.md) - Profiling, logging, optimization
+- **Advanced patterns**: [advanced-techniques.md](advanced-techniques.md) - Complex patterns, dependencies, pitfalls
+- **Tools**: [tools-and-frameworks.md](tools-and-frameworks.md) - ShellCheck, bats-core, external resources

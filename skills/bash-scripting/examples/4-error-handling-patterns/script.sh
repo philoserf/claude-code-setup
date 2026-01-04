@@ -9,8 +9,8 @@
 # - Explicit error checking
 #
 # References:
-# - ../references/error-handling.md
-# - ../references/patterns-and-conventions.md
+# - ../error-handling.md
+# - ../patterns-and-conventions.md
 
 set -Eeuo pipefail
 

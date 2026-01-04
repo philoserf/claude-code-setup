@@ -432,7 +432,7 @@ fi
    if [[ " ${PROTECTED_BRANCHES[@]} " =~ " ${CURRENT_BRANCH} " ]]; then
      # STOP - Do NOT proceed with normal push flow
      # Enter Protected Branch Push Protocol
-     # See references/protected-branch-protocol.md
+     # See protected-branch-protocol.md
    fi
    ```
 

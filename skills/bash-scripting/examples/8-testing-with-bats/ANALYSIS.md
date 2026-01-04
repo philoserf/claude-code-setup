@@ -109,5 +109,5 @@ Aim to test:
 
 ## References
 
-- [tools-and-frameworks.md](../../references/tools-and-frameworks.md)
+- [tools-and-frameworks.md](../../tools-and-frameworks.md)
 - Bats docs: <https://bats-core.readthedocs.io/>

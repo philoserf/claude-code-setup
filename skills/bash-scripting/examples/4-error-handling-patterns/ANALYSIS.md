@@ -65,5 +65,5 @@ Create `failure-scenarios.md` to document:
 
 ## References
 
-- [patterns-and-conventions.md](../../references/patterns-and-conventions.md) -
+- [patterns-and-conventions.md](../../patterns-and-conventions.md) -
   Strict Mode and Error Handling section

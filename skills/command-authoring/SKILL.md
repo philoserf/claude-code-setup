@@ -13,9 +13,9 @@ allowed-tools:
 
 Detailed command authoring guidance:
 
-- [command-design-patterns.md](references/command-design-patterns.md) - Four design patterns with complete examples and when to use each
-- [command-creation-process.md](references/command-creation-process.md) - Step-by-step command creation workflow (7 steps)
-- [command-examples.md](references/command-examples.md) - Real command examples with analysis and best practices
+- [command-design-patterns.md](command-design-patterns.md) - Four design patterns with complete examples and when to use each
+- [command-creation-process.md](command-creation-process.md) - Step-by-step command creation workflow (7 steps)
+- [command-examples.md](command-examples.md) - Real command examples with analysis and best practices
 
 ---
 
@@ -137,9 +137,9 @@ Depending on complexity:
 - Whether arguments need explanation
 - How often users will reference it
 
-See [command-design-patterns.md](references/command-design-patterns.md) for detailed design patterns and examples.
+See [command-design-patterns.md](command-design-patterns.md) for detailed design patterns and examples.
 
-See [command-creation-process.md](references/command-creation-process.md) for step-by-step creation workflow.
+See [command-creation-process.md](command-creation-process.md) for step-by-step creation workflow.
 
 ## Commands vs Skills Decision Guide
 
@@ -173,7 +173,7 @@ See [command-creation-process.md](references/command-creation-process.md) for st
 6. **Not testing with /help** - Verify command appears correctly
 7. **Poor naming** - Use descriptive, action-oriented names
 
-See [command-examples.md](references/command-examples.md) for complete examples with analysis.
+See [command-examples.md](command-examples.md) for complete examples with analysis.
 
 ## Tips for Success
 

@@ -6,7 +6,7 @@
 # using NUL-delimited data and proper iteration patterns.
 #
 # References:
-# - ../references/patterns-and-conventions.md (Pipeline safety, null-delimited data)
+# - ../patterns-and-conventions.md (Pipeline safety, null-delimited data)
 
 set -euo pipefail
 

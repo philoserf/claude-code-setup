@@ -877,7 +877,7 @@ Which would you like to run?
 ⚠ NOTICE: This is your 3rd time in quality review
 
 The same issues keep appearing. You might want to:
-  • Review commit message guidelines: references/commit-format.md
+  • Review commit message guidelines: commit-format.md
   • Use a commit message template
   • Ask for help if unsure about standards
 

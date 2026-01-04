@@ -416,7 +416,7 @@ my-skill/
 Either link it from SKILL.md:
 
 ```markdown
-- **[Examples](references/old-examples.md)** - Legacy examples from v1
+- **[Examples](old-examples.md)** - Legacy examples from v1
 ```
 
 Or delete it if not needed.
