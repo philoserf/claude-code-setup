@@ -1,6 +1,6 @@
 ---
 name: skill-audit
-description: Audits skills for discoverability and triggering effectiveness. Use when analyzing skill descriptions, checking trigger phrase coverage, validating progressive disclosure, reviewing SKILL.md structure, ensuring skills are discoverable, testing skill triggering, improving skill descriptions, or evaluating whether a skill will be invoked appropriately. Also triggers when user asks about skill best practices, wants to improve skill discovery, or needs help with skill structure.
+description: Audits skills for discoverability and triggering effectiveness. Use when analyzing skill descriptions, checking trigger phrase coverage, validating progressive disclosure, reviewing SKILL.md structure, ensuring skill discoverability, testing skill triggering, improving skill descriptions, or evaluating whether a skill will be invoked appropriately. Also triggers when user asks about skill best practices, wants to improve skill discoverability, or needs help with skill structure.
 allowed-tools: [Read, Glob, Grep, Bash]
 ---
 
@@ -160,7 +160,7 @@ Provide audit reports in this standardized structure:
 
 ## Summary
 
-{1-2 sentence overview of skill and discovery assessment}
+{1-2 sentence overview of skill and discoverability assessment}
 
 ## Discovery Score
 
@@ -238,7 +238,7 @@ Provide audit reports in this standardized structure:
 
 ## Priority Recommendations
 
-1. **Critical**: {must-fix for discovery}
+1. **Critical**: {must-fix for discoverability}
 2. **Important**: {should-fix for better triggering}
 3. **Nice-to-Have**: {polish improvements}
 

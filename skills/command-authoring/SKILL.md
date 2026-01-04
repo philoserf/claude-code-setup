@@ -7,6 +7,7 @@ allowed-tools:
   - Glob
   - Bash
   - AskUserQuestion
+model: sonnet
 ---
 
 ## Reference Files
@@ -185,6 +186,20 @@ See [command-examples.md](command-examples.md) for complete examples with analys
 6. **Make purpose immediately clear** - no guessing
 7. **Optional arguments are better** - provide defaults
 8. **Start simple** - can always add documentation later
+
+## Related Skills
+
+This skill is part of the authoring skill family:
+
+- **agent-authoring** - Guide for creating agents
+- **skill-authoring** - Guide for creating skills
+- **command-authoring** - Guide for creating commands (this skill)
+- **output-style-authoring** - Guide for creating output styles
+
+For validation, use the corresponding audit skills:
+
+- **command-audit** - Validate command configurations
+- **audit-coordinator** - Comprehensive multi-faceted audits
 
 ## Quick Start Checklist
 

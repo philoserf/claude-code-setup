@@ -1,12 +1,13 @@
 ---
 name: output-style-authoring
-description: Guide for authoring output-styles that transform Claude's behavior and personality. Use when creating, writing, designing, building, reviewing, or improving output-styles, persona modes, role transformations, or behavior modifications. Helps design style files, choose when to keep coding instructions, write clear personas, and decide between output-styles, agents, and skills. Also use when asking how to create output-styles, what makes a good style, learning about style development, or understanding when to use output-styles. Expert in persona design, behavior transformation, and style best practices.
+description: Guide for authoring output-styles that transform Claude's behavior and personality. Use when creating, writing, designing, building, reviewing, or improving output-styles, persona modes, role transformations, or behavior modifications. Helps design style files, choose when to keep coding instructions, write clear personas, and decide between output-styles, agents, and skills. Also triggers when asking how to create output-styles, what makes a good style, learning about style development, or understanding when to use output-styles. Expert in persona design, behavior transformation, and style best practices.
 allowed-tools:
   - Read
   - Grep
   - Glob
   - Bash
   - AskUserQuestion
+model: sonnet
 ---
 
 ## Reference Files
@@ -28,6 +29,20 @@ allowed-tools:
 # Output-Style Authoring
 
 Guide for creating output-styles that transform Claude's behavior and personality.
+
+## Related Skills
+
+This skill is part of the authoring skill family:
+
+- **agent-authoring** - Guide for creating agents
+- **skill-authoring** - Guide for creating skills
+- **command-authoring** - Guide for creating commands
+- **output-style-authoring** - Guide for creating output styles (this skill)
+
+For validation, use the corresponding audit skills:
+
+- **output-style-audit** - Validate output-style configurations
+- **audit-coordinator** - Comprehensive multi-faceted audits
 
 ## Quick Start
 
@@ -115,7 +130,7 @@ See [anti-patterns.md](anti-patterns.md) #7 for more on this.
 
 ### Step 6: Write Description
 
-100-200 chars, explains what + when to use
+200-400 chars, explains what + when to use
 
 **Good:** "Clear, beginner-friendly documentation with examples"
 **Bad:** "Helps with writing" (too vague)

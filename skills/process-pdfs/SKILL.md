@@ -375,16 +375,16 @@ with open("encrypted.pdf", "wb") as output:
 
 ## Quick Reference
 
-| Task               | Best Tool                                              | Command/Code                        |
-| ------------------ | ------------------------------------------------------ | ----------------------------------- |
-| Merge PDFs         | pypdf                                                  | `writer.add_page(page)`             |
-| Split PDFs         | pypdf                                                  | One page per file                   |
-| Extract text       | pdfplumber                                             | `page.extract_text()`               |
-| Extract tables     | pdfplumber                                             | `page.extract_tables()`             |
-| Create PDFs        | reportlab                                              | Canvas or Platypus                  |
-| Command line merge | qpdf                                                   | `qpdf --empty --pages ...`          |
-| OCR scanned PDFs   | pytesseract                                            | Convert to image first              |
-| Fill PDF forms     | pdf-lib or pypdf (see [forms.md](forms.md)) | See [forms.md](forms.md) |
+| Task               | Best Tool                                   | Command/Code               |
+| ------------------ | ------------------------------------------- | -------------------------- |
+| Merge PDFs         | pypdf                                       | `writer.add_page(page)`    |
+| Split PDFs         | pypdf                                       | One page per file          |
+| Extract text       | pdfplumber                                  | `page.extract_text()`      |
+| Extract tables     | pdfplumber                                  | `page.extract_tables()`    |
+| Create PDFs        | reportlab                                   | Canvas or Platypus         |
+| Command line merge | qpdf                                        | `qpdf --empty --pages ...` |
+| OCR scanned PDFs   | pytesseract                                 | Convert to image first     |
+| Fill PDF forms     | pdf-lib or pypdf (see [forms.md](forms.md)) | See [forms.md](forms.md)   |
 
 ## Troubleshooting
 
