@@ -2,6 +2,7 @@
 name: organize-folders
 description: Provides guidance on organizing folder structures and file system layouts for any project. Use when planning project organization, reorganizing messy directories, setting up folder hierarchies, creating folder structures, designing directory layouts, organizing drafts and published content, structuring repositories, cleaning up file layouts, arranging files, or need help with folder structure or file organization. Helps with writing projects, code projects, document collections, or any file organization task. Provides guidance for creating appropriate folder structures, organizing versions, implementing simple systems, following user preferences.
 allowed-tools: [Read, Grep, Glob]
+model: haiku
 ---
 
 # Folder Organization Guidance
