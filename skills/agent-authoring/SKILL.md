@@ -7,6 +7,18 @@ allowed-tools:
   - Glob
   - Bash
   - AskUserQuestion
+model: sonnet
+---
+
+## Reference Files
+
+Advanced agent authoring guidance:
+
+- [design-patterns.md](design-patterns.md) - Proven agent patterns with examples
+- [examples.md](examples.md) - Complete agent examples with analysis
+- [agent-decision-guide.md](agent-decision-guide.md) - Deciding when to use agents vs skills vs commands
+- [comparison-with-official.md](comparison-with-official.md) - Comparison with Anthropic's official agents
+
 ---
 
 ## About Agents
@@ -406,6 +418,20 @@ For detailed standards and validation:
 - **Validation** - Use `/audit-agent` command
 
 See `audit-coordinator` skill for comprehensive standards.
+
+## Related Skills
+
+This skill is part of the authoring skill family:
+
+- **agent-authoring** - Guide for creating agents (this skill)
+- **skill-authoring** - Guide for creating skills
+- **command-authoring** - Guide for creating commands
+- **output-style-authoring** - Guide for creating output styles
+
+For validation, use the corresponding audit skills:
+
+- **agent-audit** - Validate agent configurations
+- **audit-coordinator** - Comprehensive multi-faceted audits
 
 ## Quick Start Checklist
 

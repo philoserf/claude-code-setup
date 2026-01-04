@@ -1,7 +1,14 @@
 ---
 name: skill-authoring
-description: Guide for authoring effective skills. Use when creating, building, updating, designing, packaging, reviewing, evaluating, or improving skills that extend Claude's capabilities with specialized knowledge, workflows, or tool integrations. Helps with skill structure, SKILL.md frontmatter, progressive disclosure, resource organization (scripts/assets/reference files), initialization templates, validation, and packaging. Also use when asking how to create a skill, what makes a good skill, learning about skill development, or troubleshooting skill issues. Includes proven design patterns for workflows and output quality.
-allowed-tools: [Read, Write, Edit, Glob, Grep, Bash]
+description: Guide for authoring effective skills. Use when creating, building, updating, designing, packaging, reviewing, evaluating, or improving skills that extend Claude's capabilities with specialized knowledge, workflows, or tool integrations. Helps with skill structure, SKILL.md frontmatter, progressive disclosure, resource organization (scripts/assets/reference files), initialization templates, validation, and packaging. Also triggers when asking how to create a skill, what makes a good skill, learning about skill development, or troubleshooting skill issues. Includes proven design patterns for workflows and output quality.
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Grep
+  - Bash
+model: sonnet
 license: Complete terms in LICENSE.txt
 ---
 
@@ -14,6 +21,10 @@ This skill includes additional reference files:
 - [troubleshooting.md](troubleshooting.md) - Error solutions
 - [output-patterns.md](output-patterns.md) - Output quality patterns
 - [workflows.md](workflows.md) - Workflow patterns
+
+**Decision guides:**
+
+- [when-to-use-what.md](../../references/when-to-use-what.md) - Choosing between skills, agents, commands, and output-styles (shared)
 
 ---
 
@@ -335,3 +346,17 @@ See [complete-example.md](complete-example.md) for full `code-formatter` skill w
 - Validation and packaging
 
 Read when you want to see the complete skill authoring process.
+
+## Related Skills
+
+This skill is part of the authoring skill family:
+
+- **agent-authoring** - Guide for creating agents
+- **skill-authoring** - Guide for creating skills (this skill)
+- **command-authoring** - Guide for creating commands
+- **output-style-authoring** - Guide for creating output styles
+
+For validation, use the corresponding audit skills:
+
+- **skill-audit** - Validate skill configurations
+- **audit-coordinator** - Comprehensive multi-faceted audits
