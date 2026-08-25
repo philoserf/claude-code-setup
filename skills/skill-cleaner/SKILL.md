@@ -58,7 +58,7 @@ Markdown report to stdout. A header line names the source (usage log vs. transcr
 
 ## Unused (no invocation in 60d)
 > ⚠ Provisional — the usage log only reaches back ~0d, less than the 60d window.
-- cc-review
+- taskfile
 - deps-audit
 - …
 
@@ -78,5 +78,5 @@ _None._
 
 ## Do not use when
 
-- Scoring a skill's quality or content depth — use `cc-review`
+- Scoring a skill's quality or content depth — this skill checks hygiene only (usage counts, duplicates, description length), not whether a skill's instructions are any good
 - Checking a skill against a newly-shipped Claude Code release — use `cc-release-review`

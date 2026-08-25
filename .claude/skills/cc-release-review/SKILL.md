@@ -95,4 +95,4 @@ Read the file back to confirm the version was written correctly.
 
 ## Do not use when
 
-- Scoring the whole harness against a quality rubric — use `cc-review`
+- Health-checking the whole setup (installs, unused extensions, slow hooks, permissions) — use `/doctor`
