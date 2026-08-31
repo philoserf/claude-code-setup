@@ -79,5 +79,11 @@
     "enabled": true
   },
   "skipDangerousModePermissionPrompt": true,
-  "inputNeededNotifEnabled": true
+  "inputNeededNotifEnabled": true,
+  "spinnerVerbs": {
+    "mode": "replace",
+    "verbs": [
+      "Working"
+    ]
+  }
 }
