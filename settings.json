@@ -68,6 +68,12 @@
     "type": "command",
     "command": "sh /Users/markayers/.claude/statusline-command.sh"
   },
+  "spinnerVerbs": {
+    "mode": "replace",
+    "verbs": [
+      "Working"
+    ]
+  },
   "spellcheck": {
     "enabled": true
   },
@@ -80,10 +86,10 @@
   },
   "skipDangerousModePermissionPrompt": true,
   "inputNeededNotifEnabled": true,
-  "spinnerVerbs": {
-    "mode": "replace",
-    "verbs": [
-      "Working"
-    ]
-  }
+  "theme": "auto",
+  "verbose": true,
+  "showTurnDuration": false,
+  "terminalProgressBarEnabled": false,
+  "remoteControlAtStartup": true,
+  "agentPushNotifEnabled": true
 }
