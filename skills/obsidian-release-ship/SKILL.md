@@ -22,7 +22,10 @@ The workflow is a single linear pass — run the phases in order:
 
 Before starting, confirm:
 
-- `obsidian-release-gate` passed with no FAIL status
+- `obsidian-release-gate` passed with no FAIL status, **or** exited `3` (NOT STARTED),
+  which is the normal state before a release: it means the current version is already
+  tagged and phases 1-5 below are exactly what it is asking for. Re-run the gate after
+  the prep PR merges and require a clean pass before Phase 6.
 - Working tree is clean and on `main`
 - Target version decided
 - Target version is not already tagged (`git tag -l <version>`)
@@ -87,6 +90,22 @@ Verify: `grep -n "^## " CHANGELOG.md | head -3` shows the new `## <version>` sec
 
 If `walkthrough.md` exists, regenerate it via the `walkthrough` skill so code blocks reflect the release state.
 
+**Regenerating the blocks is not enough.** `showboat verify` only re-executes code
+blocks and diffs their output — it never reads the surrounding prose. A release that
+renames or deletes an identifier leaves the commentary describing something that no
+longer exists, and the gate still goes green. After regenerating, grep the prose for
+what this release changed:
+
+```bash
+# identifiers the release touched, outside fenced blocks
+git diff <last-tag>..HEAD --name-only -- 'src/*' \
+  | xargs -I{} basename {} .ts | sort -u
+grep -n '<renamed-or-deleted-identifier>' walkthrough.md
+```
+
+Fix the prose in the same commit. Stale commentary is the failure mode the walkthrough
+exists to prevent.
+
 ### Phase 5: Commit and Open PR
 
 One atomic commit for the whole prep:
@@ -108,6 +127,12 @@ Draft the PR body from the CHANGELOG entry.
 
 Verify: `git show --stat HEAD` lists exactly the files staged above (nothing extra), and `gh pr view --json state,url` reports the PR as `OPEN`.
 
+Before handing off, confirm CI is green on the PR head:
+
+```bash
+gh pr checks <num>
+```
+
 Stop here and wait for the PR to merge — the user reviews and merges it (possibly after CI runs and feedback).
 
 ### Phase 6: Tag After Merge
@@ -117,14 +142,21 @@ Once the PR is merged, sync local `main` and tag the merged commit. Tags use bar
 ```bash
 git checkout main
 git pull --ff-only origin main
-MERGED_SHA=$(git log -1 --format=%H --grep="chore: prepare release <version>")
+MERGED_SHA=$(gh pr list --state merged --head "release/<version>" \
+  --json mergeCommit --jq '.[0].mergeCommit.oid')
 if [ -z "$MERGED_SHA" ]; then
-  echo "Could not find the merged release commit by message."
-  echo "Get the merge commit SHA from the merged PR (e.g. gh pr view <num> --json mergeCommit) and retry with that SHA."
+  echo "No merged PR found for branch release/<version>."
+  echo "Find it with 'gh pr list --state merged --limit 5' and read its mergeCommit."
   exit 1
 fi
 git tag -a <version> -m "Release <version>" "$MERGED_SHA"
 ```
+
+Keyed on the **prep branch**, not on a commit message. An earlier version of this
+skill grepped `git log` for `chore: prepare release <version>`, which finds nothing
+the moment anyone words the subject differently — and the skill cannot enforce its
+own suggested wording once a human edits the squash-merge dialog. The branch name is
+set by Phase 1 and survives squash, rebase, and subject rewrites.
 
 Confirm with the user before pushing the tag.
 
@@ -149,23 +181,31 @@ is bounded by a script that ships with this skill (no `timeout`(1) dependency �
 macOS BSD userland doesn't ship it):
 
 ```bash
-~/.claude/skills/obsidian-release-ship/scripts/wait-for-release.sh
+~/.claude/skills/obsidian-release-ship/scripts/wait-for-release.sh <version>
 ```
 
 - Prints the run's conclusion (e.g. `success`, `failure`) on stdout and exits 0 when the run finishes.
 - Exits 1 on timeout or if no run is found — report that and stop.
-- Optional args override the defaults: `wait-for-release.sh [MAX_SECONDS] [INTERVAL_SECONDS]` (default `600 15`).
+- Optional args override the defaults: `wait-for-release.sh <TAG> [MAX_SECONDS] [INTERVAL_SECONDS]` (default `600 15`).
+- **The tag argument is required.** There is a gap between pushing the tag and the run
+  appearing in the API; without the tag filter the script polls whichever release run
+  is newest, which during that gap is the *previous* release — already
+  `completed/success`. It would print `success` for a release that never started.
 
 If the printed conclusion is not `success`, report the failure and stop.
 
-Once the release exists, extract the CHANGELOG section for this version — everything between `## <version>` and the next `## ` heading — and update the GitHub release:
+Once the release exists, extract this version's CHANGELOG section and update the
+GitHub release. A script ships with this skill so the extraction is not hand-rolled
+each time:
 
 ```bash
-gh release edit <version> --notes "$(cat <<'EOF'
-<extracted changelog content>
-EOF
-)"
+~/.claude/skills/obsidian-release-ship/scripts/extract-changelog.sh <version> > /tmp/notes.md
+gh release edit <version> --notes-file /tmp/notes.md
 ```
+
+It prints everything between `## <version>` and the next `## ` heading, trimmed, and
+exits 1 if that section does not exist. Avoid `sed -n '/^## X/,/^## /p'` — it prints
+the next release's heading, and the version's dots act as regex wildcards.
 
 ### Phase 9: Verify
 
