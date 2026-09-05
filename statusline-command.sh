@@ -1,7 +1,7 @@
 #!/bin/sh
 # Claude Code status line — mirrors ~/.config/starship.toml
 # Directory (repo-relative truncation, cyan) + git branch (yellow) +
-# git status (compact symbols, red) + model display name
+# git status (compact symbols, red) + prompt-cache health (dim) + model display name
 
 input=$(cat)
 cwd=$(echo "$input" | jq -r '.workspace.current_dir // .cwd')
@@ -76,6 +76,40 @@ if [ -n "$repo_root" ]; then
 
   if [ -n "$symbols" ]; then
     line="$line $(printf '\033[1;31m%s\033[0m' "$symbols")"
+  fi
+fi
+
+# --- Prompt cache: hit ratio, warm/cold, last miss cause -------------------
+cache=$(printf '%s' "$input" | jq -r '
+  .prompt_cache // empty
+  | select(.caching_observed == true and .hit_ratio != null)
+  | [ (.hit_ratio * 100 | round),
+      (if .warm then "warm" else "cold" end),
+      (.misses // 0),
+      ((.last_miss_cause.causes // [])
+        | map(sub("^likely_"; "") | gsub("_"; " ")) | join("/"))
+    ] | @tsv')
+
+if [ -n "$cache" ]; then
+  pct=$(printf '%s' "$cache" | cut -f1)
+  warm=$(printf '%s' "$cache" | cut -f2)
+  misses=$(printf '%s' "$cache" | cut -f3)
+  cause=$(printf '%s' "$cache" | cut -f4)
+
+  if [ "$warm" = "warm" ]; then
+    glyph="⚡"
+  else
+    glyph="❄"
+  fi
+  line="$line $(printf '\033[2m%s%s%%\033[0m' "$glyph" "$pct")"
+
+  if [ "$misses" -gt 0 ]; then
+    if [ -n "$cause" ]; then
+      miss="✗$misses $cause"
+    else
+      miss="✗$misses"
+    fi
+    line="$line $(printf '\033[35m%s\033[0m' "$miss")"
   fi
 fi
 
