@@ -13,27 +13,22 @@ It is a git repo tracking `origin/main`. Only config is versioned; all runtime s
   fullscreen is the shipped default only for accounts created after 2026-05-06 and this one dates
   to 2025-05-26. The file admits no comments — the settings validator rejects both `//` lines and
   unknown keys — so notes like this one belong here.
-- `settings.local.json` (if present) — machine-local overrides (ignored). Same skill applies.
-- `keybindings.json` (if present) — keyboard customizations. Edit via the `keybindings-help` skill.
-- `.claude/settings.json` — project-scoped settings for this directory (tracked). Currently a
-  permission allowlist for the read-only Bash and MCP calls this repo's own skills make.
-- `CLAUDE.md`, `.claude/CLAUDE.md` — user-level and per-directory memory guides (tracked).
-- `rules/*.md` — language rule files (`go.md`, `typescript.md`) loaded globally (tracked).
-- `hooks/*.sh` — shell scripts invoked by hooks in `settings.json` (tracked): markdown auto-format, skill-usage logging, `notify-agent.sh` for background-agent Notification events, and `log-directory-added.sh` for `DirectoryAdded` events (fires on `/add-dir` or SDK `register_repo_root`).
-- `statusline-command.sh` — the script behind the `statusLine` setting (tracked).
+- `rules/*.md` — language rule files. Each carries `paths:` frontmatter, so they load only when
+  Claude touches matching files, not globally.
+- `hooks/*.sh` — shell scripts wired to the `hooks` block in `settings.json`.
+  `log-directory-added.sh` fires on `DirectoryAdded`, which means `/add-dir` or an SDK
+  `register_repo_root` call.
 - Skills live in two tiers, and the split is by **invocation target** — what the skill is run
   against, not whether it happens to read `~/.claude` paths:
-  - `skills/<name>/SKILL.md` — user-level skills, run against other projects (tracked).
+  - `skills/<name>/SKILL.md` — user-level skills, run against other projects.
   - `.claude/skills/<name>/SKILL.md` — skills that operate on this directory itself, so they load
-    only when the cwd is `~/.claude`: `cc-release-review`, `mcp-toggle-normalize` (tracked).
-- `state/*.txt` — version baselines for state-tracking skills like `cc-release-review` (tracked). `state/skill-usage.jsonl` and `state/directory-added.jsonl` — event logs written by `hooks/log-skill-use.sh` and `hooks/log-directory-added.sh` respectively (runtime state, ignored).
-- `projects/<encoded-cwd>/` — per-project runtime state (ignored, except individual memory files explicitly force-added with `git add -f`).
-  - `*.jsonl` — full session transcripts.
-  - `<session-uuid>/subagents/`, `<session-uuid>/tool-results/` — subagent transcripts and tool output blobs.
-  - `memory/` — persistent memory files (`MEMORY.md` index + individual `*.md` entries) managed by the auto-memory system. Not versioned because the parent `<encoded-cwd>` hash is per-machine, making memories non-portable across hosts.
-- `sessions/*.json` — live session state (ignored).
-- `history.jsonl` — command history (ignored).
-- `cache/`, `chrome/`, `shell-snapshots/`, `session-env/`, `backups/`, `file-history/`, `ide/`, `plans/`, `paste-cache/`, `tasks/`, `telemetry/`, `uploads/`, `logs/`, `.last-cleanup`, `mcp-needs-auth-cache.json` — runtime caches and snapshots (all ignored). `tasks/` here is unrelated to `taskfile.yml`'s `task` runner below — it holds background-agent task output, not build config.
+    only when the cwd is `~/.claude`.
+- `state/*.txt` — version baselines for state-tracking skills like `cc-release-review`.
+- `projects/<encoded-cwd>/memory/` — persistent memory files (`MEMORY.md` index + individual
+  `*.md` entries) managed by the auto-memory system. Not versioned because the parent
+  `<encoded-cwd>` hash is per-machine, making memories non-portable across hosts; to keep one,
+  force-add it with `git add -f`.
+- `tasks/` holds background-agent task output — unrelated to `taskfile.yml`'s `task` runner below.
 
 ## Safety rules
 
@@ -55,19 +50,8 @@ It is a git repo tracking `origin/main`. Only config is versioned; all runtime s
 
 ## Tests
 
-`skills/obsidian-release-gate/tests/exit-codes.sh` is the only test suite in the repo. It covers
-both halves of the release pair — `obsidian-release-gate`'s version/tag state machine and
-`obsidian-release-ship`'s changelog extractor — by building throwaway git repos in temp dirs, so
-it never touches a real project.
-
-```sh
-skills/obsidian-release-gate/tests/exit-codes.sh
-```
-
-Assertions are row-level rather than on the aggregate exit code: a fixture repo cannot satisfy
-every gate check (no remote for `gh`, no lockfile for `bun audit`), so an exit-code-only test
-would pass for the wrong reason. There is **no single-test filter** — the script runs all three
-labeled sections top to bottom and prints a pass/fail tally. To narrow a run, edit the script.
+`skills/obsidian-release-gate/tests/exit-codes.sh` is the repo's only test suite; see
+`skills/obsidian-release-gate/CLAUDE.md` for how it's structured and how to narrow a run.
 
 ## Formatting & linting
 
